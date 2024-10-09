@@ -44,12 +44,11 @@ Before you begin, ensure you have the following installed:
   cd backend
   cd src
   node app.js
-- Start the backend server:
+- Start the frontend server:
   ```bash
-  cd backend
-  cd src
-  node app.js
-
+  cd frontend
+  npm run start
+  
 ### Contributing
 1. Fork the Repository: Click on the "Fork" button in the top right corner of the repository page.
 2. Create a New Branch:
