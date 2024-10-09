@@ -5,8 +5,6 @@
 2. [Technologies Used](#technologies-used)
 3. [Getting Started](#getting-started)
 4. [Contributing](#contributing)
-5. [Code of Conduct](#code-of-conduct)
-6. [License](#license)
 
 ## Project Overview
 This is a fullstack application designed to make event management easier by providing a user-friendly interface for creating, organizing, and tracking events. Users can register and log in to manage their events, view event details, and receive real-time notifications about updates and changes..
@@ -68,7 +66,6 @@ Before you begin, ensure you have the following installed:
 
 ### Guidelines
 - Write clear and concise commit messages.
-- Follow the coding standards used in the project.
 - Test your changes before submitting a pull request.
 
 
