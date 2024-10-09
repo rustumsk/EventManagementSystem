@@ -52,7 +52,7 @@ Before you begin, ensure you have the following installed:
   cd src
   node app.js
 
-#Contributing
+### Contributing
 1. Fork the Repository: Click on the "Fork" button in the top right corner of the repository page.
 2. Create a New Branch:
    ```bash
@@ -66,7 +66,7 @@ Before you begin, ensure you have the following installed:
    git push origin feature/YourFeatureName
 6. Open a Pull Request: Go to the original repository and click on the "New Pull Request" button.
 
-###Guidelines
+### Guidelines
 ● Write clear and concise commit messages.
 ● Follow the coding standards used in the project.
 ● Test your changes before submitting a pull request.
