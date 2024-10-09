@@ -41,12 +41,12 @@ Before you begin, ensure you have the following installed:
    cd backend
    npm install
 ### Running the Application
-- ● Start the backend server:
+- Start the backend server:
   ```bash
   cd backend
   cd src
   node app.js
-- ● Start the backend server:
+- Start the backend server:
   ```bash
   cd backend
   cd src
@@ -67,9 +67,9 @@ Before you begin, ensure you have the following installed:
 6. Open a Pull Request: Go to the original repository and click on the "New Pull Request" button.
 
 ### Guidelines
-● Write clear and concise commit messages.
-● Follow the coding standards used in the project.
-● Test your changes before submitting a pull request.
+- Write clear and concise commit messages.
+- Follow the coding standards used in the project.
+- Test your changes before submitting a pull request.
 
 
 
