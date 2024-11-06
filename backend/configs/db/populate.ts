@@ -3,21 +3,24 @@ import { Client } from 'pg';
 dotenv.config();
 
 const SQL = `
-    CREATE TABLE IF NOT EXISTS admins (
-        admin_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
+    CREATE TABLE IF NOT EXISTS Sbo (
+        sbo_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        sbo_email VARCHAR(255) UNIQUE NOT NULL,
+        sbo_password VARCHAR(255) NOT NULL,
         contact_num VARCHAR(20)
     );
 
-    CREATE TABLE IF NOT EXISTS users (
-        user_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        firstname VARCHAR(255) NOT NULL,
-        lastname VARCHAR(255) NOT NULL,
-        id_number INT UNIQUE NOT NULL,
-        profile_url VARCHAR(255),
-        gender VARCHAR(255),
-        get_notif BOOLEAN
+    CREATE TABLE IF NOT EXISTS Student (
+        student_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        id_num INT NOT NULL,
+        student_email VARCHAR(255) NOT NULL UNIQUE,
+        firstname VARCHAR(255)
+        lastname VARCHAR(255)
+        midinit char
+        password VARCAHR(255)
+        is_notif boolean
+        is_verified boolean
+        verification_token varchar(255)
     );
 `;
 
