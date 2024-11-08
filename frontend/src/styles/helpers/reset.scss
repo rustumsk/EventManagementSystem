@@ -1,0 +1,88 @@
+/* Remove margin and padding */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set consistent font styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+}
+
+/* Remove list styles */
+ul, ol {
+    list-style: none;
+}
+
+/* Remove text decoration for links */
+a {
+    text-decoration: none;
+    color: inherit; /* Inherit color from parent */
+}
+
+/* Remove default styles for table elements */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Set consistent appearance for input and button elements */
+input,
+button,
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    border: none;
+    outline: none;
+}
+
+/* Prevent images from stretching */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Normalize form elements */
+button,
+input,
+select,
+textarea {
+    appearance: none;
+}
+
+/* Normalize the focus outline */
+:focus {
+    outline: none;
+}
+
+/* Set a default box-sizing model */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Reset background for certain elements */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+dl,
+dt,
+dd {
+    background: transparent;
+}

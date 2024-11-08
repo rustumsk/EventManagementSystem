@@ -1,0 +1,48 @@
+@use './helpers/global' as *;
+
+
+.l-container {
+    display: block;
+    height: 100vh; 
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory; 
+    scroll-behavior: smooth; 
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.l-container .first,
+.l-container .second,
+.l-container .third,
+.l-container .fourth,
+.l-container .fifth {
+    height: 100vh; 
+    scroll-snap-align: start;
+}
+.first {
+    background-color: blue;
+    .f-header{
+        height: 5%;
+    }
+}
+
+.second {
+    background-color: red;
+}
+
+.third {
+    background-color: green;
+}
+
+.fourth {
+    background-color: yellowgreen;
+}
+
+.fifth {
+    background-color: wheat;
+}
+
+.sec {
+    height: 100vh; 
+    scroll-snap-align: start; 
+}
