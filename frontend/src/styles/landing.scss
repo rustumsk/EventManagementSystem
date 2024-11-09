@@ -1,14 +1,13 @@
 @use './helpers/global' as *;
 
-
 .l-container {
     display: block;
     height: 100vh; 
     overflow-y: scroll;
     scroll-snap-type: y mandatory; 
     scroll-behavior: smooth; 
-    padding-left: 3%;
-    padding-right: 3%;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 .l-container .first,
@@ -19,10 +18,233 @@
     height: 100vh; 
     scroll-snap-align: start;
 }
+
 .first {
-    background-color: blue;
-    .f-header{
-        height: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px 20px;
+
+    .f-header {
+        flex: 1;
+        place-content: center;
+        .head-container {
+            background-color: $variable;
+            border-radius: 8px;
+            width: 100%;
+            height: 80%;
+            margin-top: 1rem;
+            display: flex;
+
+            .info-container {
+                flex: 2;
+                display: flex;
+                gap: 10px;
+
+                .logo {
+                    width: 20%;
+                    display: grid;
+                    place-content: center;
+                    font-family: $jaro;
+                    font-size: 2.2rem;
+                    font-weight: bold;
+                }
+
+                .infos {
+                    display: flex;
+                    width: 50%;
+                    justify-content: space-evenly;
+
+                    div {
+                        display: grid;
+                        place-content: center;
+                        font-family: 'roboto';
+                        font-size: 1.2rem;
+
+                        @keyframes smoothMove {
+                            0% {
+                                border-bottom: solid .1px black;
+                            }
+                            100% {
+                                border-bottom: solid 2px black;
+                            }
+                        }
+
+                        span {
+                            &:hover {
+                                animation: smoothMove .5s ease-in-out;
+                                border-bottom: solid 1px black;
+                                transition: transform .5s ease;
+                                transform: translateY(5px);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .btns-container {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: end;
+                padding-right: 4rem;
+
+                .btns {
+                    width: 50%;
+                    display: flex;
+                    justify-content: space-evenly;
+
+                    .register {
+                        @extend %basic-black-button;
+                    }
+
+                    .login {
+                        background-color: white;
+                        border: solid 1px black;
+                        width: 6rem;
+                        height: 2rem;
+                        border-radius: 46px;
+                    }
+
+                    .login-container {
+                        position: relative;
+                    }
+
+                    .dropdown-menu {
+                        position: absolute;
+                        top: 40px;
+                        right: 0;
+                        background-color: white;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                        list-style-type: none;
+                        padding: 0;
+                        margin: 0;
+                        width: 150px;
+                        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                        z-index: 1;
+                    }
+
+                    .dropdown-item {
+                        padding: 10px;
+                        cursor: pointer;
+                        font-family: 'Roboto', sans-serif;
+                        text-align: center;
+                    }
+
+                    .dropdown-item:hover {
+                        background-color: #f1f1f1;
+                    }
+                }
+            }
+        }
+    }
+
+    .f-body {
+        background-color: white;
+        flex: 12;
+        display: flex;
+
+        .l-sec {
+            flex: 1;
+            border-radius: 13px;
+            height: 95%;
+            background-color: $variable;
+            display: grid;
+            justify-content: center;
+            padding-top: 12rem;
+
+            .l-cont {
+                height: 20rem;
+                width: 35rem;
+
+                .up {
+                    height: 60%;
+                    p {
+                        font-family: $jaro;
+                        font-size: 2rem;
+                    }
+                }
+
+                .down {
+                    height: 30%;
+                    place-content: center;
+
+                    .d-cont {
+                        height: 50%;
+                        display: flex;
+                        gap: 10px;
+
+                        .arr {
+                            @include arrowDesign('../assets/arrow-l.svg');
+
+                            @keyframes leftSlide {
+                                0% {
+                                    transform: translateX(0px);
+                                }
+                                75% {
+                                    transform: translateX(-5px);
+                                }
+                                100% {
+                                    transform: translateX(-10px);
+                                }
+                            }
+
+                            &:hover {
+                                animation: leftSlide 1s linear infinite;
+                                background-color: black;
+                                color: white;
+                            }
+                        }
+
+                        .tx {
+                            flex: 10;
+                            display: flex;
+                            flex-direction: column;
+                            font-family: 'raleway';
+                        }
+                    }
+                }
+            }
+        }
+
+        .r-sec {
+            flex: 0.6;
+            background-color: white;
+            place-content: start;
+            padding-top: 2rem;
+
+            .r-cont {
+                height: 92%;
+                background-color: rgba(57, 58, 58, 0.137);
+                padding-top: 3rem;
+
+                .t-cont {
+                    height: 78%;
+                    display: flex;
+                    flex-direction: column;
+
+                    .ps {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        p {
+                            height: 80%;
+                            width: 80%;
+                            text-align: right;
+                            font-size: 1.8rem;
+                            font-family: 'Righteous';
+                            opacity: 0.5;
+                        }
+                    }
+
+                    .a-l {
+                        flex: 0.4;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -43,6 +265,6 @@
 }
 
 .sec {
-    height: 100vh; 
-    scroll-snap-align: start; 
+    height: 100vh;
+    scroll-snap-align: start;
 }
