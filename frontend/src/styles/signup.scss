@@ -1,0 +1,147 @@
+.container { /* MAIN CONTAINER */
+    display: flex;
+    height: 100vh;
+}
+
+.left-container { // LEFT SIDE NGA GRAY DESIGN
+    background-color: rgb(226, 226, 226);
+    width: 40%; 
+    height: 100%; 
+    display: flex; 
+    flex-direction: column; // Stack logo and right-side vertically
+    justify-content: flex-start; 
+    position: relative; 
+    transition: box-shadow 0.3s ease; /* Add transition for shadow */
+}
+
+.logo {
+    width: 300px; 
+    height: 300px;
+    border-radius: 50%;
+    
+    object-fit: cover; 
+    display: block; 
+}
+
+
+.right-side { // DESIGN NGA ITOM GRAY
+    background-color: #7e7e7e; 
+    color: white;
+    height: 100%; 
+    width: 20%; 
+    position: absolute; 
+    right: 0; 
+}
+
+.main-container { // MAIN CONTENT CONTAINER 
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: white; 
+    width: 60%; 
+    height: 100%; 
+    padding: 20px; 
+    transition: box-shadow 0.3s ease; /* Add transition for shadow */
+}
+
+.personal-details, .password-details { // PARENT SA PERSONAL DETAILS UG PASSWORD
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start;
+    align-items: flex-start; 
+    margin-bottom: 20px; 
+}
+
+.form-group { // ALIGN SA INPUTS AND LABELS
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+label { // LABEL SA MGA INPUTS
+    font-size: 0.9rem;
+    font-family: 'Outfit';
+}
+
+.name, .idno, .emad, .pass, .confirmpass { // MGA INPUTS
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 350px;
+    margin: 5px 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+
+.name:hover, .idno:hover, .emad:hover, .pass:hover, .confirmpass:hover { // PA CHOY2 IG HOVER
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.name, .idno, .emad, .pass, .confirmpass::placeholder {
+    font-family: 'Outfit'; /* Apply the Righteous font to the placeholder */
+}
+
+.register-button { // REGISTER NGA BUTTON
+    width: 20%;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.register-button:hover { // STYLE IG HOVER
+    background-color: #333;
+}
+
+.login-text { // ALREADY HAVE AN ACCOUNT? nga text
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.login-text a { // LOGIN LINK <a>
+    color: #333;
+    text-decoration: none;
+}
+
+.perTails, .passText  { // PERSONAL DETAILS, PASSWORD TEXT
+    font-size: 1.4rem;  
+    margin-bottom: 10px; 
+    display: inline-block; 
+    position: relative;
+    padding-bottom: 5px; 
+    align-self: flex-start;
+    margin: 5px 0;
+    
+}
+
+h3::after { // UNDERLINE NGA DEISGN SA PERSONAL DETAILS, PASSWORD TEXT
+    content: '';
+    position: absolute;
+    bottom: 0;  /* Position at the bottom of the element */
+    left: 0;
+    width: 120%; /* Extend the line beyond the text */
+    height: 2px;  /* Adjust the thickness of the underline */
+    background-color: #000; /* Line color */
+}
+
+.error-text {
+    color: red;
+    font-size: 0.9rem;
+}
+
+input::placeholder {
+    color: #888; /* Default placeholder color */
+}
+
+input:focus::placeholder {
+    color: #bbb; /* Lighter color when input is focused */
+}
+
+input[style*="border-color: red"]::placeholder {
+    color: red; /* Change placeholder color to red for error */
+}
