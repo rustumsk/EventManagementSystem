@@ -6,8 +6,6 @@
     overflow-y: scroll;
     scroll-snap-type: y mandatory; 
     scroll-behavior: smooth; 
-    padding-left: 2%;
-    padding-right: 2%;
 }
 
 .l-container .first,
@@ -23,6 +21,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px 20px;
+    padding-left: 2%;
+    padding-right: 2%;
 
     .f-header {
         flex: 1;
@@ -95,15 +95,43 @@
 
                     .register {
                         @extend %basic-black-button;
+                        &:hover{
+                            transform: translateY(2px);
+                            background-color: white;
+                            color: black;
+                        }
                     }
 
                     .login {
                         background-color: white;
-                        border: solid 1px black;
+                        border: 1px solid black;
                         width: 6rem;
                         height: 2rem;
                         border-radius: 46px;
-                    }
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                        font-size: 16px;
+                        cursor: pointer;
+                        justify-content: center;
+                      
+                        .arrow {
+                          content: '';
+                          display: inline-block;
+                          width: 8px;
+                          height: 8px;
+                          border: solid #000;
+                          border-width: 0 2px 2px 0;
+                          transform: rotate(45deg);
+                          transition: transform 0.2s ease;
+                          margin-left: 5px;
+                        }
+                      
+                        .arrow.open {
+                            transform: rotate(225deg);
+                          }
+                      }
 
                     .login-container {
                         position: relative;
@@ -179,18 +207,15 @@
 
                             @keyframes leftSlide {
                                 0% {
-                                    transform: translateX(0px);
-                                }
-                                75% {
-                                    transform: translateX(-5px);
+                                  transform: translateX(0);
                                 }
                                 100% {
-                                    transform: translateX(-10px);
+                                  transform: translateX(-10px);
                                 }
-                            }
+                              }
 
                             &:hover {
-                                animation: leftSlide 1s linear infinite;
+                                animation: leftSlide 1s ease infinite;
                                 background-color: black;
                                 color: white;
                             }
@@ -241,6 +266,52 @@
 
                     .a-l {
                         flex: 0.4;
+                        display: grid;
+                        align-items: center;
+                        .d-cont1{
+                            height: 50%;
+                            display: flex;
+                            .d-txt {
+                                flex: 1;
+                                margin-left: 2rem;
+                                display: flex;
+                                flex-direction: column;
+                                text-align: right;
+                                font-family: 'raleway';
+                                opacity: .5;
+                            }
+                            .d-arr{
+                                flex: .2;
+                                display: grid;
+                                place-content: center;
+                                @keyframes leftSlide {
+                                    0% {
+                                        transform: translateX(0px);
+                                    }
+                                    75% {
+                                        transform: translateX(5px);
+                                    }
+                                    100% {
+                                        transform: translateX(10px);
+                                    }
+                                }
+    
+                                span{
+                                    background-image: url('../assets/arrow-r.svg');
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                    height: 2rem;
+                                    width: 2rem;
+                                    border-radius: 100px;
+                                    background-color: rgba(128, 128, 128, 0.438);
+                                    &:hover {
+                                        animation: leftSlide 1s linear infinite;
+                                        background-color: rgba(0, 0, 0, 0.336);
+                                        color: white;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -249,15 +320,117 @@
 }
 
 .second {
-    background-color: red;
+    display: flex;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    .sl{
+        flex: .6;
+        background-color: rgba(57, 58, 58, 0.5);
+    }
+    .sr{
+        flex: 1;
+        background-color: $variable;
+        display: flex;
+        place-content: center;
+        align-items: center;
+        .t-con{
+            height: 80%;
+            width: 80%;
+            padding-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .s{
+                font-family: 'Righteous';
+                font-weight: bold;
+                font-size: 3rem;
+            }
+            .n{
+                font-family: "Inter";
+                font-weight: light;
+                margin-bottom: 2rem;
+            }
+            .p{
+                height: 5rem;
+                font-family: "Outfit";
+                font-size: 1.5rem;
+                text-align: left;
+                font-weight: bold;
+            }
+        }
+    }
 }
 
 .third {
-    background-color: green;
+    display: flex;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    .sl{
+        flex: 1;
+        background-color: $variable;
+        display: flex;
+        place-content: center;
+        align-items: center;
+        .t-con{
+            height: 80%;
+            width: 80%;
+            padding-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            p{
+                text-align: right;
+            }
+            .s{
+                font-family: 'Righteous';
+                font-weight: bold;
+                font-size: 3rem;
+            }
+            .n{
+                font-family: "Inter";
+                font-weight: light;
+                margin-bottom: 2rem;
+            }
+            .p{
+                height: 5rem;
+                font-family: "Outfit";
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+        }
+    }
+    .sr{
+        flex: .7;
+        background-color: rgba(57, 58, 58, 0.5);
+    }
 }
 
 .fourth {
-    background-color: yellowgreen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .fcont{
+        height: 90%;
+        width: 90%;
+        display: flex;
+        background-color: $variable;
+        .rs{
+            flex: 1;
+        }
+        .ls{
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .swiper{
+                height: 85%;
+                width: 88%;
+                background-color: white;
+                display: flex;
+            }
+        }
+    }
+
 }
 
 .fifth {
