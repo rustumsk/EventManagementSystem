@@ -1,0 +1,233 @@
+/* Google Fonts - Jaro, Poppins, Righteous, Raleway*/
+@import url('https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Righteous&display=swap');
+
+* {
+  font-size: 14px;  
+}
+
+.main-container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.logo-container {
+    display: flex;
+    height: 100vh;
+    width: 30%;
+    background-color: #FADC79;
+    float: left;
+    border-right: 1px solid rgba(0, 0, 0, .7);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.logo-container p {
+    height: 15px;
+    width: 15px;
+    font-family: "Jaro", Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    color:rgba(0, 0, 0, 1);
+    margin: 10px 30px;
+}
+
+.login-container {
+    height: 100vh;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container .login-form {
+    height: 550px;
+    width: 600px;
+    margin-top: -50px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.login-form h2 p {
+    display: flex;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.login-form h2 {
+    font-size: 1.5rem;
+    color: #FADC79;
+    font-family: "Righteous", Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.login-form p {
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+}
+
+.login-form .register {
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+}
+
+.login-form h3 {
+    font-family: "Righteous", Arial, Helvetica, sans-serif;
+    align-self: center;
+    letter-spacing: 1px;
+    font-size: 2rem;
+    color: rgba(0, 0, 0, 1);
+    margin: 25px 0;
+}
+
+.input-wrapper {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.input-wrapper label {
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-left: 17px;
+}
+
+.input-wrapper input{
+    height: 60px;
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border: 2.5px solid black;
+    border-radius: 8px;
+}
+
+
+.email input {
+    background-image: url("../assets/email.png");
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    background-position: left 15px center;
+    padding-left: 55px;
+}
+
+.password input {
+    background-image: url("../assets/passkey.png");
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    background-position: left 15px center;
+    padding-left: 55px;
+}
+
+.password input .show-password {
+    background-image: url("../assets/eye.png");
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    background-position: right 15px center;
+    padding-left: 55px;
+}
+
+.option-wrapper {
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 10px 35px;
+}
+
+.option-wrapper .remember-me {
+    display: flex;
+}
+
+.remember-me label {
+    flex-shrink: 2;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.option-wrapper .check-box{
+    width: 17px;
+    height: 17px;
+    margin-top: 2px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-wrapper button {
+    height: 40px;
+    width: 37%;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.login,
+.google-login,
+.separator span{
+    font-family: "Raleway", Arial, Helvetica, sans-serif;
+}
+
+.button-wrapper .login {
+    font-size: 1rem;
+    color: white;
+    background-color: black;
+}
+
+.button-wrapper .help {
+    font-size: 0.9rem;
+    margin-top: 4px;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.35);
+}
+
+.button-wrapper .google-login {
+    font-size: 0.85rem;
+    background-color: white;
+}
+
+.login-container .separator {
+    position: relative;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.login-container .separator span {
+    position: relative;
+    z-index: 1;
+    padding: 0 0.9rem;
+    background: #fff;
+    font-size: 1.06rem;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 1);
+}
+
+.login-container .separator::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background: #bfb3f2;
+}
+
+.check-box:hover,
+.google-login:hover {
+    background-color: rgba(204, 204, 204, 0.5);
+}
