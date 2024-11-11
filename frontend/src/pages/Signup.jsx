@@ -134,7 +134,7 @@ function Signup() {
         </button>
         <p className="signup-login-text">
           Already have an account?{" "}
-          <a href="/login">
+          <a href="/StudentLogin">
             <b>Login</b>
           </a>
         </p>

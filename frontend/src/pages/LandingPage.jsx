@@ -27,6 +27,7 @@ export default function LandingPage() {
   const handleMouseEnter = () => setIsDropdownOpen(true);
   const handleMouseLeave = () => setIsDropdownOpen(false);
   const handleStudentLoginClick = () => navigate('/StudentLogin');
+  const handleSBOLoginClick = () => navigate('/SBOLogin');
   const handleSignup = () => navigate('/Signup');
 
 
@@ -56,7 +57,7 @@ export default function LandingPage() {
                   {isDropdownOpen && (
                     <ul className="lp-dropdown-menu" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                       <li className="lp-dropdown-item" onClick={handleStudentLoginClick}>Student</li>
-                      <li className="lp-dropdown-item">SBO</li>
+                      <li className="lp-dropdown-item" onClick={handleSBOLoginClick}>SBO</li>
                     </ul>
                   )}
                 </div>
