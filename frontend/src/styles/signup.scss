@@ -1,147 +1,175 @@
-.container { /* MAIN CONTAINER */
-    display: flex;
-    height: 100vh;
+.signup-container {
+  /* MAIN CONTAINER */
+  display: flex;
+  height: 100vh;
 }
 
-.left-container { // LEFT SIDE NGA GRAY DESIGN
-    background-color: rgb(226, 226, 226);
-    width: 40%; 
-    height: 100%; 
-    display: flex; 
-    flex-direction: column; // Stack logo and right-side vertically
-    justify-content: flex-start; 
-    position: relative; 
-    transition: box-shadow 0.3s ease; /* Add transition for shadow */
+// LEFT SIDE NGA GRAY DESIGN
+.signup-left-container {
+  background-color: rgb(212, 170, 201);
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column; // Stack logo and right-side vertically
+  justify-content: flex-start;
+  position: relative;
+  transition: box-shadow 0.3s ease; /* Add transition for shadow */
+  border: 1px solid #000000;
 }
 
-.logo {
-    width: 300px; 
-    height: 300px;
-    border-radius: 50%;
-    
-    object-fit: cover; 
-    display: block; 
+.signup-logo {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 
-
-.right-side { // DESIGN NGA ITOM GRAY
-    background-color: #7e7e7e; 
-    color: white;
-    height: 100%; 
-    width: 20%; 
-    position: absolute; 
-    right: 0; 
+// DESIGN yellow
+.signup-right-side {
+  background-color: #ffdb98;
+  height: 100%;
+  width: 20%;
+  position: absolute;
+  right: 0;
+  border-left: 1px solid black;
 }
 
-.main-container { // MAIN CONTENT CONTAINER 
-    display: flex;
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
-    background-color: white; 
-    width: 60%; 
-    height: 100%; 
-    padding: 20px; 
-    transition: box-shadow 0.3s ease; /* Add transition for shadow */
+// MAIN CONTENT CONTAINER
+.signup-main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 60%;
+  height: 100%;
+  padding: 20px;
+  transition: box-shadow 0.3s ease; 
 }
 
-.personal-details, .password-details { // PARENT SA PERSONAL DETAILS UG PASSWORD
-    display: flex;
-    flex-direction: column; 
-    justify-content: flex-start;
-    align-items: flex-start; 
-    margin-bottom: 20px; 
+// PARENT SA PERSONAL DETAILS UG PASSWORD
+.signup-personal-details,
+.signup-password-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 20px;
 }
 
-.form-group { // ALIGN SA INPUTS AND LABELS
-    display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
-    margin-bottom: 15px;
-    width: 100%;
+// ALIGN SA INPUTS AND LABELS
+.signup-form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  width: 100%;
 }
 
-label { // LABEL SA MGA INPUTS
-    font-size: 0.9rem;
-    font-family: 'Outfit';
+// LABEL SA MGA INPUTS
+label {
+  font-size: 0.9rem;
+  font-family: "Outfit";
+  font-weight: bold;
 }
 
-.name, .idno, .emad, .pass, .confirmpass { // MGA INPUTS
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 350px;
-    margin: 5px 0;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease;
+.signupName,
+.signupIdno,
+.signupEmad,
+.signupPass,
+.signupConfirmpass {
+  // MGA INPUTS
+  padding: 10px;
+  border: 1px solid black !important; /* Ensure border is solid black */
+  border-radius: 5px;
+  width: 350px;
+  margin: 5px 0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
 }
 
-.name:hover, .idno:hover, .emad:hover, .pass:hover, .confirmpass:hover { // PA CHOY2 IG HOVER
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+// PA CHOY2 IG HOVER
+.signupName:hover,
+.signupIdno:hover,
+.signupEmad:hover,
+.signupPass:hover,
+.signupConfirmpass:hover {
+  box-shadow: 0px 4px 12px rgba(255, 0, 191, 0.25);
 }
 
-.name, .idno, .emad, .pass, .confirmpass::placeholder {
-    font-family: 'Outfit'; /* Apply the Righteous font to the placeholder */
+.signupName,
+.signupIdno,
+.signupEmad,
+.signupPass,
+.signupConfirmpass::placeholder {
+  font-family: "Outfit"; 
 }
 
-.register-button { // REGISTER NGA BUTTON
-    width: 20%;
-    padding: 10px;
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+// REGISTER NGA BUTTON
+.signup-register-button {
+  width: 20%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.register-button:hover { // STYLE IG HOVER
-    background-color: #333;
+// STYLE IG HOVER
+.signup-register-button:hover {
+  background-color: #333;
 }
 
-.login-text { // ALREADY HAVE AN ACCOUNT? nga text
-    font-size: 0.9rem;
-    margin-top: 10px;
+// ALREADY HAVE AN ACCOUNT? nga text
+.signup-login-text {
+  font-size: 0.9rem;
+  margin-top: 10px;
 }
 
-.login-text a { // LOGIN LINK <a>
-    color: #333;
-    text-decoration: none;
+// LOGIN LINK <a>
+.signup-login-text a {
+  color: #333;
+  text-decoration: none;
 }
 
-.perTails, .passText  { // PERSONAL DETAILS, PASSWORD TEXT
-    font-size: 1.4rem;  
-    margin-bottom: 10px; 
-    display: inline-block; 
-    position: relative;
-    padding-bottom: 5px; 
-    align-self: flex-start;
-    margin: 5px 0;
-    
+// PERSONAL DETAILS, PASSWORD TEXT
+.signup-perTails,
+.signup-passText {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  display: inline-block;
+  position: relative;
+  padding-bottom: 5px;
+  align-self: flex-start;
+  margin: 5px 0;
 }
 
-h3::after { // UNDERLINE NGA DEISGN SA PERSONAL DETAILS, PASSWORD TEXT
-    content: '';
-    position: absolute;
-    bottom: 0;  /* Position at the bottom of the element */
-    left: 0;
-    width: 120%; /* Extend the line beyond the text */
-    height: 2px;  /* Adjust the thickness of the underline */
-    background-color: #000; /* Line color */
+// UNDERLINE NGA DEISGN SA PERSONAL DETAILS, PASSWORD TEXT
+h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0; 
+  left: 0;
+  width: 120%; 
+  height: 1px; 
+  background-color: #000; 
 }
 
-.error-text {
-    color: red;
-    font-size: 0.9rem;
+.signup-error-text {
+  color: red;
+  font-size: 0.9rem;
 }
 
 input::placeholder {
-    color: #888; /* Default placeholder color */
+  color: #888; 
 }
 
 input:focus::placeholder {
-    color: #bbb; /* Lighter color when input is focused */
+  color: #bbb; 
 }
 
 input[style*="border-color: red"]::placeholder {
-    color: red; /* Change placeholder color to red for error */
+  color: red; 
 }
