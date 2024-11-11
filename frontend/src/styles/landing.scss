@@ -1,6 +1,6 @@
 @use './helpers/global' as *;
 
-.l-container {
+.lp-l-container {
     display: block;
     height: 100vh; 
     overflow-y: scroll;
@@ -8,26 +8,26 @@
     scroll-behavior: smooth; 
 }
 
-.l-container .first,
-.l-container .second,
-.l-container .third,
-.l-container .fourth,
-.l-container .fifth {
+.lp-l-container .lp-first,
+.lp-l-container .lp-second,
+.lp-l-container .lp-third,
+.lp-l-container .lp-fourth,
+.lp-l-container .lp-fifth {
     height: 100vh; 
     scroll-snap-align: start;
 }
 
-.first {
+.lp-first {
     display: flex;
     flex-direction: column;
     gap: 20px 20px;
     padding-left: 2%;
     padding-right: 2%;
 
-    .f-header {
+    .lp-f-header {
         flex: 1;
         place-content: center;
-        .head-container {
+        .lp-head-container {
             background-color: $variable;
             border-radius: 8px;
             width: 100%;
@@ -35,12 +35,12 @@
             margin-top: 1rem;
             display: flex;
 
-            .info-container {
+            .lp-info-container {
                 flex: 2;
                 display: flex;
                 gap: 10px;
 
-                .logo {
+                .lp-logo {
                     width: 20%;
                     display: grid;
                     place-content: center;
@@ -49,7 +49,7 @@
                     font-weight: bold;
                 }
 
-                .infos {
+                .lp-infos {
                     display: flex;
                     width: 50%;
                     justify-content: space-evenly;
@@ -81,19 +81,19 @@
                 }
             }
 
-            .btns-container {
+            .lp-btns-container {
                 flex: 1;
                 display: flex;
                 align-items: center;
                 justify-content: end;
                 padding-right: 4rem;
 
-                .btns {
+                .lp-btns {
                     width: 50%;
                     display: flex;
                     justify-content: space-evenly;
 
-                    .register {
+                    .lp-register {
                         @extend %basic-black-button;
                         &:hover{
                             transform: translateY(2px);
@@ -102,7 +102,7 @@
                         }
                     }
 
-                    .login {
+                    .lp-login {
                         background-color: white;
                         border: 1px solid black;
                         width: 6rem;
@@ -116,7 +116,7 @@
                         cursor: pointer;
                         justify-content: center;
                       
-                        .arrow {
+                        .lp-arrow {
                           content: '';
                           display: inline-block;
                           width: 8px;
@@ -128,16 +128,16 @@
                           margin-left: 5px;
                         }
                       
-                        .arrow.open {
+                        .lp-open {
                             transform: rotate(225deg);
                           }
                       }
 
-                    .login-container {
+                    .lp-login-container {
                         position: relative;
                     }
 
-                    .dropdown-menu {
+                    .lp-dropdown-menu {
                         position: absolute;
                         top: 40px;
                         right: 0;
@@ -152,14 +152,14 @@
                         z-index: 1;
                     }
 
-                    .dropdown-item {
+                    .lp-dropdown-item {
                         padding: 10px;
                         cursor: pointer;
                         font-family: 'Roboto', sans-serif;
                         text-align: center;
                     }
 
-                    .dropdown-item:hover {
+                    .lp-dropdown-item:hover {
                         background-color: #f1f1f1;
                     }
                 }
@@ -167,12 +167,12 @@
         }
     }
 
-    .f-body {
+    .lp-f-body {
         background-color: white;
         flex: 12;
         display: flex;
 
-        .l-sec {
+        .lp-l-sec {
             flex: 1;
             border-radius: 13px;
             height: 95%;
@@ -181,11 +181,11 @@
             justify-content: center;
             padding-top: 12rem;
 
-            .l-cont {
+            .lp-l-cont {
                 height: 20rem;
                 width: 35rem;
 
-                .up {
+                .lp-up {
                     height: 60%;
                     p {
                         font-family: $jaro;
@@ -193,16 +193,16 @@
                     }
                 }
 
-                .down {
+                .lp-down {
                     height: 30%;
                     place-content: center;
 
-                    .d-cont {
+                    .lp-d-cont {
                         height: 50%;
                         display: flex;
                         gap: 10px;
 
-                        .arr {
+                        .lp-arr {
                             @include arrowDesign('../assets/arrow-l.svg');
 
                             @keyframes leftSlide {
@@ -221,7 +221,7 @@
                             }
                         }
 
-                        .tx {
+                        .lp-tx {
                             flex: 10;
                             display: flex;
                             flex-direction: column;
@@ -232,23 +232,23 @@
             }
         }
 
-        .r-sec {
+        .lp-r-sec {
             flex: 0.6;
             background-color: white;
             place-content: start;
             padding-top: 2rem;
 
-            .r-cont {
+            .lp-r-cont {
                 height: 92%;
                 background-color: rgba(57, 58, 58, 0.137);
                 padding-top: 3rem;
 
-                .t-cont {
+                .lp-t-cont {
                     height: 78%;
                     display: flex;
                     flex-direction: column;
 
-                    .ps {
+                    .lp-ps {
                         flex: 1;
                         display: flex;
                         align-items: center;
@@ -264,14 +264,14 @@
                         }
                     }
 
-                    .a-l {
+                    .lp-a-l {
                         flex: 0.4;
                         display: grid;
                         align-items: center;
-                        .d-cont1{
+                        .lp-d-cont1{
                             height: 50%;
                             display: flex;
-                            .d-txt {
+                            .lp-d-txt {
                                 flex: 1;
                                 margin-left: 2rem;
                                 display: flex;
@@ -280,7 +280,7 @@
                                 font-family: 'raleway';
                                 opacity: .5;
                             }
-                            .d-arr{
+                            .lp-d-arr{
                                 flex: .2;
                                 display: grid;
                                 place-content: center;
@@ -319,38 +319,38 @@
     }
 }
 
-.second {
+.lp-second {
     display: flex;
     padding-bottom: 2rem;
     padding-top: 2rem;
-    .sl{
+    .lp-sl{
         flex: .6;
         background-color: rgba(57, 58, 58, 0.5);
     }
-    .sr{
+    .lp-sr{
         flex: 1;
         background-color: $variable;
         display: flex;
         place-content: center;
         align-items: center;
-        .t-con{
+        .lp-t-con{
             height: 80%;
             width: 80%;
             padding-top: 3rem;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            .s{
+            .lp-s{
                 font-family: 'Righteous';
                 font-weight: bold;
                 font-size: 3rem;
             }
-            .n{
+            .lp-n{
                 font-family: "Inter";
                 font-weight: light;
                 margin-bottom: 2rem;
             }
-            .p{
+            .lp-p{
                 height: 5rem;
                 font-family: "Outfit";
                 font-size: 1.5rem;
@@ -361,17 +361,17 @@
     }
 }
 
-.third {
+.lp-third {
     display: flex;
     padding-bottom: 2rem;
     padding-top: 2rem;
-    .sl{
+    .lp-sl{
         flex: 1;
         background-color: $variable;
         display: flex;
         place-content: center;
         align-items: center;
-        .t-con{
+        .lp-t-con{
             height: 80%;
             width: 80%;
             padding-top: 3rem;
@@ -381,17 +381,17 @@
             p{
                 text-align: right;
             }
-            .s{
+            .lp-s{
                 font-family: 'Righteous';
                 font-weight: bold;
                 font-size: 3rem;
             }
-            .n{
+            .lp-n{
                 font-family: "Inter";
                 font-weight: light;
                 margin-bottom: 2rem;
             }
-            .p{
+            .lp-p{
                 height: 5rem;
                 font-family: "Outfit";
                 font-size: 1.5rem;
@@ -399,30 +399,30 @@
             }
         }
     }
-    .sr{
+    .lp-sr{
         flex: .7;
         background-color: rgba(57, 58, 58, 0.5);
     }
 }
 
-.fourth {
+.lp-fourth {
     display: flex;
     align-items: center;
     justify-content: center;
-    .fcont{
+    .lp-fcont{
         height: 90%;
         width: 90%;
         display: flex;
         background-color: $variable;
-        .rs{
+        .lp-rs{
             flex: 1;
         }
-        .ls{
+        .lp-ls{
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            .swiper{
+            .lp-swiper{
                 height: 85%;
                 width: 88%;
                 background-color: white;
@@ -433,11 +433,11 @@
 
 }
 
-.fifth {
+.lp-fifth {
     background-color: wheat;
 }
 
-.sec {
+.lp-sec {
     height: 100vh;
     scroll-snap-align: start;
 }

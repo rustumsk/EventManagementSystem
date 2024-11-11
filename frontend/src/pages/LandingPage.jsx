@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../styles/landing.scss';
-
+import { Navigate, useNavigate } from 'react-router-dom';
 const texts = [
   "Discover events tailored for you!",
   "Click here to register and stay updated on what's happening on campus.",
@@ -21,55 +21,60 @@ const texts = [
 export default function LandingPage() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleMouseClick = () => setIsDropdownOpen(!isDropdownOpen);
   const handleMouseEnter = () => setIsDropdownOpen(true);
   const handleMouseLeave = () => setIsDropdownOpen(false);
+  const handleStudentLoginClick = () => navigate('/StudentLogin');
+  const handleSignup = () => navigate('/Signup');
+
 
   return (
-    <div className="l-container">
-      <section className="sec first">
-        <header className="f-header">
-          <section className="head-container">
-            <section className="info-container">
-              <div className="logo">
+    <div className="lp-l-container">
+      <section className="lp-sec lp-first">
+        <header className="lp-f-header">
+          <section className="lp-head-container">
+            <section className="lp-info-container">
+              <div className="lp-logo">
                 <span>Logo</span>
               </div>
-              <div className="infos">
-                <div className="contact"><span>Contact Us</span></div>
-                <div className="policy"><span>Privacy Policy</span></div>
-                <div className="terms"><span>Terms of service</span></div>
-                <div className="faq"><span>FAQ</span></div>
+              <div className="lp-infos">
+                <div className="lp-contact"><span>Contact Us</span></div>
+                <div className="lp-policy"><span>Privacy Policy</span></div>
+                <div className="lp-terms"><span>Terms of service</span></div>
+                <div className="lp-faq"><span>FAQ</span></div>
               </div>
             </section>
-            <section className="btns-container">
-              <div className="btns">
-                <div className="login-container">
-                  <button className="login" onClick={handleMouseClick}>
+            <section className="lp-btns-container">
+              <div className="lp-btns">
+                <div className="lp-login-container">
+                  <button className="lp-login" onClick={handleMouseClick}>
                     Login
-                    <span className={`arrow ${isDropdownOpen ? 'open' : ''}`}></span>
+                    <span className={`lp-arrow ${isDropdownOpen ? 'lp-open' : ''}`}></span>
                   </button>
                   {isDropdownOpen && (
-                    <ul className="dropdown-menu" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                      <li className="dropdown-item">Student</li>
-                      <li className="dropdown-item">SBO</li>
+                    <ul className="lp-dropdown-menu" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                      <li className="lp-dropdown-item" onClick={handleStudentLoginClick}>Student</li>
+                      <li className="lp-dropdown-item">SBO</li>
                     </ul>
                   )}
                 </div>
-                <button className="register">Register</button>
+                <button className="lp-register">Register</button>
               </div>
             </section>
           </section>
         </header>
-        <section className="f-body">
-          <section className="l-sec">
-            <section className="l-cont">
-              <div className="up">
+        <section className="lp-f-body">
+          <section className="lp-l-sec">
+            <section className="lp-l-cont">
+              <div className="lp-up">
                 <p>{texts[3]}</p>
               </div>
-              <div className="down">
-                <section className="d-cont">
-                  <div className="arr"></div>
-                  <div className="tx">
+              <div className="lp-down">
+                <section className="lp-d-cont">
+                  <div className="lp-arr" onClick={handleSignup}></div>
+                  <div className="lp-tx">
                     <span>{texts[0]}</span>
                     <span>{texts[1]}</span>
                   </div>
@@ -77,19 +82,19 @@ export default function LandingPage() {
               </div>
             </section>
           </section>
-          <section className="r-sec">
-            <div className="r-cont">
-              <div className="t-cont">
-                <div className="ps">
+          <section className="lp-r-sec">
+            <div className="lp-r-cont">
+              <div className="lp-t-cont">
+                <div className="lp-ps">
                   <p>{texts[2]}</p>
                 </div>
-                <div className="a-l">
-                  <section className="d-cont1">
-                    <div className="d-txt">
+                <div className="lp-a-l">
+                  <section className="lp-d-cont1">
+                    <div className="lp-d-txt">
                       <span>{texts[4]}</span>
                       <span>{texts[5]}</span>
                     </div>
-                    <div className="d-arr">
+                    <div className="lp-d-arr">
                       <span></span>
                     </div>
                   </section>
@@ -99,38 +104,38 @@ export default function LandingPage() {
           </section>
         </section>
       </section>
-      <section className="sec second">
-        <section className='sl'></section>
-        <section className='sr'>
-          <section className='t-con'>
-            <p className='s'>For Students</p>
-            <p className='n'>{texts[6]}</p>
-            <p className='p'>{texts[7]}</p>
-            <p className='p'>{texts[8]}</p>
-            <p className='p'>{texts[9]}</p>
+      <section className="lp-sec lp-second">
+        <section className='lp-sl'></section>
+        <section className='lp-sr'>
+          <section className='lp-t-con'>
+            <p className='lp-s'>For Students</p>
+            <p className='lp-n'>{texts[6]}</p>
+            <p className='lp-p'>{texts[7]}</p>
+            <p className='lp-p'>{texts[8]}</p>
+            <p className='lp-p'>{texts[9]}</p>
           </section>
         </section>
       </section>
-      <section className="sec third">
-        <section className='sl'>
-          <section className='t-con'>
-            <p className='s'>For SBOs</p>
-            <p className='n'>{texts[10]}</p>
-            <p className='p'>{texts[11]}</p>
-            <p className='p'>{texts[12]}</p>
-            <p className='p'>{texts[13]}</p>
+      <section className="lp-sec lp-third">
+        <section className='lp-sl'>
+          <section className='lp-t-con'>
+            <p className='lp-s'>For SBOs</p>
+            <p className='lp-n'>{texts[10]}</p>
+            <p className='lp-p'>{texts[11]}</p>
+            <p className='lp-p'>{texts[12]}</p>
+            <p className='lp-p'>{texts[13]}</p>
           </section>
         </section>
-        <section className='sr'></section>
+        <section className='lp-sr'></section>
       </section>
-      <section className="sec fourth">
-        <div className="fcont">
-          <section className='ls'>
+      <section className="lp-sec lp-fourth">
+        <div className="lp-fcont">
+          <section className='lp-ls'>
           </section>
-          <section className='rs'></section>
+          <section className='lp-rs'></section>
         </div>
       </section>
-      <section className="sec fifth"></section>
+      <section className="lp-sec lp-fifth"></section>
     </div>
   );
 }
