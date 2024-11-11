@@ -1,129 +1,146 @@
-import React, { useState } from 'react';
-import '../styles/signup.scss';
-import logo from '../assets/logo.png';
+import React, { useState } from "react";
+import "../styles/signup.scss";
+import logo from "../assets/logo.png";
 
 function Signup() {
-    const [name, setName] = useState('');
-    const [idno, setIdno] = useState('');
-    const [emad, setEmad] = useState('');
-    const [pass, setPass] = useState('');
-    const [confirmpass, setConfirmPass] = useState('');
-    const [errors, setErrors] = useState({});
+  const [signupName, setName] = useState("");
+  const [signupIdno, setIdno] = useState("");
+  const [signupEmad, setEmad] = useState("");
+  const [signupPass, setPass] = useState("");
+  const [signupConfirmpass, setConfirmPass] = useState("");
+  const [signupErrors, signupSetErrors] = useState({});
 
-    const authentication = (e) => {
-        e.preventDefault(); // Prevent page refresh
+  const authentication = (e) => {
+    e.preventDefault(); // Prevent page refresh
 
-        setErrors({}); // Reset errors
+    signupSetErrors({}); // Reset errors
 
-        const newErrors = {}; // Validation checks
+    const newErrors = {}; // Validation checks
 
-        if (!name) newErrors.name = "Full Name is required!";
-        if (!idno) newErrors.idno = "ID Number is required!";
-        if (!emad) newErrors.emad = "Email Address is required!";
-        if (!pass) newErrors.pass = "Password is required!";
-        if (!confirmpass) newErrors.confirmpass = "Confirm Password is required!";
-        if (pass !== confirmpass) newErrors.confirmpass = "Passwords do not match!";
+    if (!signupName) newErrors.signupName = "Full Name is required!";
+    if (!signupIdno) newErrors.signupIdno = "ID Number is required!";
+    if (!signupEmad) newErrors.signupEmad = "Email Address is required!";
+    if (!signupPass) newErrors.signupPass = "Password is required!";
+    if (!signupConfirmpass) newErrors.signupConfirmpass = "Confirm Password is required!";
+    if (signupPass !== signupConfirmpass) newErrors.signupConfirmpass = "Passwords do not match!";
 
-        // If there are any errors, set them in state
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-            return;
-        }
+    // If there are any errors, set them in state
+    if (Object.keys(newErrors).length > 0) {
+      signupSetErrors(newErrors);
+      return;
+    }
 
-        alert(`Full Name: ${name}\nID Number: ${idno}\nEmail Address: ${emad}\nPassword: ${pass}`);
-    };
-
-    return (
-        <div className="container">
-            <section className="left-container">
-                <img src={logo} alt="Logo" className="logo" />
-                <section className="right-side" />
-            </section>
-
-            <section className="main-container">
-                <h1 style={{
-                    paddingRight: 200,
-                    paddingBottom: 15,
-                    fontSize: 32,
-                    fontFamily: 'Righteous'
-                }}>STUDENT ACCOUNT</h1>
-
-                <div className="personal-details">
-                    <div className="form-group">
-                        <h3 className="perTails">Personal Details</h3>
-                        <label htmlFor="name">Full Name</label>
-                        <input
-                            id="name"
-                            className="name"
-                            type="text"
-                            placeholder={errors.name || "enter full name"}
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            style={{ borderColor: errors.name ? 'red' : '#ccc' }} // Red border if error
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="idno">ID Number</label>
-                        <input
-                            id="idno"
-                            className="idno"
-                            type="text"
-                            placeholder={errors.idno || "enter your ID number"}
-                            value={idno}
-                            onChange={(e) => setIdno(e.target.value)}
-                            style={{ borderColor: errors.idno ? 'red' : '#ccc' }} // Red border if error
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="emad">Email Address</label>
-                        <input
-                            id="emad"
-                            className="emad"
-                            type="email"
-                            placeholder={errors.emad || "johndoe@gmail.com"}
-                            value={emad}
-                            onChange={(e) => setEmad(e.target.value)}
-                            style={{ borderColor: errors.emad ? 'red' : '#ccc' }} // Red border if error
-                        />
-                    </div>
-                </div>
-
-                <div className="password-details">
-                    <div className="form-group">
-                        <h3 className="passText">Password</h3>
-                        <label htmlFor="pass">Password</label>
-                        <input
-                            id="pass"
-                            className="pass"
-                            type="password"
-                            placeholder={errors.pass || "enter your password"}
-                            value={pass}
-                            onChange={(e) => setPass(e.target.value)}
-                            style={{ borderColor: errors.pass ? 'red' : '#ccc' }} // Red border if error
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="confirmpass">Confirm Password</label>
-                        <input
-                            id="confirmpass"
-                            className="confirmpass"
-                            type="password"
-                            placeholder={errors.confirmpass || "confirm your password"}
-                            value={confirmpass}
-                            onChange={(e) => setConfirmPass(e.target.value)}
-                            style={{ borderColor: errors.confirmpass ? 'red' : '#ccc' }} // Red border if error
-                        />
-                    </div>
-                </div>
-
-                <button className="register-button" onClick={authentication}><b>Register</b></button>
-                <p className="login-text">Already have an account? <a href="/login"><b>Login</b></a></p>
-            </section>
-        </div>
+    alert(
+      `Full Name: ${signupName}\nID Number: ${signupIdno}\nEmail Address: ${signupEmad}\nPassword: ${signupPass}`,
     );
+  };
+
+  return (
+    <div className="signup-container">
+      <section className="signup-left-container">
+        <img src={logo} alt="signup-Logo" className="signup-logo" />
+        <section className="signup-right-side" />
+      </section>
+
+      <section className="signup-main-container">
+        <h1
+          style={{
+            paddingRight: 200,
+            paddingBottom: 15,
+            fontSize: 32,
+            fontFamily: "Righteous",
+          }}
+        >
+          STUDENT ACCOUNT
+        </h1>
+
+        <div className="signup-personal-details">
+          <div className="signup-form-group">
+            <h3 className="signup-perTails">Personal Details</h3>
+            <label htmlFor="signupName">Full Name</label>
+            <input // NAME INPUT
+              id="signupName"
+              className="signupName"
+              type="text"
+              placeholder={signupErrors.signupName || "enter full name"}
+              value={signupName}
+              onChange={(e) => setName(e.target.value)}
+              style={{ borderColor: signupErrors.signupName ? "red" : "#ccc" }} // Red border if error
+            />
+          </div>
+
+          <div className="signup-form-group">
+            <label htmlFor="signupIdno">ID Number</label>
+            <input // ID NUMBER INPUT
+              id="signupIdno"
+              className="signupIdno"
+              type="text"
+              placeholder={signupErrors.signupIdno || "enter your ID number"}
+              value={signupIdno}
+              onChange={(e) => setIdno(e.target.value)}
+              style={{ borderColor: signupErrors.signupIdno ? "red" : "#ccc" }} // Red border if error
+            />
+          </div>
+
+          <div className="signup-form-group">
+            <label htmlFor="signupEmad">Email Address</label>
+            <input // EMAIL ADDRESS INPUT
+              id="signupEmad"
+              className="signupEmad"
+              type="email"
+              placeholder={signupErrors.signupEmad || "johndoe@gmail.com"}
+              value={signupEmad}
+              onChange={(e) => setEmad(e.target.value)}
+              style={{ borderColor: signupErrors.signupEmad ? "red" : "#ccc" }} // Red border if error
+            />
+          </div>
+        </div>
+
+        <div className="signup-password-details">
+          <div className="signup-form-group">
+            <h3 className="signup-passText">Password Details</h3>
+            <label htmlFor="signupPass">Password</label>
+            <input // PASSWORD INPUT
+              id="signupPass"
+              className="signupPass"
+              type="password"
+              placeholder={signupErrors.signupPass || "enter your password"}
+              value={signupPass}
+              onChange={(e) => setPass(e.target.value)}
+              style={{ borderColor: signupErrors.signupPass ? "red" : "#ccc" }} // Red border if error
+            />
+          </div>
+
+          <div className="signup-form-group">
+            <label htmlFor="signupConfirmpass">Confirm Password</label>
+            <input // CONFIRM PASSWORD INPUT
+              id="signupConfirmpass"
+              className="signupConfirmpass"
+              type="password"
+              placeholder={
+                signupErrors.signupConfirmpass || "confirm your password"
+              }
+              value={signupConfirmpass}
+              onChange={(e) => setConfirmPass(e.target.value)}
+              style={{
+                borderColor: signupErrors.signupConfirmpass ? "red" : "#ccc",
+              }} // Red border if error
+            />
+          </div>
+        </div>
+
+        <button className="signup-register-button" onClick={authentication}>
+          <b>Register</b>
+        </button>
+        <p className="signup-login-text">
+          Already have an account?{" "}
+          <a href="/login">
+            <b>Login</b>
+          </a>
+        </p>
+      </section>
+    </div>
+  );
 }
 
 export default Signup;
