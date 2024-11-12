@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import '../styles/landing.scss';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 
 const texts = [
@@ -137,21 +140,62 @@ export default function LandingPage() {
         <div className="lp-fcont">
           <section className='lp-ls'>
             <section className="lp-l-container">
-            <Swiper
-              spaceBetween={50}
-              slidesPerView={3}
-              onSlideChange={() => console.log('slide change')}
-              onSwiper={(swiper) => console.log(swiper)}
-            >
-              <SwiperSlide>Slide 1</SwiperSlide>
-              <SwiperSlide>Slide 2</SwiperSlide>
-              <SwiperSlide>Slide 3</SwiperSlide>
-              <SwiperSlide>Slide 4</SwiperSlide>
-              ...
-            </Swiper>
+              <Swiper
+                modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                spaceBetween={10}
+                slidesPerView="auto"
+                centeredSlides={true}
+                navigation
+                pagination={{ clickable: true }}
+                loop={true}          
+                autoplay={{
+                  delay: 3000,           
+                  disableOnInteraction: true, 
+                }}
+                speed={800}           
+              >
+                <SwiperSlide className='cSlide'>
+                  <div className='lp-sl sl1'>
+                    <p>Create an account or log in to explore the latest events and manage your registrations.</p>
+                    <p>Browse events on campus with categories, featured recommendations, and upcoming events right at your fingertips.</p>
+                    <p>Select events you’re interested in, fill out a quick registration form, and secure your spot.</p>
+                    <p>When event day arrives, simply scan the provided QR code at the entrance for a fast, contactless check-in.</p>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide className='cSlide'>
+                  <div className='lp-sl sl2'>
+                    <div className="lp-qr"></div>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide className='cSlide'>
+                  <div className='lp-sl sl3'>
+                    123
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide className='cSlide'>
+                  <div className='lp-sl sl4'>
+                    
+                  </div>
+                </SwiperSlide>
+              </Swiper>
             </section>
           </section>
-          <section className='lp-rs'></section>
+          <section className='lp-rs'>
+            <section className='lp-fcont1'>
+              <p className='lp-ftitle'>Revolutionize Your Event with QR Code Check-Ins</p>
+              <section className='lp-fdescription'>
+                <p>How It Works</p>
+                <p>Seamlessly discover, register, and manage events – all in a few simple steps!</p>
+              </section>
+              <section className='lp-fsteps'>
+                <p className='f-step'>Step 1: Sign Up or Log In</p>
+                <p className='f-step'>Step 2: Discover Events</p>
+                <p className='f-step'>Step 3: Register Instantly</p>
+                <p className='f-step'>Step 4: Easy Check-In with QR Code</p>
+              </section>
+              <p className='lp-fbot'>When event day arrives, simply scan the provided QR code at the entrance for a fast, contactless check-in.</p>
+            </section>
+          </section>
         </div>
       </section>
       <section className="lp-sec lp-fifth"></section>
