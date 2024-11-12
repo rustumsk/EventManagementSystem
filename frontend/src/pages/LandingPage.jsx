@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import '../styles/landing.scss';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+
+
 const texts = [
   "Discover events tailored for you!",
   "Click here to register and stay updated on what's happening on campus.",
@@ -132,6 +136,20 @@ export default function LandingPage() {
       <section className="lp-sec lp-fourth">
         <div className="lp-fcont">
           <section className='lp-ls'>
+            <section className="lp-l-container">
+            <Swiper
+              spaceBetween={50}
+              slidesPerView={3}
+              onSlideChange={() => console.log('slide change')}
+              onSwiper={(swiper) => console.log(swiper)}
+            >
+              <SwiperSlide>Slide 1</SwiperSlide>
+              <SwiperSlide>Slide 2</SwiperSlide>
+              <SwiperSlide>Slide 3</SwiperSlide>
+              <SwiperSlide>Slide 4</SwiperSlide>
+              ...
+            </Swiper>
+            </section>
           </section>
           <section className='lp-rs'></section>
         </div>

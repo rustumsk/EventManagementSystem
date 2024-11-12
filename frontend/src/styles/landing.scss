@@ -415,18 +415,23 @@
         display: flex;
         background-color: $variable;
         .lp-rs{
-            flex: 1;
+            flex: .9;
+            background-color:blue;
         }
         .lp-ls{
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            .lp-swiper{
-                height: 85%;
-                width: 88%;
-                background-color: white;
-                display: flex;
+            .lp-l-container{
+                width: 50%;
+                height: 50%;
+                overflow: hidden;
+                background-color: brown;
+                .swiper-container{
+                    height: 100%;
+                    width: 100%;
+                }
             }
         }
     }
