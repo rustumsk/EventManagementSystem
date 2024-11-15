@@ -22,7 +22,12 @@ const texts = [
   "Simplify Event Management, Amplify Engagement",
   "Set up and customize events easily with step-by-step guidance.",
   "Get feedback and insights to help improve events and engage your audience.",
-  "Build a community by reaching students across campus effectively."
+  "Build a community by reaching students across campus effectively.",
+  "Create an account or log in to explore the latest events and manage your registrations.",
+  "Browse events on campus with categories, featured recommendations, and upcoming events right at your fingertips.",
+  "Select events you’re interested in, fill out a quick registration form, and secure your spot.",
+  "When event day arrives, simply scan the provided QR code at the entrance for a fast, contactless check-in."
+  
 ];
 
 export default function LandingPage() {
@@ -156,10 +161,10 @@ export default function LandingPage() {
               >
                 <SwiperSlide className='cSlide'>
                   <div className='lp-sl sl1'>
-                    <p>Create an account or log in to explore the latest events and manage your registrations.</p>
-                    <p>Browse events on campus with categories, featured recommendations, and upcoming events right at your fingertips.</p>
-                    <p>Select events you’re interested in, fill out a quick registration form, and secure your spot.</p>
-                    <p>When event day arrives, simply scan the provided QR code at the entrance for a fast, contactless check-in.</p>
+                    <p>{texts[14]}</p>
+                    <p>{texts[15]}</p>
+                    <p>{texts[16]}</p>
+                    <p>{texts[17]}</p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide className='cSlide'>
