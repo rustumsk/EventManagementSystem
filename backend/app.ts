@@ -6,6 +6,8 @@ import cors from 'cors';
 import popul from './configs/db/populate';
 import signupRoute from './routes/public/signup';
 import loginRoute from './routes/public/login';
+import googleRoute from './routes/public/google'; 
+import passport = require('passport');
 dotenv.config();
 const PORT = process.env.PORT;
 
@@ -13,10 +15,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(cors());
 
-app.get('/oauth2/redirect/google',(req: Request,res: Response) =>{
-    res.send("Hello!");
-});
 
+app.use('/google', googleRoute);
 app.use('/signup',signupRoute);
 app.use('/login', loginRoute);
 

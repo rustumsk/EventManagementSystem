@@ -10,6 +10,13 @@ const getStudentByEmail = async (email: string): Promise<QueryResult<any>> => {
     }
 };
 
+const getStudentByGoogleId = async(googleId:string): Promise<QueryResult<any>> =>{
+    try{
+        return await pool.query('SELECT * FROM student WHERE google_id = $1', [googleId]);
+    }catch(e){
+        throw(e);
+    }
+}
 const getStudentPassword = async (email?: string, id_num?: number): Promise<QueryResult<any>> => {
     try {
         if (email) {
@@ -27,7 +34,8 @@ const getStudentPassword = async (email?: string, id_num?: number): Promise<Quer
 
 const findStudent = {
     getStudentByEmail,
-    getStudentPassword
+    getStudentPassword,
+    getStudentByGoogleId
 };
 
 export default findStudent;
