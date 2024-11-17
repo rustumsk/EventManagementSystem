@@ -14,12 +14,12 @@ const SQL = `
         student_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         id_num INT NOT NULL,
         student_email VARCHAR(255) NOT NULL UNIQUE,
-        firstname VARCHAR(255),
-        lastname VARCHAR(255),
-        midinit CHAR(1),
-        password VARCHAR(255),  -- Fixed typo here
-        is_notif BOOLEAN,
-        is_verified BOOLEAN,
+        fullname VARCHAR(255) NOT NULL,
+        password VARCHAR(255),
+        facebook_id VARCHAR(255) UNIQUE,
+        google_id VARCHAR(255) UNIQUE,
+        is_notif BOOLEAN DEFAULT FALSE,
+        is_verified BOOLEAN DEFAULT FALSE,
         verification_token VARCHAR(255)
     );
 

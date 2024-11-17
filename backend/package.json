@@ -3,24 +3,30 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "build": "tsc app.ts",
-    "dev": "nodemon app.ts"
+    "start": "node dist/app.js",
+    "build": "tsc",
+    "dev": "nodemon --watch . --exec ts-node app.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/cors": "^2.8.17",
     "backend": "file:",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "passport": "^0.7.0",
+    "passport-google-oidc": "^0.1.0",
+    "passport-local": "^1.0.0",
     "pg": "^8.13.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
-    "@types/node": "^22.8.2",
+    "@types/node": "^22.9.0",
+    "@types/passport": "^1.0.17",
     "@types/pg": "^8.11.10",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
