@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "../styles/signup.scss";
 import logo from "../assets/logo.png";
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
+import axios from "axios";
 
 function Signup() {
   const [signupName, setName] = useState("");
@@ -10,38 +13,50 @@ function Signup() {
   const [signupConfirmpass, setConfirmPass] = useState("");
   const [signupErrors, signupSetErrors] = useState({});
 
-  const authentication = (e) => {
-    e.preventDefault(); // Prevent page refresh
+  const authentication = async (e) => {
+    e.preventDefault(); 
 
-    signupSetErrors({}); // Reset errors
+    // signupSetErrors({}); // Reset errors
 
-    const newErrors = {}; // Validation checks
+    // const newErrors = {}; // Validation checks
 
-    if (!signupName) newErrors.signupName = "Full Name is required!";
-    if (!signupIdno) newErrors.signupIdno = "ID Number is required!";
-    if (!signupEmad) newErrors.signupEmad = "Email Address is required!";
-    if (!signupPass) newErrors.signupPass = "Password is required!";
-    if (!signupConfirmpass) newErrors.signupConfirmpass = "Confirm Password is required!";
-    if (signupPass !== signupConfirmpass) newErrors.signupConfirmpass = "Passwords do not match!";
+    // if (!signupName) newErrors.signupName = "Full Name is required!";
+    // if (!signupIdno) newErrors.signupIdno = "ID Number is required!";
+    // if (!signupEmad) newErrors.signupEmad = "Email Address is required!";
+    // if (!signupPass) newErrors.signupPass = "Password is required!";
+    // if (!signupConfirmpass) newErrors.signupConfirmpass = "Confirm Password is required!";
+    // if (signupPass !== signupConfirmpass) newErrors.signupConfirmpass = "Passwords do not match!";
 
-    // If there are any errors, set them in state
-    if (Object.keys(newErrors).length > 0) {
-      signupSetErrors(newErrors);
-      return;
-    }
+    // // If there are any errors, set them in state
+    // if (Object.keys(newErrors).length > 0) {
+    //   signupSetErrors(newErrors);
+    //   return;
+    // }
 
-    alert(
-      `Full Name: ${signupName}\nID Number: ${signupIdno}\nEmail Address: ${signupEmad}\nPassword: ${signupPass}`,
-    );
+    const data = {
+      fullname: signupName,
+      id_num: signupIdno,
+      email: signupEmad,
+      password: signupPass
+    };
+    console.log("Hello");
+    axios.post('http://localhost:3000/signup', data)
+    .then(response => {
+        console.log('Signup successful:', response.data);
+    })
+    .catch(error => {
+        console.error('Signup failed:', error);
+    });
   };
 
   return (
     <div className="signup-container">
+      
       <section className="signup-left-container">
         <img src={logo} alt="signup-Logo" className="signup-logo" />
         <section className="signup-right-side" />
       </section>
-
+      
       <section className="signup-main-container">
         <h1
           style={{
@@ -53,7 +68,7 @@ function Signup() {
         >
           STUDENT ACCOUNT
         </h1>
-
+          
         <div className="signup-personal-details">
           <div className="signup-form-group">
             <h3 className="signup-perTails">Personal Details</h3>
@@ -61,6 +76,7 @@ function Signup() {
             <input // NAME INPUT
               id="signupName"
               className="signupName"
+              name="fullname"
               type="text"
               placeholder={signupErrors.signupName || "enter full name"}
               value={signupName}
@@ -75,6 +91,7 @@ function Signup() {
               id="signupIdno"
               className="signupIdno"
               type="text"
+              name="id_num"
               placeholder={signupErrors.signupIdno || "enter your ID number"}
               value={signupIdno}
               onChange={(e) => setIdno(e.target.value)}
@@ -88,6 +105,7 @@ function Signup() {
               id="signupEmad"
               className="signupEmad"
               type="email"
+              name="email"
               placeholder={signupErrors.signupEmad || "johndoe@gmail.com"}
               value={signupEmad}
               onChange={(e) => setEmad(e.target.value)}
@@ -104,6 +122,7 @@ function Signup() {
               id="signupPass"
               className="signupPass"
               type="password"
+              name="password"
               placeholder={signupErrors.signupPass || "enter your password"}
               value={signupPass}
               onChange={(e) => setPass(e.target.value)}
@@ -132,6 +151,21 @@ function Signup() {
         <button className="signup-register-button" onClick={authentication}>
           <b>Register</b>
         </button>
+
+        <button
+          className="signup-google-button"
+          onClick={() => window.location.href = 'http://localhost:3000/auth/google'}
+        >
+          <b>Sign up with Google</b>
+        </button>
+
+        <button
+          className="signup-facebook-button"
+          onClick={() => window.location.href = 'http://localhost:3000/auth/facebook'}
+        >
+          <b>Sign up with Facebook</b>
+        </button>
+        
         <p className="signup-login-text">
           Already have an account?{" "}
           <a href="/StudentLogin">

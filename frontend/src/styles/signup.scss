@@ -47,7 +47,43 @@
   padding: 20px;
   transition: box-shadow 0.3s ease; 
 }
+.signup-logo-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
 
+.signup-google-button,
+.signup-facebook-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12rem; /* Smaller width */
+  padding: 8px; /* Smaller padding */
+  font-size: 0.85rem; /* Smaller font size */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.signup-google-button {
+  background-color: #db4437;
+}
+
+.signup-google-button:hover {
+  background-color: #c33d2b;
+}
+
+.signup-facebook-button {
+  background-color: #4267B2;
+}
+
+.signup-facebook-button:hover {
+  background-color: #365899;
+}
 // PARENT SA PERSONAL DETAILS UG PASSWORD
 .signup-personal-details,
 .signup-password-details {
