@@ -20,6 +20,7 @@ app.get('/oauth2/redirect/google',(req: Request,res: Response) =>{
 app.use('/signup',signupRoute);
 app.use('/login', loginRoute);
 
+
 app.listen(PORT, () =>{
     console.log(`Listening at PORT: ${PORT}`);
 })

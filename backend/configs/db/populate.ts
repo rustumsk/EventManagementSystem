@@ -25,7 +25,7 @@ const SQL = `
 
     CREATE TABLE IF NOT EXISTS Category (
         category_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        category_name VARCHAR(255)  -- Added length to the category_name column
+        category_name VARCHAR(255) 
     );
 
     CREATE TABLE IF NOT EXISTS Location (
