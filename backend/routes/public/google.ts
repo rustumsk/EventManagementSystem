@@ -10,27 +10,31 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_C_ID,
     clientSecret: process.env.GOOGLE_C_SECRET,
     callbackURL: '/google/oauth2/redirect/google',
-    scope: ['profile', 'email'], // Ensure the 'email' scope is included
+    scope: ['profile', 'email'],
 }, async (accessToken: string, refreshToken: string, profile: any, done: any) => {
     try {
-        // Access the email provided by Google
         const email = profile.emails && profile.emails.length > 0 ? profile.emails[0].value : null;
 
         if (!email) {
             return done(new Error("No email found in Google profile"), null);
         }
 
-        // Now you have the email, and you can create or find the user in your database
+        
         const existingUser = await findStudent.getStudentByGoogleId(profile.id);
         
         if (existingUser.rows && existingUser.rows.length > 0) {
             const token = generateToken(email);
-            return done(null, token); // Return the token if the user exists
+            return done(null, token); 
         }
 
-        const user = await createStudent.createStudentByGoogle(123223, 'fullname', email, profile.id);
+        await createStudent.createStudentByGoogle(123223, 'fullname', email, profile.id);
+        const user = await findStudent.getStudentByEmail(email);
         const userToken = generateToken(email);
-        return done(null, userToken); // Return the token if the user is created
+        const obj = {
+            userToken,
+            user
+        }
+        return done(null, obj);
 
     } catch (e) {
         console.error("Error during Google authentication:", e);
@@ -41,7 +45,7 @@ passport.use(new GoogleStrategy({
 
 googleRoute.get('/', passport.authenticate('google', { session: false }));
 googleRoute.get('/oauth2/redirect/google', passport.authenticate('google', { session: false }), (req, res) => {
-    res.json({ token: req.user }); // Send the JWT back
+    res.json({ token: req.user });
 });
 
 export default googleRoute;
