@@ -20,7 +20,7 @@ app.use('/google', googleRoute);
 app.use('/signup',signupRoute);
 app.use('/login', loginRoute);
 
-
+popul();
 app.listen(PORT, () =>{
     console.log(`Listening at PORT: ${PORT}`);
 })

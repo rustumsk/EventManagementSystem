@@ -28,7 +28,7 @@ const createLocalStudentController: RequestHandler = async (req: Request, res: R
 };
 
 const createGoogleStudentController: RequestHandler = async (req: Request, res: Response) => {
-    const { fullName, id_num, email, password } = req.body;
+    const {  id_num, email, fullname, password, google_id } = req.body;
     const hashedPassword = await passwordHelper.hashPassword(password);
 
     try {
@@ -39,7 +39,7 @@ const createGoogleStudentController: RequestHandler = async (req: Request, res: 
             return;
         }
 
-        await createStudent.createStudentByLocal(fullName,id_num,email,hashedPassword);
+        await createStudent.createStudentByGoogle(id_num,email,fullname, hashedPassword, google_id);
         const token =  generateToken(email);
         console.log("Student Created!");
         res.status(200).json({message: "Student Created!", token});
@@ -50,4 +50,4 @@ const createGoogleStudentController: RequestHandler = async (req: Request, res: 
 };
 
 
-export { createLocalStudentController };
+export { createLocalStudentController, createGoogleStudentController };
