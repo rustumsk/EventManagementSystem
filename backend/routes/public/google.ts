@@ -2,7 +2,8 @@ import { Router } from "express";
 import passport from "passport";
 const googleRoute = Router();
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'; // Use OAuth 2.0 instead of OIDC
-import { generateToken } from "../../helper/auth/jwt";
+import { generateToken, generateTokenForPayload } from "../../helper/auth/jwt";
+import { CustomUser } from "../../configs/types/type";
 import findStudent from "../../model/studentModel/view/findStudent";
 import createStudent from "../../model/studentModel/crud/createStudent";
 
@@ -24,17 +25,26 @@ passport.use(new GoogleStrategy({
         
         if (existingUser.rows && existingUser.rows.length > 0) {
             const token = generateToken(email);
-            return done(null, token); 
+
+            return done(null, {
+                type: 'existingUser',
+                token: generateToken(email),
+                user: existingUser
+            }); 
         }
 
         await createStudent.createStudentByGoogle(123223, 'fullname', email, profile.id);
-        const user = await findStudent.getStudentByEmail(email);
-        const userToken = generateToken(email);
-        const obj = {
-            userToken,
-            user
+        const userStatus = false;
+
+        const addInfo = {
+            email: profile.emails[0].value,
+            google_id: profile.id
         }
-        return done(null, obj);
+
+        return done(null, {
+            type: 'newUser',
+            addInfo
+        });
 
     } catch (e) {
         console.error("Error during Google authentication:", e);
@@ -44,8 +54,23 @@ passport.use(new GoogleStrategy({
 
 
 googleRoute.get('/', passport.authenticate('google', { session: false }));
-googleRoute.get('/oauth2/redirect/google', passport.authenticate('google', { session: false }), (req, res) => {
-    res.json({ token: req.user });
+
+
+googleRoute.get('/oauth2/redirect/google', passport.authenticate('google', { session: false }), (req, res): any => {
+
+    const userData = req.user as CustomUser;
+    if (!userData){
+        return res.status(404).json({message: 'user data is missing!'});
+    }
+
+    if (userData.type === 'existingUser'){
+        res.status(200).json(userData.token)
+    }
+
+    if (userData.type ==='newUser'){
+        const token = generateTokenForPayload(userData.addInfo?.email, userData.addInfo?.google_id)
+        res.redirect(`http://localhost:5173/signup/complete-profile?token=${token}`);
+    }
 });
 
 export default googleRoute;
