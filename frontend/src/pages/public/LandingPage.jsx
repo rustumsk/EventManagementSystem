@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import '../styles/landing.scss';
+import '../../styles/landing.scss';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';

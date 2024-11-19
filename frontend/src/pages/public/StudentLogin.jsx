@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../styles/student-login.scss';
+import '../../styles/student-login.scss';
 
 export default function StudentLogin() {
     const [email, setEmail] = useState('');

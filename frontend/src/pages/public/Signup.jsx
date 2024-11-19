@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../styles/signup.scss";
-import logo from "../assets/logo.png";
+import "../../styles/signup.scss";
+import logo from "../../assets/logo.png";
 import Toastify from 'toastify-js';
 import "toastify-js/src/toastify.css";
 import axios from "axios";
@@ -39,6 +39,7 @@ function Signup() {
       email: signupEmad,
       password: signupPass
     };
+    
     console.log("Hello");
     axios.post('http://localhost:3000/signup', data)
     .then(response => {
@@ -154,7 +155,7 @@ function Signup() {
 
         <button
           className="signup-google-button"
-          onClick={() => window.location.href = 'http://localhost:3000/auth/google'}
+          onClick={() => window.location.href = 'http://localhost:3000/google'}
         >
           <b>Sign up with Google</b>
         </button>

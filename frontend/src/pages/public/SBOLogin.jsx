@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../styles/sbo-login.scss';
+import '../../styles/sbo-login.scss';
 
 export default function SBOLogin() {
     const[email, setEmail] = useState('');
