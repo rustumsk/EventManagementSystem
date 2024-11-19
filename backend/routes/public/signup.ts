@@ -1,7 +1,7 @@
 import {Router, Request, Response} from "express";
 const signupRoute = Router();
-import { findStudentController } from "../../controller/authController/signupController";
+import { createLocalStudentController } from "../../controller/authController/signupController";
 
-signupRoute.post('/', findStudentController);
+signupRoute.post('/', createLocalStudentController);
 
 export default signupRoute;

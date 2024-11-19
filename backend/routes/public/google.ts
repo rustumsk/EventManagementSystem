@@ -33,7 +33,6 @@ passport.use(new GoogleStrategy({
             }); 
         }
 
-        await createStudent.createStudentByGoogle(123223, 'fullname', email, profile.id);
         const userStatus = false;
 
         const addInfo = {
