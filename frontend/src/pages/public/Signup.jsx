@@ -16,39 +16,43 @@ function Signup() {
   const authentication = async (e) => {
     e.preventDefault(); 
 
-    // signupSetErrors({}); // Reset errors
+    signupSetErrors({}); // Reset errors
 
-    // const newErrors = {}; // Validation checks
+    const newErrors = {}; // Validation checks
 
-    // if (!signupName) newErrors.signupName = "Full Name is required!";
-    // if (!signupIdno) newErrors.signupIdno = "ID Number is required!";
-    // if (!signupEmad) newErrors.signupEmad = "Email Address is required!";
-    // if (!signupPass) newErrors.signupPass = "Password is required!";
-    // if (!signupConfirmpass) newErrors.signupConfirmpass = "Confirm Password is required!";
-    // if (signupPass !== signupConfirmpass) newErrors.signupConfirmpass = "Passwords do not match!";
+    if (!signupName) newErrors.signupName = "Full Name is required!";
+    if (!signupIdno) {
+        newErrors.signupIdno = "ID Number is required!";
+    } else if (!/^\d{8}$/.test(signupIdno)) {
+        newErrors.signupIdno = "ID Number must be exactly 8 digits!";
+    }
+    if (!signupEmad) newErrors.signupEmad = "Email Address is required!";
+    if (!signupPass) newErrors.signupPass = "Password is required!";
+    if (!signupConfirmpass) newErrors.signupConfirmpass = "Confirm Password is required!";
+    if (signupPass !== signupConfirmpass) newErrors.signupConfirmpass = "Passwords do not match!";
 
-    // // If there are any errors, set them in state
-    // if (Object.keys(newErrors).length > 0) {
-    //   signupSetErrors(newErrors);
-    //   return;
-    // }
+    // If there are any errors, set them in state
+    if (Object.keys(newErrors).length > 0) {
+        signupSetErrors(newErrors);
+        return;
+    }
 
     const data = {
-      fullname: signupName,
-      id_num: signupIdno,
-      email: signupEmad,
-      password: signupPass
+        fullname: signupName,
+        id_num: Number(signupIdno),
+        email: signupEmad,
+        password: signupPass
     };
     
-    console.log("Hello");
+    console.log("Submitting:", data);
     axios.post('http://localhost:3000/signup', data)
-    .then(response => {
-        console.log('Signup successful:', response.data);
-    })
-    .catch(error => {
-        console.error('Signup failed:', error);
-    });
-  };
+        .then(response => {
+            console.log('Signup successful:', response.data);
+        })
+        .catch(error => {
+            console.error('Signup failed:', error);
+        });
+};
 
   return (
     <div className="signup-container">

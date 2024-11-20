@@ -1,0 +1,14 @@
+.sb-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .sb-header{
+        flex: .5;
+    }
+    .sb-body{
+        flex: 8;
+    }
+    .sb-footer{
+        flex: 1;
+    }
+}

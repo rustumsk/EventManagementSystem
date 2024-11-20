@@ -1,46 +1,118 @@
 import '../../styles/complete-profile.scss';
-import { jwtDecode } from 'jwt-decode';  // Use named import
+import { jwtDecode } from 'jwt-decode'; // Use named import
 const urlParams = new URLSearchParams(window.location.search);
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import {createGoogleStudent} from '../../services/authServices/studentCreation';
 
 const token = urlParams.get('token');
 let google_id = "";
 let email = "";
 
-if(token){
+if (token) {
     const decoded = jwtDecode(token);
     google_id = decoded.google_id;
     email = decoded.email;
 }
 
-export default function CompleteProfile(){
+export default function CompleteProfile() {
     const navigate = useNavigate();
-    const submitCompleteProfile = () =>{
-        navigate(`/signup/email-verification?token${token}`);
-    }
+    const [errors, setErrors] = useState({});
+    const [formData, setFormData] = useState({
+        fullName: "",
+        idNumber: "",
+        password: "",
+        confirmPassword: "",
+    });
 
-    return(
+    const handleInputChange = (e) => {
+        const { id, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [id]: value,
+        }));
+        // Remove error message for the field being edited
+        setErrors((prev) => ({
+            ...prev,
+            [id]: "",
+        }));
+    };
+
+    const validateForm = () => {
+        const newErrors = {};
+        if (!formData.fullName.trim()) newErrors.fullName = "Full name is required.";
+        if (!formData.idNumber.trim()) {
+            newErrors.idNumber = "ID number is required.";
+        } else if (formData.idNumber.length !== 8) {
+            newErrors.idNumber = "ID number must be exactly 8 characters.";
+        }
+        if (!formData.password.trim()) newErrors.password = "Password is required.";
+        if (formData.password !== formData.confirmPassword) {
+            newErrors.confirmPassword = "Passwords do not match.";
+        }
+        return newErrors;
+    };
+
+    const submitCompleteProfile = async (event) => {
+        event.preventDefault();
+        const validationErrors = validateForm();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
+        const dat = await createGoogleStudent(formData.idNumber, email, formData.fullName, formData.password, google_id);
+        console.log(dat);
+        navigate(`/signup/email-verification?token=${token}`);
+    };
+
+    return (
         <div className="cp-container">
-            <form action="" method="POST">
+            <form onSubmit={submitCompleteProfile} method="POST">
                 <header className="cp-f-header">
                     Complete Registration
                 </header>
-                <div>{google_id}</div>
-                <div>{email}</div>
-                <label htmlFor="cp-fn">Full Name</label>
-                <input type="text" id="cp-fn" placeholder="John Doe"/>
+                <label htmlFor="fullName">Full Name</label>
+                <input
+                    type="text"
+                    id="fullName"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
+                    placeholder="John Doe"
+                />
+                {errors.fullName && <span className="error">{errors.fullName}</span>}
 
-                <label htmlFor="cp-in">Id Number</label>
-                <input type="text" id="cp-in" placeholder="John Doe"/>
-                
-                <label htmlFor="cp-pw">Password</label>
-                <input type="password" id="cp-pw" placeholder="John Doe"/>
+                <label htmlFor="idNumber">ID Number</label>
+                <input
+                    type="text"
+                    id="idNumber"
+                    value={formData.idNumber}
+                    onChange={handleInputChange}
+                    placeholder="12345678"
+                />
+                {errors.idNumber && <span className="error">{errors.idNumber}</span>}
 
-                <label htmlFor="cp-cpw">Confirm Password</label>
-                <input type="password" id="cp-cpw" placeholder="John Doe"/>
+                <label htmlFor="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    placeholder="********"
+                />
+                {errors.password && <span className="error">{errors.password}</span>}
 
-                <button onClick={submitCompleteProfile}>Submit</button>
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    placeholder="********"
+                />
+                {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
+
+                <button type="submit">Submit</button>
             </form>
         </div>
-    )
+    );
 }
