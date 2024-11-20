@@ -6,7 +6,7 @@ import { generateToken } from "../../helper/auth/jwt";
 import { QueryResult } from "pg";
 
 const createLocalStudentController: RequestHandler = async (req: Request, res: Response) => {
-    const { fullName, id_num, email, password } = req.body;
+    const { id_num, email, fullname, password } = req.body;
     const hashedPassword = await passwordHelper.hashPassword(password);
 
     try {
@@ -17,7 +17,7 @@ const createLocalStudentController: RequestHandler = async (req: Request, res: R
             return;
         }
 
-        await createStudent.createStudentByLocal(fullName,id_num,email,hashedPassword);
+        await createStudent.createStudentByLocal(id_num,email,fullname,hashedPassword);
         const token =  generateToken(email);
         console.log("Student Created!");
         res.status(200).json({message: "Student Created!", token});
@@ -28,7 +28,7 @@ const createLocalStudentController: RequestHandler = async (req: Request, res: R
 };
 
 const createGoogleStudentController: RequestHandler = async (req: Request, res: Response) => {
-    const {  id_num, email, fullname, password, google_id } = req.body;
+    const { id_num, email, fullname, password, google_id } = req.body;
     const hashedPassword = await passwordHelper.hashPassword(password);
 
     try {
@@ -43,6 +43,7 @@ const createGoogleStudentController: RequestHandler = async (req: Request, res: 
         const token =  generateToken(email);
         console.log("Student Created!");
         res.status(200).json({message: "Student Created!", token});
+
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
