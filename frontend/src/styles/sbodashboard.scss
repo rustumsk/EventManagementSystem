@@ -1,0 +1,187 @@
+.sbod-container {
+  display: flex;
+  height: 100vh;  
+  width: 100vw;   
+  background-color: #f2eaf7;
+  overflow: hidden; 
+  box-sizing: border-box;  
+}
+
+/* Sidebar Styling */
+.sbod-sidebar {
+  width: 60px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: width 0.3s ease;
+  box-sizing: border-box;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sbod-sidebar:hover {
+  width: 200px;
+}
+
+/* Website Logo Section */
+.sbod-logo {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 30px;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.sbod-sidebar:hover .sbod-logo h4 {
+  opacity: 1;
+  visibility: hidden;
+}
+
+.sbod-sidebar:hover .sbod-profile-info h5,
+.sbod-sidebar:hover .sbod-profile-info span {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* Navigation Items */
+.sbod-nav-items {
+  width: 100%;
+
+  .sbod-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    //margin: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .sbod-nav-item img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .sbod-nav-item span {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+  }
+
+  .sbod-nav-item:hover {
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 8px;
+  }
+}
+
+.sbod-sidebar:hover .sbod-nav-item span {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
+/* Main Content */
+.sbod-main { 
+  flex: 1;
+  padding: 20px;
+  overflow: hidden; 
+  width: calc(100vw - 60px); 
+  box-sizing: border-box;  
+  overflow-x: hidden;  
+
+  .sbod-header input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .sbod-events {
+    margin-top: 20px; 
+  
+    .sbod-tevent-cards {  // Todays Event main container
+      display: flex;
+      flex-wrap: nowrap; 
+      gap: 20px;
+      border: 1px solid black; 
+      background-color: #FFF5D5;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow-x: auto;  
+      -webkit-overflow-scrolling: touch;  
+      padding: 0 10px;  
+    
+      .sbod-tevent-items { // Todays Event CARDS
+        display: flex;
+        justify-content: center;
+        font-size: small;
+        font-weight: bold;
+        padding-top: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        margin-right: auto;
+        width: 350px;
+        height: 250px;
+        border-radius: 8px;
+        border: 2px solid black; 
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        flex-shrink: 0;  
+      }
+    }
+  
+    .sbod-uevent-cards {  // Upcoming Event main container
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 5fr)); /* Cards will fit in available space */
+      gap: 30px;  /* Spacing between the cards */
+      border: 1px solid black; 
+      background-color: #D9BBF7;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 0 10px;
+      max-height: 465px;  
+      overflow-y: auto;   
+      overflow-x: hidden; 
+      box-sizing: border-box; 
+    
+      .sbod-uevent-items { // Upcoming Event CARDS
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        margin: 20px;        
+        width: 300px;
+        height: 250px;      
+        border: 2px solid black; 
+        border-radius: 8px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-size: small;
+        padding-top: 10px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  
+    .sbod-tevent-items:hover,
+    .sbod-uevent-items:hover {
+      background-color: #f0f0f0; /* Change background color on hover */
+    }
+  }  
+}
+
+
+/* Highlight active navigation item */
+.sbod-nav-item.active {
+  background-color: #f2eaf7;
+  border-radius: 8px;
+  color: #333;
+  font-weight: bold;
+}
+.sbod-nav-item.active img {
+  filter: brightness(0.7);
+}
+

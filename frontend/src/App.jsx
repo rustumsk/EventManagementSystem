@@ -3,11 +3,12 @@ import LandingPage from "./pages/LandingPage";
 import Signup from "./pages/Signup";
 import StudentLogin from "./pages/StudentLogin";
 import SBOLogin from "./pages/SBOLogin";
+import SBODashboard from "./pages/SBODashboard";
 
 const router = createBrowserRouter([
   {
     path:'/',
-    element: <LandingPage />
+    element: <SBODashboard />
   },
   {
     path: '/signup',
