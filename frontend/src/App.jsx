@@ -5,8 +5,18 @@ import StudentLogin from "./pages/public/StudentLogin";
 import SBOLogin from "./pages/public/SBOLogin";
 import CompleteProfile from "./pages/public/CompleteProfile";
 import EmailVerification from "./pages/public/emailVerification";
+import ErrorProfile from "./pages/public/ErrorProfile";
+import StudentDashboard from "./pages/private/StudentDashboard";
 
 const router = createBrowserRouter([
+  {
+    path:'/error',
+    element: <ErrorProfile />
+  },
+  {
+    path:'/studentdashboard',
+    element: <StudentDashboard />
+  },
   {
     path:'/',
     element: <LandingPage />

@@ -6,7 +6,7 @@ import StudentDashboard from './pages/private/StudentDashboard.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <RouterProvider router={router} /> */}
-    <StudentDashboard />
+    <RouterProvider router={router} />
+    {/* <StudentDashboard /> */}
   </StrictMode>,
 )
