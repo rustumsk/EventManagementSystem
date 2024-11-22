@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "../styles/sbodashboard.scss";
 import appImage from "../assets/SBOD_Logos/logo.png";
 import avatarImage from "../assets/SBOD_Logos/Avatar.png";
@@ -7,6 +7,8 @@ import dataImage from "../assets/SBOD_Logos/dashboard.png";
 import houseImage from "../assets/SBOD_Logos/space_dashboard.png";
 import spaceImage from "../assets/SBOD_Logos/data_usage.png";
 import tuneImage from "../assets/SBOD_Logos/tune.png";
+import notifImage from "../assets/SBOD_Logos/notifications.png";
+import searchImage from "../assets/SBOD_Logos/search.png";
 
 const images = {
   logo: appImage,
@@ -16,9 +18,21 @@ const images = {
   house: houseImage,
   space: spaceImage,
   tune: tuneImage,
-};  
+  notification: notifImage,
+  search: searchImage,
+};
 
-const events = [
+const todaysEvents = [
+  "Buwan ng Wika Celebration",
+  "Intramural Sports Festival",
+  "Annual Sports Day",
+  "Talent Showcase",
+  "Talent Showcase",
+  "Talent Showcase",
+  "Talent Showcase",
+];
+
+const upcomingEvents = [
   "Buwan ng Wika Celebration",
   "Intramural Sports Festival",
   "Annual Sports Day",
@@ -28,15 +42,40 @@ const events = [
   "Talent Showcase",
   "Talent Showcase",
   "Talent Showcase",
-  "Talent Showcase",
-  "Talent Showcase"
 ];
 
 function SBODashboard() {
   const [activeTab, setActiveTab] = useState("Dashboard");
+  const [searchQuery, setSearchQuery] = useState("");
+  const todayEventsRef = useRef(null); // Ref for the Today's Events container
 
   const handleEventClick = (event) => {
     alert(`You clicked on: ${event}`);
+  };
+
+  const handleNotificationClick = () => {
+    alert("Notification icon clicked");
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Filter events based on search query
+  const filteredTodaysEvents = todaysEvents.filter(event =>
+    event.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredUpcomingEvents = upcomingEvents.filter(event =>
+    event.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Handle wheel scrolling for horizontal scrolling
+  const handleWheelScroll = (e) => {
+    if (todayEventsRef.current) {
+      todayEventsRef.current.scrollLeft += e.deltaY; // Scroll horizontally based on vertical wheel movement
+      e.preventDefault(); // Prevent default scrolling behavior (vertical scroll)
+    }
   };
 
   return (
@@ -57,7 +96,7 @@ function SBODashboard() {
             flexDirection: "column",
             marginLeft: 5
           }}>
-            <span>User Avatar</span>
+            <span>John Doe</span>
             <span className="sbod-role" style={{ marginLeft: 2}}>Admin</span>
           </div>
         </div>
@@ -104,30 +143,76 @@ function SBODashboard() {
             <header className="sbod-header">
               <h1 style={{ 
                 marginBottom: 15, 
-                fontFamily: "Righteous" 
-              }}> Dashboard </h1>
-              <input
-                type="text"
-                placeholder="Search Events"
-                style={{
-                  fontFamily: "Outfit",
-                  fontWeight: "bold",
-                  width: 850,
-                }}
-              />
+                fontFamily: "Righteous", 
+                display: "flex", 
+                alignItems: "center", 
+                justifyContent: "space-between", 
+                width: "100%" 
+              }}> 
+                Dashboard
+                <img 
+                  src={images.notification} 
+                  alt="Notification Icon" 
+                  style={{
+                    width: "20px", 
+                    height: "20px", 
+                    cursor: "pointer",
+                  }}
+                  onClick={handleNotificationClick} 
+                />
+              </h1>
+              {/* Search Section */}
+              <div style={{ position: "relative", width: "100%" }}>
+                <img 
+                  src={images.search} 
+                  alt="Search Icon" 
+                  style={{
+                    position: "absolute",
+                    left: "15px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    width: "20px",
+                    height: "20px",
+                    pointerEvents: "none",  // Disable click on icon
+                  }}
+                />
+                <input
+                  type="text"
+                  placeholder="Search Events"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  style={{
+                    fontFamily: "Outfit",
+                    width: "850px",
+                    paddingLeft: "40px",
+                    border: "1px solid black",
+                    borderRadius: "10px",
+                  }}
+                />
+              </div>
             </header>
             <section className="sbod-events">
               <h3 style={{ fontFamily: "Righteous" }}>Today's Events</h3>
-              {/* Todays Events Main Container */}
-              <div className="sbod-tevent-cards">
+              {/* Today's Event Main Container */}
+              <div
+                className="sbod-tevent-cards"
+                ref={todayEventsRef} // Attach ref here
+                onWheel={handleWheelScroll} // Add wheel event handler
+              >
                 {/* Today's Event cards */}
-                {events.map((event, index) => (
-                  <div
-                    key={index}
-                    className="sbod-tevent-items"
-                    onClick={() => handleEventClick(event)}  // Added onClick handler
-                  > {event} </div>
-                ))}
+                {filteredTodaysEvents.length > 0 ? (
+                  filteredTodaysEvents.map((event, index) => (
+                    <div
+                      key={index}
+                      className="sbod-tevent-items"
+                      onClick={() => handleEventClick(event)}
+                    >
+                      {event}
+                    </div>
+                  ))
+                ) : (
+                  <div className="no-events">Sir None</div>
+                )}
               </div>
               <h3 style={{ 
                 fontFamily: "Righteous",
@@ -136,13 +221,19 @@ function SBODashboard() {
               {/* Upcoming Events Main Container */}
               <div className="sbod-uevent-cards">
                 {/* Event cards */}
-                {events.map((event, index) => (
-                  <div
-                    key={index}
-                    className="sbod-uevent-items"
-                    onClick={() => handleEventClick(event)}  
-                  > {event} </div>
-                ))}
+                {filteredUpcomingEvents.length > 0 ? (
+                  filteredUpcomingEvents.map((event, index) => (
+                    <div
+                      key={index}
+                      className="sbod-uevent-items"
+                      onClick={() => handleEventClick(event)}  
+                    >
+                      {event}
+                    </div>
+                  ))
+                ) : (
+                  <div className="no-events">Sir None</div>
+                )}
               </div>
             </section>
           </div>
