@@ -43,18 +43,26 @@ function SBODashboard() {
     <div className="sbod-container">
       {/* Sidebar */}
       <nav className="sbod-sidebar">
-        <section className="sbod-logo">
+        {/* Logo */}
+        <div className="sbod-logo">
           <img src={images.logo} alt="App Logo" />
-        </section>
+        </div>
+        {/* Avatar */}
+        <div 
+          className="sbod-avatar" 
+          onClick={() => setActiveTab("User Avatar")}>
+          <img src={images.avatar} alt="App Logo" />
+          <div style={{
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: 5
+          }}>
+            <span>User Avatar</span>
+            <span className="sbod-role" style={{ marginLeft: 2}}>Admin</span>
+          </div>
+        </div>
         {/* Navigation Items */}
         <div className="sbod-nav-items">
-          <NavItem
-            icon={images.avatar}  
-            label="User Avatar"
-            role="Admin"
-            isActive={activeTab === "User Avatar"}
-            onClick={() => setActiveTab("User Avatar")}
-          />
           <NavItem
             icon={images.dashboard}
             label="Dashboard"
@@ -90,7 +98,7 @@ function SBODashboard() {
 
       {/* Main Content */}
       <main className="sbod-main">
-        {/* DASHBOARD NAVITEM */}
+        {/* NAVITEM ACTIVE TABS */}
         {activeTab === "Dashboard" && (
           <div>
             <header className="sbod-header">
@@ -132,13 +140,41 @@ function SBODashboard() {
                   <div
                     key={index}
                     className="sbod-uevent-items"
-                    onClick={() => handleEventClick(event)}  // Added onClick handler
-                  >
-                    {event}
-                  </div>
+                    onClick={() => handleEventClick(event)}  
+                  > {event} </div>
                 ))}
               </div>
             </section>
+          </div>
+        )}
+        {activeTab === "User Avatar" && (
+          <div>
+            {/* FUcking shit*/}
+            
+          </div>
+        )}
+        {activeTab === "Create Events" && (
+          <div>
+            {/* FUcking shit*/}
+            
+          </div>
+        )}
+        {activeTab === "My Events" && (
+          <div>
+            {/* FUcking shit*/}
+            
+          </div>
+        )}
+        {activeTab === "Analytics" && (
+          <div>
+            {/* FUcking shit*/}
+            
+          </div>
+        )}
+        {activeTab === "Settings" && (
+          <div>
+            {/* FUcking shit*/}
+            
           </div>
         )}
         {activeTab !== "Dashboard" && (
@@ -147,8 +183,7 @@ function SBODashboard() {
               textAlign: "center",
               marginTop: "50px",
               fontFamily: "Outfit",
-            }}
-          >
+            }}>
             <h1>{activeTab}</h1>
             <p>No contents available for this section yet.</p>
           </div>
@@ -158,13 +193,19 @@ function SBODashboard() {
   );
 }
 
-const NavItem = ({ icon, label, isActive, onClick }) => (
+const NavItem = ({ icon, label, role, isActive, onClick }) => (
   <div
     className={`sbod-nav-item ${isActive ? "active" : ""}`}
     onClick={onClick}
   >
     <img src={icon} alt={label} />
-    <span>{label}</span>
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+    }}>
+      <span>{label}</span>
+      <span className="sbod-role">{role}</span>
+    </div>
   </div>
 );
 
