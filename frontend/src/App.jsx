@@ -41,7 +41,6 @@ const router = createBrowserRouter([
     path: '/SboLogin',
     element: <SBOLogin />
   }
-  
 ])
 
 export default router

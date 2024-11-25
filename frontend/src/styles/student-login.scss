@@ -1,0 +1,249 @@
+.sl-container{
+    height: 100vh;
+    display: flex;
+    .error {
+        color: red;
+        font-size: 0.875rem; // Optional: Adjust the size to your preference
+        margin-top: 5px; // Optional: Adds spacing between the input and the error message
+    }
+    .sl-lsection{
+        flex: .5;
+        background-color: #FEF5D8;
+        display: flex;
+        flex-direction: column;
+        .sl-logo{
+            flex: .4;
+            display: flex;
+            align-items: center;
+            padding-left: 1.5rem;
+            .sl-l{
+                background-image: url('../assets/mainlogo.png');
+                background-size: 80%;
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 75%;
+                width: 30%;
+            }
+        }
+        .sl-bigimg{
+            flex: 5;
+            background-image: url('../assets/student.png');
+            background-size: 75%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .sb-bigimg{
+            background-image: url('../assets/sbo.png');
+        }
+    }
+    .sb-lsection{
+        background-color: #D9BBF7;
+    }
+    .sl-rsection{
+        flex: 1;
+        display: flex;
+        padding-left: 8rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .sl-rsection-container{
+            height: 85%;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            .sl-rheader{
+                flex: .7;
+                .sl-welcome{
+                    font-family: 'Righteous';
+                    color: #E5CF86;
+                    font-size: 3rem;
+                }
+                .sl-sbowel{
+                    color: #6C23B5;
+                }
+                .sl-reg{
+                    font-size: 1.3rem;
+                    font-family: 'Outfit';
+                    span{
+                        font-weight: lighter;
+                    }
+                    a{
+                        font-weight: bold;
+                        &:hover{
+                            border-bottom: solid 1px black;
+                        }
+                    }
+                }
+                .sb-login{
+                    display: grid;
+                    place-content: center;
+                    font-size: 2.5rem;
+                    margin-top: 2rem;
+                    font-family: 'Righteous';
+                    font-weight: bold;
+                    padding-right: 12rem;
+                }
+            }
+            .sl-rinput{
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                label{
+                    font-family: 'Outfit';
+                    padding-left: 1rem;
+                    font-size: 1.1rem;
+                }
+                #sl-eid{
+                    height: 3rem;
+                    border: solid black 3px;
+                    border-radius: 8px;
+                    padding: 2rem;
+                    width: 80%;
+                    font-size: 1.3rem;
+                }
+                .sl-pass-label{
+                    margin-top: 3rem;
+                }
+                #sl-pass{
+                    height: 3rem;
+                    border: solid black 3px;
+                    border-radius: 8px;
+                    padding: 2rem;
+                    width: 80%;
+                    font-size: 1.3rem;
+                }
+                a{
+                    padding-left: 1rem;
+                    padding-top: 1rem;
+                    width:20%;
+                    span{
+                        &:hover{
+                            border-bottom: solid 1px black;
+                        }
+                    }
+                    
+                }
+            }
+            .sl-rbuttons {
+                flex: 1;
+                width: 85%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+            
+                .sl-log {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.5rem;
+            
+                    .sl-log-btn {
+                        width: 300px;
+                        height: 45px;
+                        background-color: black;
+                        border: none;
+                        border-radius: 6px;
+                        font-family: 'Righteous', sans-serif;
+                        font-size: 16px;
+                        color: white;
+                        cursor: pointer;
+                        transition: background-color 0.2s;
+            
+                        &:hover {
+                            background-color: #d4b76b;
+                        }
+            
+                        &:active {
+                            background-color: #c4a766;
+                        }
+                    }
+            
+                    p {
+                        font-family: 'Outfit', sans-serif;
+                        font-size: 14px;
+                        color: #555;
+                        cursor: pointer;
+            
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            
+                .sl-or {
+                    display: flex;
+                    align-items: center;
+                    width: 50%;
+                    gap: 10px; 
+                    color: #aaa; 
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 14px;
+                
+                    &::before,
+                    &::after {
+                        content: '';
+                        flex: 1; 
+                        height: 1px; 
+                        background-color: black; 
+                    }
+                }
+            
+                .sl-socials {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 10px;
+                
+                    .sl-google, .sl-facebook {
+                        width: 300px;
+                        height: 45px;
+                        border: none;
+                        border-radius: 6px;
+                        font-family: 'Outfit', sans-serif;
+                        font-size: 14px;
+                        color: #fff;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding-left: 10px;
+                        transition: background-color 0.2s;
+                        gap: 10px; /* Adjust space between logo and text */
+                
+                        &:hover {
+                            opacity: 0.9;
+                        }
+                
+                        &:active {
+                            opacity: 0.8;
+                        }
+                
+                        &.sl-google {
+                            background-color: #DB4437; // Google Red
+                            &:hover {
+                                background-color: #c33c2f;
+                            }
+                            &:active {
+                                background-color: #a82f23;
+                            }
+                        }
+                
+                        &.sl-facebook {
+                            background-color: #1877F2; // Facebook Blue
+                            &:hover {
+                                background-color: #155dcf;
+                            }
+                            &:active {
+                                background-color: #1146a1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

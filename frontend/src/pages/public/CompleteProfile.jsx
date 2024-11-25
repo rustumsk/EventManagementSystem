@@ -3,14 +3,15 @@ import { jwtDecode } from 'jwt-decode'; // Use named import
 const urlParams = new URLSearchParams(window.location.search);
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import {createGoogleStudent} from '../../services/authServices/studentCreation';
+import { genToken } from '../../utils/jwt';
+import { createGoogleStudent } from '../../services/authServices/studentCreation';
 
-const token = urlParams.get('token');
+const aInfo = urlParams.get('aInfo');
 let google_id = "";
 let email = "";
 
-if (token) {
-    const decoded = jwtDecode(token);
+if (aInfo) {
+    const decoded = jwtDecode(aInfo);
     google_id = decoded.google_id;
     email = decoded.email;
 }
@@ -61,8 +62,8 @@ export default function CompleteProfile() {
             return;
         }
         const dat = await createGoogleStudent(formData.idNumber, email, formData.fullName, formData.password, google_id);
-        console.log(dat);
-        navigate(`/signup/email-verification?token=${token}`);
+        const token = await genToken(formData.idNumber, email, formData.fullName, formData.password, google_id);
+        navigate(`/signup/email-verification?info=${token}`);
     };
 
     return (

@@ -1,40 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../styles/email-verification.scss';
-import { useState } from 'react';
-import { jwtDecode } from 'jwt-decode';
-const urlParams = new URLSearchParams(window.location.search);
-const token = urlParams.get('token');
-
-let fullname = '';
-let id_number = '';
-let password = '';
-let email = '';
-let google_id = '';
-
-if(token){
-    const decoded = jwtDecode(token);
-    google_id = decoded.google_id;
-    email = decoded.email;
-    fullname = decoded.fullname;
-    id_number = decoded.id_number;
-    password = decoded.password;
-}
 
 export default function EmailVerification() {
+    const [otp, setOtp] = useState(new Array(6).fill(''));
+    const email = "johndoe@gmail.com"; // Replace with dynamic email if necessary
+
+    const handleInputChange = (element, index) => {
+        if (isNaN(element.value)) return; // Allow only numbers
+        const newOtp = [...otp];
+        newOtp[index] = element.value;
+        setOtp(newOtp);
+
+        // Move to the next input field automatically
+        if (element.nextSibling && element.value !== '') {
+            element.nextSibling.focus();
+        }
+    };
+
+    const handleVerify = () => {
+        const otpCode = otp.join('');
+        console.log('Entered OTP:', otpCode); // Send this to your backend
+    };
+
     return (
         <div className="email-verification-container">
             <div className="verification-card">
-                
-                <div className="icon-placeholder"></div>
+                <div className="icon-placeholder">
+                    <div className="checkmark"></div>
+                </div>
                 <h2>Verify Your Email Address</h2>
-                <p>We have sent a verification link to <strong>{email}</strong></p>
-                <p>
-                    Thank you for registering with us. To complete your registration, please verify your email address by clicking the link below:
-                </p>
-                <a href="https://app/dsd" target="_blank" rel="noopener noreferrer">
-                    https://app/dsd
-                </a>
-                <button>Verify Email Address</button>
+                <p>We have sent a verification code to <strong>{email}</strong></p>
+                <p>Please check your inbox and enter the verification code below to verify your email address. The code will expire in 10 minutes.</p>
+                <div className="otp-inputs">
+                    {otp.map((data, index) => (
+                        <input
+                            type="text"
+                            maxLength="1"
+                            key={index}
+                            value={data}
+                            onChange={(e) => handleInputChange(e.target, index)}
+                            onFocus={(e) => e.target.select()}
+                        />
+                    ))}
+                </div>
+                <button onClick={handleVerify}>Verify</button>
+                <a href="#" className="resend-link">Resend</a>
             </div>
         </div>
     );

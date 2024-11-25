@@ -1,20 +1,31 @@
 import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 import '../../styles/student-dashboard.scss';
+import { userContext } from '../../main';
+import { checkStudentAuthorized } from '../../utils/auth';
 
 export default function StudentDashboard() {
     const [dropdownVisible, setDropdownVisible] = useState(false);
-
+    const [verified, setVerified] = useState(false)
+    const userToken = localStorage.getItem('userToken');
+    const navigate = useNavigate();
     const toggleDropdown = () => {
         setDropdownVisible(!dropdownVisible);
     };
-    // const navigate = useNavigate();
-    // const isVerified = false;
-    // useEffect(() => {
-    //     if (!isVerified) {
-    //         navigate('/error');
-    //     }
-    // }, [isVerified]);
+    
+    useEffect(() => {
+        const user = checkStudentAuthorized(userToken);
+        if (user) {
+            setVerified(true);
+            console.log(user);
+        }
+        else{
+            setVerified(false)
+            navigate('/error');
+        }
+    }, [verified]);
+
     return (
         <div className="sb-container">
             <header className="sb-header">
