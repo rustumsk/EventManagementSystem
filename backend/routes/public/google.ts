@@ -68,7 +68,7 @@ googleRoute.get('/oauth2/redirect/google', passport.authenticate('google', { ses
 
     if (userData.type ==='newUser'){
         const token = generateTokenForPayload(userData.addInfo?.email, userData.addInfo?.google_id)
-        res.redirect(`http://localhost:5173/signup/complete-profile?token=${token}`);
+        res.redirect(`http://localhost:5173/signup/complete-profile?aInfo=${token}`);
     }
 });
 

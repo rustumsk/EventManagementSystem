@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import findStudent from "../../model/studentModel/view/findStudent";
 import passwordHelper from "../../helper/auth/hashPassword";
-import { generateToken } from "../../helper/auth/jwt";
+import { generateUserToken } from "../../helper/auth/jwt";
 
 const localLogin: RequestHandler = async (req, res): Promise<void> => {
     const { email, id_num, password } = req.body;
@@ -25,7 +25,7 @@ const localLogin: RequestHandler = async (req, res): Promise<void> => {
             return;
         }
 
-        const token = generateToken(user.rows[0])
+        const token = generateUserToken(user.rows[0])
         res.status(200).json({ message: "Login Successfuly", token: token});
         
     } catch (error) {

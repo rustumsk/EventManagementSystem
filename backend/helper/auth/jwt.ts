@@ -10,6 +10,13 @@ const generateToken = (email: string): string =>{
     );
 };
 
+const generateUserToken = (userObj: object) => {
+    return jwt.sign({
+        userObj
+    },
+        process.env.SECRET_KEY,
+    )
+}
 const verifyToken = (token: string): any =>{
     try{
         return jwt.verify(token,process.env.SECRET_KEY);
@@ -29,13 +36,13 @@ const generateTokenForPayload = (email: any, google_id:any): string =>{
     );
 }
 
-const generateTokenForGoogle = (fullname: string, id_number: number, password: string, email: string, google_id: string) =>{
+const generateTokenForGoogle = (id_number: number, email: number, fullname: string, password: string, google_id: string) =>{
     return jwt.sign(
         {
-            fullname,
             id_number,
-            password,
             email,
+            fullname,
+            password,
             google_id 
         },
         process.env.SECRET_KEY,
@@ -43,4 +50,4 @@ const generateTokenForGoogle = (fullname: string, id_number: number, password: s
     )
 }
 
-export {verifyToken, generateToken, generateTokenForPayload, generateTokenForGoogle};
+export {verifyToken, generateToken, generateTokenForPayload, generateTokenForGoogle, generateUserToken};

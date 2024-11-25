@@ -10,7 +10,7 @@ const createStudentByLocal = async(id_num: number, email: string, fullname: stri
     }
 }
 
-const createStudentByGoogle = async(id_num: number, fullname: string, password:string, email:string, google_id: string) =>{
+const createStudentByGoogle = async(id_num: number, email: string, fullname:string, password:string, google_id: string) =>{
     try{
         await pool.query('INSERT INTO student(id_num, student_email, fullname, password, google_id) values ($1,$2,$3,$4,$5)', [id_num,email,fullname,password,google_id]);
         console.log("Created!");
