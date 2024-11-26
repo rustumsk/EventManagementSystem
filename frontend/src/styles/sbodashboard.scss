@@ -4,11 +4,12 @@
   height: 100vh;  
   background-color: #f2eaf7;
   box-sizing: border-box;
+  margin: 0;
 }
 
 /* Sidebar Styling */
 .sbod-sidebar {
-  width: 60px;
+  width: 55px;
   background: #ffffff;
   display: flex;
   flex-direction: column;

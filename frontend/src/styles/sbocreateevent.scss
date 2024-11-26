@@ -1,0 +1,96 @@
+.sbo-create-events-container {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    width: 22vw;
+    height: 50vh;
+
+    .sboce-info-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 40px;
+        margin-left: 10px;
+
+        .sboce-steps-container {
+        display: flex;
+        flex-direction: column;
+        width: 18vw;
+        height: 67vh;
+        margin-top: 25px;
+        border: 2px solid black;
+        border-radius: 10px;
+
+            .step-1,
+            .step-2,
+            .step-3,
+            .step-4,
+            .step-5 {
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                justify-content: center;
+                padding-right: 50px;
+                height: 100%;
+                border-radius: 10px;
+                color: black;
+                font-family: "Outfit";
+            }
+
+            .highlight {
+                background-color: #fadc79;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border: 2px solid black;
+            }
+        }
+    }
+
+}
+
+.sboce-step1-container,
+.sboce-step2-container,
+.sboce-step3-container,
+.sboce-step4-container,
+.sboce-step5-container {
+    width: 67vw;
+    height: 92vh;
+    margin-left: 10px;
+    border-radius: 20px;
+    border: 2px solid black;
+    background-color: #D7B9F7;
+
+    .sboce-event-details-container {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border: 2px solid black;
+        margin-left: 10px;
+        margin-top: 10px;
+        border-radius: 20px;
+        width: 67vw;
+        height: 92vh;
+    }
+    .sboce-event-details {
+        display: flex;
+        flex-direction: column;
+        margin: 50px;
+        width: 60vw;
+        height: 100vh;
+    }
+    .buttonContainer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        flex: 1; /* take up remaining space */
+    }
+    
+    .buttonStyle {
+        background-color: black;
+        color: white;
+        padding: 5px;
+        font-size: 16px;
+        border: none;
+        border-radius: 50px;
+        width: 20vh;
+        cursor: pointer;
+    }
+}

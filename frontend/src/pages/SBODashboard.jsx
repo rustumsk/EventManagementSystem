@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import "../styles/sbodashboard.scss";
+import SBOCreateEvent from '../pages/SBOCreateEvent';
 import appImage from "../assets/SBOD_Logos/logo.png";
 import avatarImage from "../assets/SBOD_Logos/Avatar.png";
 import dashboardImage from "../assets/SBOD_Logos/House.png";
@@ -48,6 +49,7 @@ function SBODashboard() {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const [searchQuery, setSearchQuery] = useState("");
   const todayEventsRef = useRef(null); // Ref for the Today's Events container
+  const [currentStep, setCurrentStep] = useState(1); // CREATE USER steps
 
   const handleEventClick = (event) => {
     alert(`You clicked on: ${event}`);
@@ -73,7 +75,7 @@ function SBODashboard() {
   // Handle wheel scrolling for horizontal scrolling
   const handleWheelScroll = (e) => {
     if (todayEventsRef.current) {
-      todayEventsRef.current.scrollLeft += e.deltaY; // Scroll horizontally based on vertical wheel movement
+      todayEventsRef.current.scrollLeft += e.deltaY; 
       e.preventDefault(); // Prevent default scrolling behavior (vertical scroll)
     }
   };
@@ -183,7 +185,7 @@ function SBODashboard() {
                   onChange={handleSearchChange}
                   style={{
                     fontFamily: "Outfit",
-                    width: "850px",
+                    width: "100vh",
                     paddingLeft: "40px",
                     border: "1px solid black",
                     borderRadius: "10px",
@@ -245,10 +247,7 @@ function SBODashboard() {
           </div>
         )}
         {activeTab === "Create Events" && (
-          <div>
-            {/* FUcking shit*/}
-            
-          </div>
+          <SBOCreateEvent />
         )}
         {activeTab === "My Events" && (
           <div>
@@ -268,7 +267,7 @@ function SBODashboard() {
             
           </div>
         )}
-        {activeTab !== "Dashboard" && (
+        {/* {activeTab !== "Dashboard" && (
           <div
             style={{
               textAlign: "center",
@@ -278,7 +277,7 @@ function SBODashboard() {
             <h1>{activeTab}</h1>
             <p>No contents available for this section yet.</p>
           </div>
-        )}
+        )} */}
       </main>
     </div>
   );
