@@ -1,5 +1,12 @@
 ## Event Management System.
 
+
+git checkout feature/SBODashboard
+git add .
+git commit -m "Add your commit message here"
+git push origin feature/SBODashboard
+
+
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Technologies Used](#technologies-used)
@@ -54,7 +61,6 @@ Before you begin, ensure you have the following installed:
 2. Create a New Branch:
    ```bash
    git checkout -b feature/SBODashboard
-   git checkout feature/SBODashboard
 3. Make Your Changes: Implement your feature or fix in this branch.
 4. Commit Your Changes:
    ```bash
