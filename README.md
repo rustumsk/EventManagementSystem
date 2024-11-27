@@ -1,3 +1,8 @@
+git checkout feature/SBODashboard
+git add .
+git commit -m "Add your commit message here"
+git push origin feature/SBODashboard
+
 ## Event Management System.
 
 ## Table of Contents
@@ -53,14 +58,14 @@ Before you begin, ensure you have the following installed:
 1. Fork the Repository: Click on the "Fork" button in the top right corner of the repository page.
 2. Create a New Branch:
    ```bash
-   git checkout -b feature/YourFeatureName
+   git checkout -b feature/SBODashboard
 3. Make Your Changes: Implement your feature or fix in this branch.
 4. Commit Your Changes:
    ```bash
    git commit -m "Add your commit message here"
 5. Push to Your Fork
    ```bash
-   git push origin feature/YourFeatureName
+   git push origin feature/SBODashboard
 6. Open a Pull Request: Go to the original repository and click on the "New Pull Request" button.
 
 ### Guidelines
