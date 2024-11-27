@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import '../../styles/student-dashboard.scss';
@@ -7,21 +7,46 @@ import { checkStudentAuthorized } from '../../utils/auth';
 
 export default function StudentDashboard() {
     const [dropdownVisible, setDropdownVisible] = useState(false);
-    const [verified, setVerified] = useState(false)
-    const userToken = localStorage.getItem('userToken');
+    const [verified, setVerified] = useState(false);
+    const [userToken,setUserToken] = useState(localStorage.getItem('userToken'))
     const navigate = useNavigate();
+    const [isActive, setIsActive] = useState('default');
+    const featuredEvent = [1, 2, 3, 4, 5, 6];
+    const containerRef = useRef(null);
+    const user = checkStudentAuthorized(userToken);
     const toggleDropdown = () => {
         setDropdownVisible(!dropdownVisible);
     };
-    
+
+    const handleMouseEnter = (index) => {
+        const targetDiv = containerRef.current.children[index];
+        const container = containerRef.current;
+
+        const containerWidth = container.offsetWidth;
+        const targetOffsetLeft = targetDiv.offsetLeft;
+        const targetWidth = targetDiv.offsetWidth;
+
+        const targetCenter = targetOffsetLeft + targetWidth / 2;
+        const scrollLeft = targetCenter - containerWidth / 2;
+
+        container.scrollTo({
+            left: scrollLeft,
+            behavior: 'smooth',
+        });
+    };
+    const onLogOut = () =>{
+        localStorage.removeItem('userToken');
+        setUserToken('');
+    }
+    if(!userToken){
+        navigate('/studentlogin');
+    }
     useEffect(() => {
-        const user = checkStudentAuthorized(userToken);
         if (user) {
             setVerified(true);
             console.log(user);
-        }
-        else{
-            setVerified(false)
+        } else {
+            setVerified(false);
             navigate('/error');
         }
     }, [verified]);
@@ -46,20 +71,40 @@ export default function StudentDashboard() {
                             <div className="sb-dropdown">
                                 <ul>
                                     <li>Settings</li>
-                                    <li>Logout</li>
+                                    <li onClick={onLogOut}>Logout</li>
                                 </ul>
                             </div>
                         )}
                     </div>
                 </div>
             </header>
-            <section className="sb-body">
-                <section className='sb-welcome'></section>
-                <section className='sb-discover'></section>
-                <section className='sb-featured'></section>
-                <section className='sb-uregistered'></section>
-                <section className='small footer'></section>
-            </section>
+            {isActive === 'default' ? (
+                <section className="sb-body">
+                    <section className='sb-welcome'>
+                        <p className='sb-wel'>Welcome <span>{user.userObj.fullname}!</span></p>
+                        <p className='sb-kick'>Let’s kickstart the day with some exciting events!</p>
+                    </section>
+                    <section className='sb-discover'>
+                        <button className='sb-ed'><span className='ed-icon'></span> Event Discovery</button>
+                        <button className='sb-me'><span className='me-icon'></span> My Events</button>
+                    </section>
+                    <section className='sb-featured'>
+                        <p className='sb-fe'>Featured Events</p>
+                        <section className='sb-fm' ref={containerRef}>
+                            {featuredEvent.map((item, index) => (
+                                <div 
+                                    onMouseEnter={() => handleMouseEnter(index)}
+                                >
+                                </div>
+                            ))}
+                        </section>
+                    </section>
+                    <section className='sb-uregistered'></section>
+                    <section className='small-footer'></section>
+                </section>
+            ) : (
+                <div> Error or Invalid Page </div>
+            )}
             <footer className="sb-footer"></footer>
         </div>
     );
