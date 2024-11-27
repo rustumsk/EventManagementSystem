@@ -1,12 +1,5 @@
 ## Event Management System.
 
-
-git checkout feature/SBODashboard
-git add .
-git commit -m "Add your commit message here"
-git push origin feature/SBODashboard
-
-
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Technologies Used](#technologies-used)
@@ -33,6 +26,11 @@ Before you begin, ensure you have the following installed:
 ### Installation
 1. Clone the repository:
    ```bash
+   git checkout feature/SBODashboard
+   git add .
+   git commit -m "Add your commit message here"
+   git push origin feature/SBODashboard
+   
    git clone https://github.com/rustumsk/EventManagementSystem.git
 2. Navigate to the project directory:
    ```bash
