@@ -141,7 +141,7 @@ function SBODashboard() {
       <main className="sbod-main">
         {/* NAVITEM ACTIVE TABS */}
         {activeTab === "Dashboard" && (
-          <div>
+          <div style={{ display: "flex", flexDirection: "column"}}>
             <header className="sbod-header">
               <h1 style={{ 
                 marginBottom: 15, 
@@ -183,13 +183,6 @@ function SBODashboard() {
                   placeholder="Search Events"
                   value={searchQuery}
                   onChange={handleSearchChange}
-                  style={{
-                    fontFamily: "Outfit",
-                    width: "100vh",
-                    paddingLeft: "40px",
-                    border: "1px solid black",
-                    borderRadius: "10px",
-                  }}
                 />
               </div>
             </header>

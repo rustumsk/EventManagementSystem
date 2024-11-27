@@ -1,10 +1,9 @@
 /* Main Container */
 .sbod-container {
   display: flex;
-  height: 100vh;  
+  height: 100vh;
   background-color: #f2eaf7;
   box-sizing: border-box;
-  margin: 0;
 }
 
 /* Sidebar Styling */
@@ -122,23 +121,28 @@
 }
 
 /* Main Content */
-.sbod-main { 
-  flex: 1;
+.sbod-main {
   padding: 20px;
   overflow: hidden; 
   height: 100vh;
-  box-sizing: border-box;  
+  width: 100vw;
+  //background-color: #000000;
 
   .sbod-header input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    font-family: "Outfit";
+    width: 100vh;
+    padding-left: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 1px solid black;
+    border-radius: 10px,
   }
 
   .sbod-events {
-    margin-top: 20px; 
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    //background-color: red;
 
     /* Today's Event main container */
     .sbod-tevent-cards {
@@ -150,7 +154,6 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       overflow-x: scroll; 
       padding: 0 10px;
-      -webkit-overflow-scrolling: touch;  
       scroll-behavior: smooth; 
       border-radius: 12px; 
       padding: 10px 0; 
@@ -165,7 +168,7 @@
     .sbod-tevent-cards::-webkit-scrollbar-thumb {
       background-color: #888;
       border-radius: 10px;
-      border: 2px solid #ddd; /* Adds a little border around the thumb */
+      border: 2px solid #ddd; 
     }
 
     .sbod-tevent-cards::-webkit-scrollbar-thumb:hover {

@@ -12,13 +12,13 @@
         margin-left: 10px;
 
         .sboce-steps-container {
-        display: flex;
-        flex-direction: column;
-        width: 18vw;
-        height: 67vh;
-        margin-top: 25px;
-        border: 2px solid black;
-        border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            width: 18vw;
+            height: 67vh;
+            margin-top: 25px;
+            border: 2px solid black;
+            border-radius: 10px;
 
             .step-1,
             .step-2,
@@ -31,7 +31,7 @@
                 justify-content: center;
                 padding-right: 50px;
                 height: 100%;
-                border-radius: 10px;
+                border-radius: 8px;
                 color: black;
                 font-family: "Outfit";
             }
@@ -40,6 +40,7 @@
                 background-color: #fadc79;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 border: 2px solid black;
+                border-radius: 8px;
             }
         }
     }
@@ -58,7 +59,7 @@
     border: 2px solid black;
     background-color: #D7B9F7;
 
-    .sboce-event-details-container {
+    .sboce-create-event-container {
         display: flex;
         flex-direction: column;
         background-color: white;
@@ -69,7 +70,7 @@
         width: 67vw;
         height: 92vh;
     }
-    .sboce-event-details {
+    .sboce-details {
         display: flex;
         flex-direction: column;
         margin: 50px;
@@ -82,7 +83,6 @@
         justify-content: flex-end;
         flex: 1; /* take up remaining space */
     }
-    
     .buttonStyle {
         background-color: black;
         color: white;
@@ -94,3 +94,86 @@
         cursor: pointer;
     }
 }
+
+
+.sboce-step5-container {
+    .sboce-details {
+        margin-top: 10px;
+    }
+
+    .sboce-interest-section {
+        display: flex;
+        flex-direction: column;
+        height: 25vh;
+        //background-color: #D7B9F7;
+        border-bottom: 1px solid black;
+
+        .sboce-interest-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 25vw;
+            height: 8vh;
+            border: 1px solid black;
+            border-radius: 10px;
+            //background-color: red;
+
+            .volunteer {
+                background-color: white;
+            }
+        }
+    }
+
+
+    .sboce-final-steps {
+        display: flex;
+        flex-direction: column;
+        height: 55vh;
+        border-bottom: 1px solid black;
+        //background-color: red;
+
+        .sboce-spd-container {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 30px;
+            //background-color: red;
+            
+
+            .card1,
+            .card2,
+            .card3 {
+                display: flex;
+                align-items: end;
+                justify-content: center;
+                width: 12vw;
+                height: 22vh;
+                padding-bottom: 15px;
+                border: 2px solid black;
+
+                .sboce-spd-btn {
+                    width: 8vw;
+                    height: 5vh;
+                    background-color: white;
+                    border: 2px solid black;
+                    transition: background-color 0.3 ease;
+                }
+            }
+
+            .card1 {
+                background-color: #D9BBF7;
+            }
+            .card2{
+                background-color: #979797;
+            }
+        }
+
+        .sboce-fs-button {
+            display: flex;
+            flex: 1;
+            align-items: end;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+    }
+}
+    

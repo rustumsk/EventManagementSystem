@@ -4,6 +4,19 @@ import "../styles/sbocreateevent.scss";
 const SBOCreateEvent = () => {
   const step = 1;
   const [currentStep, setCurrentStep] = useState(step);
+  const [isChecked, setIsChecked] = useState(false);
+  const [selection, setSelection] = useState(null);
+  
+  const [eventName, setEventName] = useState("");
+  const [eventDate, setEventDate] = useState("");
+  const [eventTime, setEventTime] = useState("");
+  const [eventLocation, setEventLocation] = useState("");
+  const [eventCategory, setEventCategory] = useState("");
+  const [eventOverview, setEventOverview] = useState("");
+
+  const handleChange = () => {
+    setIsChecked(!isChecked);
+  };
 
   const pStyle = {
     fontSize: "13px",
@@ -16,8 +29,8 @@ const SBOCreateEvent = () => {
   const activeStep = {
     1: (
       <div className="sboce-step1-container">
-        <div className="sboce-event-details-container">
-          <div className="sboce-event-details">
+        <div className="sboce-create-event-container">
+          <div className="sboce-details">
             <h2 style={{ fontFamily:"Righteous", fontWeight: 'normal' }}>Event Details</h2>
             <p>Please fill out the form below to set up your event.</p>
             
@@ -27,6 +40,8 @@ const SBOCreateEvent = () => {
               <input
                 type="text"
                 placeholder="Enter Event Name"
+                value={eventName}
+                onChange={(e) => setEventName(e.target.value)}
                 style={{
                   width: "100vh",
                   paddingLeft: "10px",
@@ -44,6 +59,8 @@ const SBOCreateEvent = () => {
                 <input
                   type="text"
                   placeholder="mm/dd/yyyy"
+                  value={eventDate}
+                  onChange={(e) => setEventDate(e.target.value)}
                   style={{
                     width: "40vh",
                     paddingLeft: "10px",
@@ -59,6 +76,8 @@ const SBOCreateEvent = () => {
                 <input
                   type="text"
                   placeholder="HH AM/PM - HH AM/PM"
+                  value={eventTime}
+                  onChange={(e) => setEventTime(e.target.value)}
                   style={{
                     width: "40vh",
                     paddingLeft: "10px",
@@ -71,11 +90,13 @@ const SBOCreateEvent = () => {
               </div >
             </div>
 
-            <div style={{ marginTop:30}}>
+            <div style={{ marginTop:20}}>
               <p style={{ fontSize: "15px", marginBottom: "10px" }}>Location</p>
               <input
                 type="text"
                 placeholder="Enter Location"
+                value={eventLocation}
+                onChange={(e) => setEventLocation(e.target.value)}
                 style={{
                   width: "60vh",
                   paddingLeft: "10px",
@@ -87,9 +108,11 @@ const SBOCreateEvent = () => {
               />
             </div>
 
-            <div style={{ marginTop:30}}>
+            <div style={{ marginTop:20}}>
               <p style={{ fontSize: "15px", marginBottom: "10px" }}>Category</p>
               <select
+                value={eventCategory}
+                onChange={(e) => setEventCategory(e.target.value)}
                 style={{
                   width: "60vh",  
                   padding: "7px",
@@ -117,8 +140,8 @@ const SBOCreateEvent = () => {
     ),
     2: (
       <div className="sboce-step2-container">
-        <div className="sboce-event-details-container">
-          <div className="sboce-event-details">
+        <div className="sboce-create-event-container">
+          <div className="sboce-details">
             <h2 style={{ fontFamily:"Righteous", fontWeight: 'normal' }}>Select Event Description</h2>
             <p>Please provide an overview and any promotional materials to help us promote your event effectively.</p>
 
@@ -127,6 +150,8 @@ const SBOCreateEvent = () => {
               <input
                 type="text"
                 placeholder="enter description here"
+                value={eventOverview}
+                onChange={(e) => setEventOverview(e.target.value)}
                 style={{
                   padding: "80px",
                   paddingRight: "70vh",
@@ -176,42 +201,41 @@ const SBOCreateEvent = () => {
     ),
     3: (
       <div className="sboce-step3-container">
-        <div className="sboce-event-details-container">
-          <div className="sboce-event-details">
+        <div className="sboce-create-event-container">
+          <div className="sboce-details">
             <h2 style={{ fontFamily:"Righteous", fontWeight: 'normal' }}>Registration Details</h2>
             <p>Specify the registration deadline, participant capacity, and whether you’d like to include a waitlist for those interested!</p>
 
             <div style={{ display: "flex", flexDirection: "column", marginRight: "20px"}}>
-                <p style={{ fontSize: "15px", marginTop: "50px", marginBottom: "5px"}}>Registration Deadline</p>
-                <input
-                  type="text"
-                  placeholder="mm/dd/yyyy"
-                  style={{
-                    width: "40vh",
-                    paddingLeft: "10px",
-                    padding: "7px",
-                    border: "1px solid black",
-                    borderRadius: "5px",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                  }}
-                />
-              </div>
+              <p style={{ fontSize: "15px", marginTop: "50px", marginBottom: "5px"}}>Registration Deadline</p>
+              <input
+                type="text"
+                placeholder="mm/dd/yyyy"
+                style={{ width: "40vh",paddingLeft: "10px",padding: "7px",border: "1px solid black",borderRadius: "5px",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
+              />
+            </div>
 
-              <div style={{ display: "flex", flexDirection: "column", marginRight: "20px"}}>
-                <p style={{ fontSize: "15px", marginTop: "30px", marginBottom: "5px"}}>Capacity</p>
-                <input
-                  type="text"
-                  placeholder="Max number of participants"
-                  style={{
-                    width: "40vh",
-                    paddingLeft: "10px",
-                    padding: "7px",
-                    border: "1px solid black",
-                    borderRadius: "5px",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                  }}
-                />
-              </div>
+            <div style={{ display: "flex", flexDirection: "column", marginRight: "20px"}}>
+              <p style={{ fontSize: "15px", marginTop: "30px", marginBottom: "5px"}}>Capacity</p>
+              <input
+                type="text"
+                placeholder="Max number of participants"
+                style={{ width: "40vh",paddingLeft: "10px",padding: "7px",border: "1px solid black",borderRadius: "5px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
+              />
+            </div> 
+
+            <section>
+              <p style={{ fontSize: "15px", marginTop: "20px", marginBottom: "5px"}}>Waitlist Setup</p>
+              <p>[ ]Enable Waitlist</p>
+              <p style={{ border: "1px solid", paddingBottom: "15vh", borderRadius: "20px" }}>Note: 
+                When the checkbox is unchecked:
+                The system will only accept registrations up to the specified capacity.
+
+                When the checkbox is checked:
+                Participants who try to register after reaching capacity will be able to join the waitlist.
+                An additional message can appear:"Thank you for your interest! You will be notified if a spot opens up."
+              </p>
+            </section>
 
             <div className="buttonContainer">
               <button className="buttonStyle" onClick={handleButtonClick}>Next Step</button>
@@ -222,10 +246,76 @@ const SBOCreateEvent = () => {
     ),
     4: (
       <div className="sboce-step4-container">
-        <div className="sboce-event-details-container">
-          <div className="sboce-event-details">
-            <h2 style={{ fontFamily:"Righteous", fontWeight: 'normal' }}>Custom Fields</h2>
+        <div className="sboce-create-event-container">
+          <div className="sboce-details">
+            <h2 style={{ fontFamily:"Righteous", fontWeight: 'normal' }}>Registration Questions (Optional)</h2>
             <p>Add any specific questions you’d like to ask participants during registration. This helps tailor the experience to their needs.</p>
+
+            <div style={{ marginTop:20}}>
+              <p style={{ fontSize: "15px", marginBottom: "10px" }}>Custom Sports</p>
+              <input
+                type="text"
+                placeholder="(e.g., Basketball, Volleyball, Soccer)"
+                style={{
+                  width: "60vh",
+                  paddingLeft: "10px",
+                  padding: "7px",
+                  border: "1px solid black",
+                  borderRadius: "5px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                }}
+              />
+            </div>
+
+            <div style={{ marginTop:20}}>
+              <p style={{ fontSize: "15px", marginBottom: "10px" }}>Emergency Contact Name and Phone:</p>
+              <input
+                type="text"
+                placeholder="(e.g., John Doe, 123-456-7890)"
+                style={{
+                  width: "60vh",
+                  paddingLeft: "10px",
+                  padding: "7px",
+                  border: "1px solid black",
+                  borderRadius: "5px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                }}
+              />
+            </div>
+
+            <div style={{ marginTop:20}}>
+              <p style={{ fontSize: "15px", marginBottom: "10px" }}>Year Level</p>
+              <input
+                type="text"
+                placeholder="(e.g., 3rd year, 4th year)"
+                style={{
+                  width: "60vh",
+                  paddingLeft: "10px",
+                  padding: "7px",
+                  border: "1px solid black",
+                  borderRadius: "5px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                }}
+              />
+            </div>
+
+            <div style={{ marginTop:20}}>
+              <p style={{ fontSize: "15px", marginBottom: "10px" }}>Course</p>
+              <input
+                type="text"
+                placeholder="(e.g., BSCS, BSIT, BSCE)"
+                style={{
+                  width: "60vh",
+                  paddingLeft: "10px",
+                  padding: "7px",
+                  border: "1px solid black",
+                  borderRadius: "5px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                }}
+              />
+            </div>
+
+
             <div className="buttonContainer">
               <button className="buttonStyle" onClick={handleButtonClick}>Next Step</button>
             </div>
@@ -235,13 +325,38 @@ const SBOCreateEvent = () => {
     ),
     5: (
       <div className="sboce-step5-container">
-        <div className="sboce-event-details-container">
-          <div className="sboce-event-details">
-            <h2 style={{ fontFamily:"Righteous", fontWeight: 'normal' }}>Preview & Confirm</h2>
-            <p>Review and confirm the details for your event.</p>
-            <div className="buttonContainer">
-              <button className="buttonStyle" onClick={handleButtonClick}>Next Step</button>
-            </div>
+        <div className="sboce-create-event-container">
+          <div className="sboce-details">
+            <section className="sboce-interest-section">
+              <h5>Interest in Volunteer Opportunities:</h5>
+              <label className="sboce-interest-option">
+                <p>[ ] yes</p> {/* IKAW NA BAHALA ANA CHECKBOX PRE DIKO KABALO AHHAHA */}
+                <p>[ ] no</p>
+              </label>
+              <input type="text" style={{ width: "25vw", paddingTop: "10px", borderBottom: "1px solid black" }}/>
+              <button style={{ width: "25vw", backgroundColor: "white", padding: "5px", marginTop: "10px", border: "1px solid" }}>+</button>
+            </section>
+
+            <section className="sboce-final-steps">
+              <label style={{ padding: "10px", fontFamily: "Righteous", fontWeight: "normal" }}>
+                <h2>Final Steps</h2>
+                <p>Once you're satisfied, choose to save, publish, or preview the event.</p>
+              </label>
+
+              <label className="sboce-spd-container">
+                <card className="card card1">
+                  <button className="sboce-spd-btn">PUBLISH</button>
+                </card>
+                <card className="card card2">
+                  <button className="sboce-spd-btn">DRAFT</button>  
+                </card>
+              </label>
+
+              <label className="sboce-fs-button">
+                <button className="buttonStyle">CHECK EVENTS</button>
+              </label>
+            </section>
+            <p style={{ display: "flex", justifyContent: "center"}}>Contact Information | Privacy Policy | Terms of Service</p>
           </div>
         </div>
       </div>
