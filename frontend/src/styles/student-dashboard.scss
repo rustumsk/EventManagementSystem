@@ -203,6 +203,7 @@
             height: 30rem;
             display: flex;
             flex-direction: column;
+            margin-bottom: 2rem;
             .sb-fe{
                 font-family: 'Outfit';
                 font-weight: bold;
@@ -242,6 +243,7 @@
                     transition: width 0.4s ease;
                     scroll-snap-align: center;
                     &:hover{
+                        height: 90%;
                         width: 35%;
                     }
                 }
@@ -249,7 +251,44 @@
             
         }
         .sb-uregistered{
-            height: 40rem;
+            height: 50rem;
+            background-color: #FFF5D5;
+            border: solid 2px black;
+            border-radius: 17px;
+            padding: 5rem;
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            .sb-uheader{
+                width: 100%;
+                display: flex;
+                .sb-re{
+                    flex: 1;
+                    font-size: 2rem;
+                    font-family: 'Outfit';
+                    font-weight: bold;
+                }
+                .sb-va{
+                    flex: 1;
+                    display: flex;
+                    justify-content: end;
+                }
+            }
+            .sb-ur-cont{
+                height: 100%;
+                display: grid;
+                padding-left: 2rem;
+                padding-right: 2rem;
+                grid-template: 1fr 1fr / 1fr 1fr 1fr 1fr;
+                gap: 2rem;
+                div{
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                    border: solid 2px black;
+                    border-radius: 8px;
+                    background-color: white;
+                }
+            }
         }
         .small-footer{
             height: 10rem;

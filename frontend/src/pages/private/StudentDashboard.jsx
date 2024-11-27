@@ -12,6 +12,7 @@ export default function StudentDashboard() {
     const navigate = useNavigate();
     const [isActive, setIsActive] = useState('default');
     const featuredEvent = [1, 2, 3, 4, 5, 6];
+    const registeredEvent = [1, 2, 3, 4, 5, 6,7,8];
     const containerRef = useRef(null);
     const user = checkStudentAuthorized(userToken);
     const toggleDropdown = () => {
@@ -99,7 +100,22 @@ export default function StudentDashboard() {
                             ))}
                         </section>
                     </section>
-                    <section className='sb-uregistered'></section>
+                    <section className='sb-uregistered'>
+                        <header className='sb-uheader'>
+                            <span className='sb-re'>Upcoming Registered Events</span>
+                            <div className='sb-va'>
+                                <button >View All</button>
+                            </div>
+                        </header>
+                        <section className='sb-ur-cont'>
+                            {registeredEvent.map((item, index) => (
+                                <div 
+                                    onMouseEnter={() => handleMouseEnter(index)}
+                                >
+                                </div>
+                            ))}
+                        </section>  
+                    </section>
                     <section className='small-footer'></section>
                 </section>
             ) : (
