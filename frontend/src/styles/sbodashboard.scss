@@ -3,7 +3,6 @@
   display: flex;
   height: 100vh;
   background-color: #f2eaf7;
-  box-sizing: border-box;
 }
 
 /* Sidebar Styling */
@@ -122,11 +121,12 @@
 
 /* Main Content */
 .sbod-main {
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   overflow: hidden; 
   height: 100vh;
   width: 100vw;
-  //background-color: #000000;
 
   .sbod-header input {
     font-family: "Outfit";
@@ -141,23 +141,20 @@
   .sbod-events {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 10px;
     //background-color: red;
 
     /* Today's Event main container */
     .sbod-tevent-cards {
       display: flex;
-      flex-wrap: nowrap; 
       gap: 20px;
+      height: 270px; 
+      overflow-x: scroll; 
+      border-radius: 12px; 
+      scroll-behavior: smooth; 
       border: 1px solid black; 
       background-color: #FFF5D5;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      overflow-x: scroll; 
-      padding: 0 10px;
-      scroll-behavior: smooth; 
-      border-radius: 12px; 
-      padding: 10px 0; 
-      max-height: 320px; 
     }
 
     /* Customize the scrollbar for Today's Events */
@@ -184,7 +181,7 @@
       margin: 20px;
       margin-right: auto;
       width: 280px;
-      height: 220px;
+      height: 205px;
       border-radius: 8px;
       border: 2px solid black; 
       background-color: white;
@@ -203,14 +200,13 @@
   /* Upcoming Event main container*/
   .sbod-uevent-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 5fr)); /* Cards will fit in available space */
-    gap: 15px;  /* Spacing between the cards */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 5fr)); 
+    gap: 15px; 
     border: 1px solid black; 
     border-radius: 8px;
     background-color: #D9BBF7;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 0 10px;
-    max-height: 380px;
+    height: 40vh;
     overflow-y: auto;
     overflow-x: scroll;  
     box-sizing: border-box; 

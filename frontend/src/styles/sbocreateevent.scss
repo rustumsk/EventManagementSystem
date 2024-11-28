@@ -140,8 +140,7 @@
             
 
             .card1,
-            .card2,
-            .card3 {
+            .card2 {
                 display: flex;
                 align-items: end;
                 justify-content: center;
@@ -155,7 +154,7 @@
                     height: 5vh;
                     background-color: white;
                     border: 2px solid black;
-                    transition: background-color 0.3 ease;
+                    cursor: pointer;
                 }
             }
 

@@ -288,13 +288,7 @@ const SBOCreateEvent = () => {
               <input
                 type="text"
                 placeholder="(e.g., 3rd year, 4th year)"
-                style={{
-                  width: "60vh",
-                  paddingLeft: "10px",
-                  padding: "7px",
-                  border: "1px solid black",
-                  borderRadius: "5px",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                style={{ width: "60vh", paddingLeft: "10px", padding: "7px", border: "1px solid black", borderRadius: "5px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                 }}
               />
             </div>
@@ -304,17 +298,10 @@ const SBOCreateEvent = () => {
               <input
                 type="text"
                 placeholder="(e.g., BSCS, BSIT, BSCE)"
-                style={{
-                  width: "60vh",
-                  paddingLeft: "10px",
-                  padding: "7px",
-                  border: "1px solid black",
-                  borderRadius: "5px",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                style={{ width: "60vh", paddingLeft: "10px", padding: "7px", border: "1px solid black", borderRadius: "5px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                 }}
               />
             </div>
-
 
             <div className="buttonContainer">
               <button className="buttonStyle" onClick={handleButtonClick}>Next Step</button>

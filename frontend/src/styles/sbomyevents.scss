@@ -1,0 +1,143 @@
+.sbome-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sbome-me-text {
+  display: flex;
+  flex-direction: column;
+  height: 12vh;
+  margin: 30px;
+  margin-bottom: 10px;
+
+  .sbome-filter-option {
+    padding: 7px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-sizing: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: transparent;
+  }
+}
+
+.sbome-tabs-container {
+  display: flex;
+  justify-content: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: white;
+
+  .sbome-dp-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px;
+    width: 15vw;
+    height: 5vh;
+    border: 2px solid black;
+    border-radius: 20px;
+
+    .sbome-te,
+    .sbome-ue {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 20px;
+      width: 10vw;
+      height: 5vh;
+      color: black;
+      font-family: "Outfit";
+    }
+
+    .highlight {
+      background-color: black;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      color: white;
+    }
+  }
+}
+
+.sbome-items-back-container {
+  margin-top: 10px;
+  margin-left: 20px;
+  border-radius: 30px;
+  height: 68vh;
+  border: 2px solid black;
+  background-color: #6C23B5;
+
+  .sbome-items-front-container {
+    display: flex;
+    flex-direction: column;
+    height: 68vh;
+    margin-top: 10px;
+    margin-left: -20px;
+    margin-right: 20px;
+    border-radius: 30px;
+    border: 2px solid black;
+    background-color: white;
+
+    .sbome-items-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(12vw, 1fr));  
+      grid-gap: 20px; 
+      height: 68vh;
+      margin-left: 20px;
+      margin-top: 10px;
+      overflow-y: auto;
+
+      .sbome-item {
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        width: 12vw;
+        height: 22vh;
+        padding-bottom: 15px;
+        border: 2px solid black;
+        border-radius: 10px;
+
+        .sbome-vd-btn {
+          width: 8vw;
+          height: 5vh;
+          color: white;
+          border-radius: 30px;
+          border: 2px solid black;
+          background-color: black;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+      }
+    }
+  }
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 50vw;
+  text-align: center;
+}
+
+.close-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

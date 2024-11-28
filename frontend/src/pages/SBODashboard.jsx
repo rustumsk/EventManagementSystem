@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import "../styles/sbodashboard.scss";
 import SBOCreateEvent from '../pages/SBOCreateEvent';
+import SBOMyEvents from "./SBOMyEvents";
+
 import appImage from "../assets/SBOD_Logos/logo.png";
 import avatarImage from "../assets/SBOD_Logos/Avatar.png";
 import dashboardImage from "../assets/SBOD_Logos/House.png";
@@ -187,7 +189,7 @@ function SBODashboard() {
               </div>
             </header>
             <section className="sbod-events">
-              <h3 style={{ fontFamily: "Righteous" }}>Today's Events</h3>
+              <h2 style={{ fontFamily: "Righteous" }}>Today's Events</h2>
               {/* Today's Event Main Container */}
               <div
                 className="sbod-tevent-cards"
@@ -209,10 +211,10 @@ function SBODashboard() {
                   <div className="no-events">Sir None</div>
                 )}
               </div>
-              <h3 style={{ 
+              <h2 style={{ 
                 fontFamily: "Righteous",
                 marginTop: 20 
-              }}>Upcoming Events</h3>
+              }}>Upcoming Events</h2>
               {/* Upcoming Events Main Container */}
               <div className="sbod-uevent-cards">
                 {/* Event cards */}
@@ -243,10 +245,7 @@ function SBODashboard() {
           <SBOCreateEvent />
         )}
         {activeTab === "My Events" && (
-          <div>
-            {/* FUcking shit*/}
-            
-          </div>
+          <SBOMyEvents />
         )}
         {activeTab === "Analytics" && (
           <div>
