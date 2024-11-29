@@ -8,6 +8,7 @@ import signupRoute from './routes/public/signup';
 import loginRoute from './routes/public/login';
 import googleRoute from './routes/public/google'; 
 import jwtRouter from './routes/services/jwt';
+import studentRouter from './routes/private/student';
 import passport = require('passport');
 import { sendVerificationCode } from './routes/services/mailer';
 dotenv.config();
@@ -22,6 +23,7 @@ app.use('/google', googleRoute);
 app.use('/signup',signupRoute);
 app.use('/login', loginRoute);
 app.use('/jwt', jwtRouter);
+app.use('/students', studentRouter);
 
 app.post('/mail', (req,res) =>{
     const {code,email} = req.body

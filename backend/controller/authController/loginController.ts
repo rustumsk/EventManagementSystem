@@ -25,8 +25,10 @@ const localLogin: RequestHandler = async (req, res): Promise<void> => {
             return;
         }
 
-        const token = generateUserToken(user.rows[0])
-        res.status(200).json({ message: "Login Successfuly", token: token});
+        const token = generateUserToken(user.rows[0].student_id);
+        console.log(token);
+        
+        res.status(200).json({ message: "Login Successfuly", token});
         
     } catch (error) {
         console.error(error);

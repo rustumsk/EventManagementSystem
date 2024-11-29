@@ -9,7 +9,14 @@ const getStudentByEmail = async (email: string): Promise<QueryResult<any>> => {
         throw e;
     }
 };
-
+const getStudentByStudentId = async(student_id: string) => {
+    try{
+        return await pool.query('SELECT * FROM student WHERE student_id = $1', [student_id]);
+    }catch(e){
+        console.error(e);
+        throw e;
+    }
+}
 const getStudentByGoogleId = async(googleId:string): Promise<QueryResult<any>> =>{
     try{
         return await pool.query('SELECT * FROM student WHERE google_id = $1', [googleId]);
@@ -38,7 +45,8 @@ const getStudentPassword = async (email?: string, id_num?: number): Promise<Quer
 const findStudent = {
     getStudentByEmail,
     getStudentPassword,
-    getStudentByGoogleId
+    getStudentByGoogleId,
+    getStudentByStudentId
 };
 
 export default findStudent;
