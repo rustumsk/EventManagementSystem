@@ -3,15 +3,14 @@ import '../../styles/email-verification.scss';
 
 export default function EmailVerification() {
     const [otp, setOtp] = useState(new Array(6).fill(''));
-    const email = "johndoe@gmail.com"; // Replace with dynamic email if necessary
+    const email = "johndoe@gmail.com";
 
     const handleInputChange = (element, index) => {
-        if (isNaN(element.value)) return; // Allow only numbers
+        if (isNaN(element.value)) return;
         const newOtp = [...otp];
         newOtp[index] = element.value;
         setOtp(newOtp);
 
-        // Move to the next input field automatically
         if (element.nextSibling && element.value !== '') {
             element.nextSibling.focus();
         }
@@ -19,7 +18,7 @@ export default function EmailVerification() {
 
     const handleVerify = () => {
         const otpCode = otp.join('');
-        console.log('Entered OTP:', otpCode); // Send this to your backend
+        console.log('Entered OTP:', otpCode); 
     };
 
     return (
