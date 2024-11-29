@@ -40,11 +40,11 @@ const SQL = `
         sbo_id INT,
         event_description TEXT,
         event_name VARCHAR(255),
-        event_date TIMESTAMP,  -- Replaced datetime with timestamp
+        event_date TIMESTAMP,
         location_id INT,
         category_id INT,
         capacity INT,
-        ends_at TIMESTAMP,  -- Replaced datetime with timestamp
+        ends_at TIMESTAMP, 
         custom_fields JSON,
         FOREIGN KEY (sbo_id) REFERENCES Sbo(sbo_id),
         FOREIGN KEY (location_id) REFERENCES Location(location_id),

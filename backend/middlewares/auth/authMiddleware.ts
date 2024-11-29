@@ -1,13 +1,25 @@
 import { Request, Response, NextFunction } from "express";
 import { verifyToken } from "../../helper/auth/jwt";
+import jwt from 'jsonwebtoken';
 
-const authenticate = (req: Request, res: Response, done: NextFunction) =>{
-    const token = req.headers.authorization?.split(' ')[1];
+const authorizeUser = (req: Request, res: Response, done: NextFunction) =>{
+    const bearerToken = req.headers['authorization'];
 
-    if (!token){
-        return res.status(403).json("Forbidden");
-        res.redirect('/login')
-    }
+    if (!bearerToken) res.status(401).json({message:"Unauthorize"});
 
-    const decode = verifyToken(token);
+    const token = bearerToken?.split(' ')[1];
+
+    jwt.verify(token, process.env.SECRETKEY, (err: any,user: any) =>{
+        if (err){
+            return res.status(403).json({message:'Forbidden!'});
+            req.user = user;
+            done();
+        }
+    });
 }
+
+const authMiddleware = {
+    authorizeUser
+}
+
+export default authMiddleware;

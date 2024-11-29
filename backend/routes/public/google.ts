@@ -4,8 +4,8 @@ const googleRoute = Router();
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'; // Use OAuth 2.0 instead of OIDC
 import { generateToken, generateTokenForPayload } from "../../helper/auth/jwt";
 import { CustomUser } from "../../configs/types/type";
-import findStudent from "../../model/studentModel/view/findStudent";
-import createStudent from "../../model/studentModel/crud/createStudent";
+import findStudent from "../../model/studentModel/read/findStudent";
+import createStudent from "../../model/studentModel/create/createStudent";
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_C_ID,

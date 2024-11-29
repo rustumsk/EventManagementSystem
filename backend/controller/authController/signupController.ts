@@ -1,7 +1,7 @@
 import { Request, Response, RequestHandler } from "express";
-import findStudent from "../../model/studentModel/view/findStudent";
+import findStudent from "../../model/studentModel/read/findStudent";
 import passwordHelper from "../../helper/auth/hashPassword";
-import createStudent from "../../model/studentModel/crud/createStudent";
+import createStudent from "../../model/studentModel/create/createStudent";
 import { generateToken } from "../../helper/auth/jwt";
 import { QueryResult } from "pg";
 
