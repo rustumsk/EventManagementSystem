@@ -48,7 +48,7 @@ export default function StudentLogin() {
             try {
                 const result = await studentLogin(password, isId ? emailOrId : 0, isEmail ? emailOrId : "");
                 console.log("Login successful:", result.data);
-                setUser(result.data);
+                console.log(result.data);
                 localStorage.setItem('userToken', result.data.token);
                 navigate('/studentdashboard');
 

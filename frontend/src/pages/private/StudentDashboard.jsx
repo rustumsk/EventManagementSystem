@@ -7,6 +7,7 @@ import StudentEvent from '../../components/studentDashboard/StudentEvent';
 import StudentDiscover from '../../components/studentDashboard/StudentDiscover';
 import { checkStudentAuthorized } from '../../utils/auth';
 import StudentHome from '../../components/studentDashboard/StudentHome';
+import axios from 'axios';
 
 export default function StudentDashboard() {
     const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -14,6 +15,7 @@ export default function StudentDashboard() {
     const [userToken,setUserToken] = useState(localStorage.getItem('userToken'))
     const navigate = useNavigate();
     const [isActive, setIsActive] = useState('myevent');
+    // const [isLoading, setIsLoading] = useState(true);
     const containerRef = useRef();
     const featuredEvent = [1,2,3,4,5,6];
     const registeredEvent = [1,2,3,4,5,6,7,8];
@@ -27,7 +29,23 @@ export default function StudentDashboard() {
         setIsActive('discovery');
     }
 
+    console.log(userToken);
     const user = checkStudentAuthorized(userToken);
+
+    const sampleGet = async () =>{
+        axios.get('http://localhost:3000/students/47', {
+            headers: {
+              'Authorization': `Bearer ${userToken}`
+            }
+          })
+            .then(response => {
+              console.log('Response:', response.data);
+            })
+            .catch(error => {
+              console.log('Error:', error.response.data);
+            });
+    }
+    sampleGet();
     const toggleDropdown = () => {
         setDropdownVisible(!dropdownVisible);
     };
@@ -48,6 +66,15 @@ export default function StudentDashboard() {
             navigate('/error');
         }
     }, [verified]);
+
+    // if (isLoading) {
+    //     return (
+    //         <div className="loading-container">
+    //             <div className="spinner"></div>
+    //             <p className="loading-text">Loading...</p>
+    //         </div>
+    //     );
+    // }
 
     return (
         <div className="sb-container">
