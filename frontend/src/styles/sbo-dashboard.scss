@@ -1,231 +1,178 @@
 /* Main Container */
 .sbod-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f2eaf7;
+}
+
+/* Sidebar Styling */
+.sbod-sidebar {
+  width: 55px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: width 0.3s ease;
+  box-sizing: border-box;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  /* Website Logo */
+  .sbod-logo {
     display: flex;
-    height: 100vh;  
-    width: 100vw;   
-    background-color: #f2eaf7;
-    overflow: hidden; 
-    box-sizing: border-box;  
+    justify-content: center;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    width: 90%;
+    height: 60px;
+    border-bottom: 1px solid black;
   }
   
-  /* Sidebar Styling */
-  .sbod-sidebar {
-    width: 60px;
-    background: #ffffff;
+   /* Website Avatar */
+  .sbod-avatar {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: width 0.3s ease;
-    box-sizing: border-box;  
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
-    /* Website Logo */
-    .sbod-logo {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 10px;
-      padding: 10px 0;
-      width: 90%;
-      height: 60px;
-      border-bottom: 1px solid black;
-    }
-    
-     /* Website Avatar */
-    .sbod-avatar {
-      display: flex;
-      justify-content: start;
-      margin-bottom: 30px;
-      padding: 10px 0;
-      width: 90%;
-      height: 65px; /* Adjust height */
-      cursor: pointer;
-      border-bottom: 1px solid black;
-    }
-  
-    .sbod-avatar span {
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease;
-    }
-  
-    .sbod-role {
-      font-size: 10px;
-      color: #666; 
-      font-weight: bold;
-      flex-direction: column;
-    }
-  
-    .sbod-logo h4 .sbod-avatar span {
-      opacity: 1;
-      visibility: visible;
-    }
+    justify-content: start;
+    margin-bottom: 30px;
+    padding: 10px 0;
+    width: 90%;
+    height: 65px; /* pra di mulihok ig hover */
+    cursor: pointer;
+    border-bottom: 1px solid black;
   }
-  
-  .sbod-sidebar:hover {
-    width: 200px;
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  .sbod-sidebar:hover .sbod-avatar span {
-    opacity: 1;
-    visibility: visible;
+
+  .sbod-avatar span {
+    opacity: 0;
+    visibility: hidden;
     transition: opacity 0.3s ease;
   }
-  
-  /* Navigation Items */
-  .sbod-nav-items {
-    width: 100%;
-  
-    .sbod-nav-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 15px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      position: relative; 
-      overflow: hidden;  
-      transition: transform 0.2s ease;
-    }
-  
-    .sbod-nav-item img {
-      width: 20px;
-      height: 20px; 
-    }
-    
-    .sbod-nav-item span {
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0s 0.3s; /* Delayed visibility change */
-      height: 10px;  /* Ensure the space is always taken up */
-      font-size: 13px;
-    }
-  
-    .sbod-nav-item:hover {
-      background-color: #000000;
-      color: #ffffff;
-      border-radius: 8px;
-      transform: scale(1.04); // waw
-    }
+
+  .sbod-role {
+    font-size: 10px;
+    color: #666; 
+    font-weight: bold;
+    flex-direction: column;
   }
-  
-  .sbod-sidebar:hover .sbod-nav-item span {
+
+  .sbod-logo h4 .sbod-avatar span {
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.3s ease, visibility 0s;
+  }
+}
+
+.sbod-sidebar:hover {
+  width: 200px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.sbod-sidebar:hover .sbod-avatar span {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
+
+/* Navigation Items */
+.sbod-nav-items {
+  width: 100%;
+
+  .sbod-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative; 
+    overflow: hidden;  
+    transition: transform 0.2s ease;
+  }
+
+  .sbod-nav-item img {
+    width: 20px;
+    height: 20px; 
+    filter: brightness(0);
   }
   
-  /* Main Content */
-  .sbod-main { 
-    flex: 1;
-    padding: 20px;
-    overflow: hidden; 
-    width: calc(100vw - 60px); 
-    box-sizing: border-box;  
-    overflow-x: hidden;  
-  
-    .sbod-header input {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-  
-    .sbod-events {
-      margin-top: 20px; 
-  
-      /* Today's Event main container */
-      .sbod-tevent-cards {
-        display: flex;
-        flex-wrap: nowrap; 
-        gap: 20px;
-        border: 1px solid black; 
-        background-color: #FFF5D5;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        overflow-x: scroll; 
-        padding: 0 10px;
-        -webkit-overflow-scrolling: touch;  
-        scroll-behavior: smooth; 
-        border-radius: 12px; 
-        padding: 10px 0; 
-        max-height: 320px; 
-      }
-  
-      /* Customize the scrollbar for Today's Events */
-      .sbod-tevent-cards::-webkit-scrollbar {
-        height: 8px;
-      }
-  
-      .sbod-tevent-cards::-webkit-scrollbar-thumb {
-        background-color: #888;
-        border-radius: 10px;
-        border: 2px solid #ddd; /* Adds a little border around the thumb */
-      }
-  
-      .sbod-tevent-cards::-webkit-scrollbar-thumb:hover {
-        background-color: #555; /* Darker color when hovering */
-      }
-  
-      .sbod-tevent-items {  /* Today's Event CARDS */
-        display: flex;
-        justify-content: center;
-        font-size: small;
-        font-weight: bold;
-        padding-top: 10px;
-        margin: 20px;
-        margin-right: auto;
-        width: 280px;
-        height: 220px;
-        border-radius: 8px;
-        border: 2px solid black; 
-        background-color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        flex-shrink: 0;  
-        transition: transform 0.3s ease; /* Smooth animation when hovered */
-      }
-  
-      .sbod-tevent-items:hover {
-        background-color: #f0f0f0;
-        transform: scale(1.05); 
-      }
-    }
-  
-    /* Upcoming Event main container*/
-    .sbod-uevent-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 5fr)); /* Cards will fit in available space */
-      gap: 15px;  /* Spacing between the cards */
+  .sbod-nav-item span {
+    opacity: 0;
+    visibility: hidden;
+    height: 10px;  /* Ensure the space is always taken up */
+    font-size: 13px;
+    transition: opacity 0.3s ease, visibility 0s 0.3s; /* Delayed visibility change */
+  }
+
+  .sbod-nav-item:hover {
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 8px;
+    transform: scale(1.04); // waw
+    filter: brightness(1);
+  }
+}
+
+.sbod-sidebar:hover .sbod-nav-item span {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0s;
+}
+
+.sbod-nav-item:hover img {
+  filter: brightness(100);
+}
+
+/* Main Content */
+.sbod-main {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden; 
+  height: 100vh;
+  width: 100vw;
+
+  .sbod-header input {
+    font-family: "Outfit";
+    width: 100vh;
+    padding-left: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 1px solid black;
+    border-radius: 10px,
+  }
+
+  .sbod-events {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    //background-color: red;
+
+    /* Today's Event main container */
+    .sbod-tevent-cards {
+      display: flex;
+      gap: 20px;
+      height: 270px; 
+      overflow-x: scroll; 
+      border-radius: 12px; 
+      scroll-behavior: smooth; 
       border: 1px solid black; 
-      border-radius: 8px;
-      background-color: #D9BBF7;
+      background-color: #FFF5D5;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 0 10px;
-      max-height: 380px;
-      overflow-y: auto;
-      overflow-x: scroll;  
-      box-sizing: border-box; 
     }
-  
-    /* Customize the scrollbar for Upcoming Events */
-    .sbod-uevent-cards::-webkit-scrollbar {
-      height: 4px; 
-      width: 12px;
+
+    /* Customize the scrollbar for Today's Events */
+    .sbod-tevent-cards::-webkit-scrollbar {
+      height: 8px;
     }
-  
-    .sbod-uevent-cards::-webkit-scrollbar-thumb {
+
+    .sbod-tevent-cards::-webkit-scrollbar-thumb {
       background-color: #888;
       border-radius: 10px;
-      border: 2px solid #ddd; /* Adds a little border around the thumb */
+      border: 2px solid #ddd; 
     }
-  
-    .sbod-uevent-cards::-webkit-scrollbar-thumb:hover {
+
+    .sbod-tevent-cards::-webkit-scrollbar-thumb:hover {
       background-color: #555; /* Darker color when hovering */
     }
-  
-    .sbod-uevent-items {  /* Upcoming Event CARDS */
+
+    .sbod-tevent-items {  /* Today's Event CARDS */
       display: flex;
       justify-content: center;
       font-size: small;
@@ -234,7 +181,7 @@
       margin: 20px;
       margin-right: auto;
       width: 280px;
-      height: 220px;
+      height: 205px;
       border-radius: 8px;
       border: 2px solid black; 
       background-color: white;
@@ -243,21 +190,94 @@
       flex-shrink: 0;  
       transition: transform 0.3s ease; /* Smooth animation when hovered */
     }
-  
-    .sbod-uevent-items:hover {
+
+    .sbod-tevent-items:hover {
       background-color: #f0f0f0;
-      transform: scale(1.05); /* Slight zoom effect on hover */
+      transform: scale(1.05); 
     }
   }
-  
-  /* Highlight active navigation item */
-  .sbod-nav-item.active {
-    background-color: #dbdbdb;
+
+  /* Upcoming Event main container*/
+  .sbod-uevent-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 5fr)); 
+    gap: 15px; 
+    border: 1px solid black; 
     border-radius: 8px;
-    color: #000000;
+    background-color: #D9BBF7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 40vh;
+    overflow-y: auto;
+    overflow-x: scroll;  
+    box-sizing: border-box; 
+  }
+
+  /* Customize the scrollbar for Upcoming Events */
+  .sbod-uevent-cards::-webkit-scrollbar {
+    height: 4px; 
+    width: 12px;
+  }
+
+  .sbod-uevent-cards::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+    border: 2px solid #ddd; /* Adds a little border around the thumb */
+  }
+
+  .sbod-uevent-cards::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color when hovering */
+  }
+
+  .sbod-uevent-items {  /* Upcoming Event CARDS */
+    display: flex;
+    justify-content: center;
+    font-size: small;
     font-weight: bold;
+    padding-top: 10px;
+    margin: 20px;
+    margin-right: auto;
+    width: 280px;
+    height: 220px;
+    border-radius: 8px;
+    border: 2px solid black; 
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    flex-shrink: 0;  
+    transition: transform 0.3s ease; /* Smooth animation when hovered */
   }
-  
-  .sbod-nav-item.active img {
-    filter: brightness(0.7);
+
+  .sbod-uevent-items:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05); /* Slight zoom effect on hover */
   }
+
+  /* No Events Text */
+  .no-events {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-family: 'Outfit', sans-serif;
+    color: #888;
+    padding: 60px;
+    margin: 20px;
+    text-align: center;
+    background-color: #fffdfd;
+    visibility: hidden; // e hidde lng para choy
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Highlight active navigation item */
+.sbod-nav-item.active {
+  background-color: #dbdbdb;
+  border-radius: 8px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.sbod-nav-item.active img {
+  filter: brightness(0.7);
+}

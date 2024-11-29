@@ -7,6 +7,7 @@ import CompleteProfile from "./pages/public/CompleteProfile";
 import EmailVerification from "./pages/public/emailVerification";
 import ErrorProfile from "./pages/public/ErrorProfile";
 import StudentDashboard from "./pages/private/StudentDashboard";
+import SBODashboard from "./pages/private/SBODashboard";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path:'/studentdashboard',
     element: <StudentDashboard />
+  },
+  {
+    path:'/sbodashboard',
+    element: <SBODashboard />
   },
   {
     path:'/',

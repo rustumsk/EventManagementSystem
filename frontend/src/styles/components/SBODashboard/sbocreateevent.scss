@@ -1,0 +1,178 @@
+.sbo-create-events-container {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    width: 22vw;
+    height: 50vh;
+
+    .sboce-info-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 40px;
+        margin-left: 10px;
+
+        .sboce-steps-container {
+            display: flex;
+            flex-direction: column;
+            width: 18vw;
+            height: 67vh;
+            margin-top: 25px;
+            border: 2px solid black;
+            border-radius: 10px;
+
+            .step-1,
+            .step-2,
+            .step-3,
+            .step-4,
+            .step-5 {
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                justify-content: center;
+                padding-right: 50px;
+                height: 100%;
+                border-radius: 8px;
+                color: black;
+                font-family: "Outfit";
+            }
+
+            .highlight {
+                background-color: #fadc79;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border: 2px solid black;
+                border-radius: 8px;
+            }
+        }
+    }
+
+}
+
+.sboce-step1-container,
+.sboce-step2-container,
+.sboce-step3-container,
+.sboce-step4-container,
+.sboce-step5-container {
+    width: 67vw;
+    height: 92vh;
+    margin-left: 10px;
+    border-radius: 20px;
+    border: 2px solid black;
+    background-color: #D7B9F7;
+
+    .sboce-create-event-container {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border: 2px solid black;
+        margin-left: 10px;
+        margin-top: 10px;
+        border-radius: 20px;
+        width: 67vw;
+        height: 92vh;
+    }
+    .sboce-details {
+        display: flex;
+        flex-direction: column;
+        margin: 50px;
+        width: 60vw;
+        height: 100vh;
+    }
+    .buttonContainer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        flex: 1; /* take up remaining space */
+    }
+    .buttonStyle {
+        background-color: black;
+        color: white;
+        padding: 5px;
+        font-size: 16px;
+        border: none;
+        border-radius: 50px;
+        width: 20vh;
+        cursor: pointer;
+    }
+}
+
+
+.sboce-step5-container {
+    .sboce-details {
+        margin-top: 10px;
+    }
+
+    .sboce-interest-section {
+        display: flex;
+        flex-direction: column;
+        height: 25vh;
+        //background-color: #D7B9F7;
+        border-bottom: 1px solid black;
+
+        .sboce-interest-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 25vw;
+            height: 8vh;
+            border: 1px solid black;
+            border-radius: 10px;
+            //background-color: red;
+
+            .volunteer {
+                background-color: white;
+            }
+        }
+    }
+
+
+    .sboce-final-steps {
+        display: flex;
+        flex-direction: column;
+        height: 55vh;
+        border-bottom: 1px solid black;
+        //background-color: red;
+
+        .sboce-spd-container {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 30px;
+            //background-color: red;
+            
+
+            .card1,
+            .card2 {
+                display: flex;
+                align-items: end;
+                justify-content: center;
+                width: 12vw;
+                height: 22vh;
+                padding-bottom: 15px;
+                border: 2px solid black;
+
+                .sboce-spd-btn {
+                    width: 8vw;
+                    height: 5vh;
+                    background-color: white;
+                    border: 2px solid black;
+                    cursor: pointer;
+                }
+            }
+
+            .card1 {
+                background-color: #D9BBF7;
+            }
+            .card2{
+                background-color: #979797;
+            }
+        }
+
+        .sboce-fs-button {
+            display: flex;
+            flex: 1;
+            align-items: end;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+    }
+}
+    
