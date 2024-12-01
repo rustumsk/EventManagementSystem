@@ -1,24 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
 import '../../styles/student-dashboard.scss';
-import { userContext } from '../../main';
 import StudentEvent from '../../components/studentDashboard/StudentEvent';
 import StudentDiscover from '../../components/studentDashboard/StudentDiscover';
 import { checkStudentAuthorized } from '../../utils/auth';
 import StudentHome from '../../components/studentDashboard/StudentHome';
-import axios from 'axios';
+import getStudent from '../../services/studentServices/getStudent';
+import {userContext} from '../../main';
+import StudentSettings from '../../components/studentDashboard/StudentSettings';
+import userIcon from '../../assets/mainlogo.png'
 
 export default function StudentDashboard() {
     const [dropdownVisible, setDropdownVisible] = useState(false);
-    const [verified, setVerified] = useState(false);
     const [userToken,setUserToken] = useState(localStorage.getItem('userToken'))
     const navigate = useNavigate();
-    const [isActive, setIsActive] = useState('myevent');
-    // const [isLoading, setIsLoading] = useState(true);
-    const containerRef = useRef();
-    const featuredEvent = [1,2,3,4,5,6];
-    const registeredEvent = [1,2,3,4,5,6,7,8];
+    const [isActive, setIsActive] = useState('settings');
+    const [isLoading, setIsLoading] = useState(true);
+    
+    const {user,setUser} = useContext(userContext);
+
     const homeClick = () =>{
         setIsActive('default');
     }
@@ -28,24 +28,11 @@ export default function StudentDashboard() {
     const discoveryClick = () =>{
         setIsActive('discovery');
     }
-
-    console.log(userToken);
-    const user = checkStudentAuthorized(userToken);
-
-    const sampleGet = async () =>{
-        axios.get('http://localhost:3000/students/47', {
-            headers: {
-              'Authorization': `Bearer ${userToken}`
-            }
-          })
-            .then(response => {
-              console.log('Response:', response.data);
-            })
-            .catch(error => {
-              console.log('Error:', error.response.data);
-            });
+    const settingsClick = () =>{
+        setIsActive('settings');
     }
-    sampleGet();
+
+
     const toggleDropdown = () => {
         setDropdownVisible(!dropdownVisible);
     };
@@ -57,24 +44,46 @@ export default function StudentDashboard() {
     if(!userToken){
         navigate('/studentlogin');
     }
-    useEffect(() => {
-        if (user) {
-            setVerified(true);
-            console.log(user);
-        } else {
-            setVerified(false);
-            navigate('/error');
-        }
-    }, [verified]);
 
-    // if (isLoading) {
-    //     return (
-    //         <div className="loading-container">
-    //             <div className="spinner"></div>
-    //             <p className="loading-text">Loading...</p>
-    //         </div>
-    //     );
-    // }
+
+    useEffect(() => {
+        const fetchStudentData = async () => {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const urlToken = params.get('usertoken');
+                const token = urlToken || userToken;
+    
+                if (!token) {
+                    navigate('/studentlogin');
+                    return;
+                }
+    
+                const studentId = checkStudentAuthorized(token)?.userObj;
+                
+                if (studentId) {
+                    const userData = await getStudent.getStudentById(token, studentId);
+                    setUser(userData.data);
+                    localStorage.setItem('userToken', token);
+                }
+    
+                setIsLoading(false);
+            } catch (error) {
+                console.error('Error fetching student data:', error);
+                navigate('/studentlogin');
+            }
+        };
+    
+        fetchStudentData();
+    }, [userToken, navigate, setUser]);
+
+    if (isLoading) {
+        return (
+            <div className="loading-container">
+                <div className="spinner"></div>
+                <p className="loading-text">Loading...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="sb-container">
@@ -89,13 +98,15 @@ export default function StudentDashboard() {
                     </div>
                     <div className="sb-pr-container">
                         <div className="sb-profile" onClick={toggleDropdown}>
-                            <span className="sb-pimg"></span>
+                            <span className="sb-pimg" style={{
+                                backgroundImage: `url(${userIcon})`,
+                            }}></span>
                             <span className={`sb-parrow ${dropdownVisible ? 'arrow-up' : 'arrow-down'}`}></span>
                         </div>
                         {dropdownVisible && (
                             <div className="sb-dropdown">
                                 <ul>
-                                    <li>Settings</li>
+                                    <li onClick={settingsClick}>Settings</li>
                                     <li onClick={onLogOut}>Logout</li>
                                 </ul>
                             </div>
@@ -104,15 +115,21 @@ export default function StudentDashboard() {
                 </div>
             </header>
             {isActive === 'default' ? (
-                <StudentHome user={user} discoveryClick={discoveryClick}/>
+                <StudentHome user={user} discoveryClick={discoveryClick} eventClick={eventClick}/>
             ) : isActive === 'discovery' ? (
                 <StudentDiscover isActive={isActive} discoveryClick={discoveryClick} eventclick={eventClick}/>
             ): isActive ==='myevent'?(
                 <StudentEvent isActive={isActive} discoveryClick={discoveryClick} eventclick={eventClick}/>
+            ): isActive === 'settings'?(
+                <StudentSettings userIcon={userIcon} user={user}/>
             ):(
                 <div>Error</div>
             )}
-            <footer className="sb-footer">
+
+            {isActive === 'settings' ? (
+                <footer className='sb-sfooter'></footer>
+            ):(
+                <footer className="sb-footer">
                 <section className='sb-fcontainer'>
                     <section className='sb-fsocials'>
                         <div className='sb-slogo'>
@@ -154,6 +171,7 @@ export default function StudentDashboard() {
                     </section>
                 </section>
             </footer>
+            )}
         </div>
     );
 }

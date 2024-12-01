@@ -1,5 +1,5 @@
 import { useRef } from "react";
-export default function StudentHome({user, discoveryClick}){
+export default function StudentHome({user, discoveryClick, eventClick}){
     const containerRef = useRef(null);
     const featuredEvent = [1,2,3,4,5,6];
     const registeredEvent = [1,2,3,4,5,6,7,8];
@@ -23,12 +23,12 @@ export default function StudentHome({user, discoveryClick}){
     return(
         <section className="sb-body">
             <section className='sb-welcome'>
-                <p className='sb-wel'>Welcome <span>{user.userObj.fullname}!</span></p>
+                <p className='sb-wel'>Welcome <span>{user.fullname}!</span></p>
                 <p className='sb-kick'>Let’s kickstart the day with some exciting events!</p>
             </section>
             <section className='sb-discover'>
                 <button className='sb-ed' onClick={discoveryClick}><span className='ed-icon'></span> Event Discovery</button>
-                <button className='sb-me'><span className='me-icon'></span> My Events</button>
+                <button className='sb-me' onClick={eventClick}><span className='me-icon'></span>My Events</button>
             </section>
             <section className='sb-featured'>
                 <p className='sb-fe'>Featured Events</p>

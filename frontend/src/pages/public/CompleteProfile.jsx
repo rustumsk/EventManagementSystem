@@ -4,7 +4,7 @@ const urlParams = new URLSearchParams(window.location.search);
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { genToken } from '../../utils/jwt';
-import { createGoogleStudent } from '../../services/authServices/studentCreation';
+import { createGoogleStudent } from '../../services/studentServices/studentCreation';
 
 const aInfo = urlParams.get('aInfo');
 let google_id = "";
@@ -61,9 +61,16 @@ export default function CompleteProfile() {
             setErrors(validationErrors);
             return;
         }
-        const dat = await createGoogleStudent(formData.idNumber, email, formData.fullName, formData.password, google_id);
-        const token = await genToken(formData.idNumber, email, formData.fullName, formData.password, google_id);
-        navigate(`/signup/email-verification?info=${token}`);
+        try{
+            const dat = await createGoogleStudent(formData.idNumber, email, formData.fullName, formData.password, google_id);
+            const token = await genToken(formData.idNumber, email, formData.fullName, formData.password, google_id);
+
+            navigate(`/studentlogin`);
+        }
+        catch(e){
+            console.log(e);
+        }
+        // navigate(`/signup/email-verification?info=${token}`);
     };
 
     return (

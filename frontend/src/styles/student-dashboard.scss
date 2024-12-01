@@ -4,13 +4,13 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #f9f9f9; // Optional: Adjust background color
+    background-color: #f9f9f9; 
 
     .spinner {
         width: 50px;
         height: 50px;
         border: 5px solid #e0e0e0;
-        border-top: 5px solid #4CAF50; // Customize your spinner color
+        border-top: 5px solid #4CAF50; 
         border-radius: 50%;
         animation: spin 1s linear infinite;
     }
@@ -23,7 +23,6 @@
     }
 }
 
-// Keyframe animation
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -40,7 +39,6 @@
         flex: 0 0 auto;
         height: 5rem;
         display: flex;
-
         .sb-l-container {
             flex: 1;
             display: flex;
@@ -65,6 +63,8 @@
             align-items: center;
             padding-right: 3rem;
             gap: 2rem;
+            height: auto;
+
 
             .sb-hn-container {
                 display: flex;
@@ -159,7 +159,447 @@
             }
         }
     }
+    .sb-settings-cont{
+        height: 70rem;
+        background-color: blue;
+        display: flex;
+        .sb-lnav{
+            border-top: solid 1px rgb(218, 217, 217);
+            flex: .8;
+            background-color: white;
+            border-right: solid 1px rgb(218, 217, 217);
+            .sb-sheader{
+                height: 8rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+                border-bottom: black solid 1px;
+                .sb-settingicon{
+                    flex:  0 0 auto;
+                    height: 30%;
+                    width: 2rem;
+                    background-image: url('../assets/settings.svg');
+                    background-position: center;
+                    background-size: 100%;
+                    background-repeat: no-repeat;
+                }
+                .sb-sht{
+                    font-size: 2.5rem;
+                    font-family: 'Righteous';
+                    font-weight: bold;
+                }
+            }
+            
+            .sb-sprofile, .sb-saccount, .sb-snotif{
+                height: 5rem;
+                display: grid;
+                place-content: center;
+                border-bottom: black solid 1px;
+            }
+      
+            .sb-sprofile:hover, 
+            .sb-saccount:hover, 
+            .sb-snotif:hover {
+                background-color: rgb(240, 240, 240);
+                cursor: pointer;
+            }
 
+            .selected {
+                background-color: rgb(220, 220, 220); 
+                font-weight: bold; 
+                background-color: black;
+                color: white;
+            }
+
+            .sb-sprofile, 
+            .sb-saccount, 
+            .sb-snotif {
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+        }
+        .sb-rbody{
+            border-top: solid 1px rgb(218, 217, 217);
+            flex: 5;
+            background-color: #F0E8F7;
+            display: flex;
+            flex-direction: column;
+            .sb-rbody-header{
+                flex: 1;
+                place-content: center;
+                padding-left: 1rem;
+                font-size: 2.5rem;
+                font-family: 'Plus Jakarta Sans';
+                font-weight: bold;
+            }
+            .sb-spocont{
+                flex: 8;
+                background-color: #F2EAF7;
+                .notif-section {
+                    padding: 20px;
+                    font-family: "Arial", sans-serif;
+                    color: #333;
+                    background-color: white;
+                    height: 90%;
+                    border-top: solid 2px black;
+                    width: 100%;
+                    border-radius: 8px;  // Rounded corners for the section
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow
+                    display: flex;
+                    justify-content: center;
+                    padding-right: 10rem;
+                    padding-top: 5rem;
+                    
+                    .notif-form {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+            
+                        .notif-header {
+                            margin-bottom: 20px;
+            
+                            h2 {
+                                font-size: 24px;
+                                font-weight: bold;
+                                margin-bottom: 5px;
+                                color: #333;
+                            }
+            
+                            p {
+                                font-size: 14px;
+                                color: #666;
+                                margin-top: 5px;
+                            }
+                        }
+            
+                        .notif-group {
+                            display: flex;
+                            align-items: center;  // Center the checkbox and label
+                            gap: 10px;
+            
+                            label {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                font-size: 16px;
+                                cursor: pointer;
+            
+                                input[type="checkbox"] {
+                                    appearance: none;
+                                    width: 18px;   // Increased width for better visibility
+                                    height: 18px;  // Increased height for better visibility
+                                    border: 2px solid #333;
+                                    border-radius: 3px;
+                                    background-color: #fff;
+                                    outline: none;
+                                    cursor: pointer;
+                                    position: relative;
+                                    transition: background-color 0.3s ease;
+            
+                                    &:checked {
+                                        background-color: #000;
+                                        position: relative;
+            
+                                        &::after {
+                                            content: "";
+                                            position: absolute;
+                                            top: 3px;
+                                            left: 5px;
+                                            width: 5px;
+                                            height: 10px;
+                                            border: solid #fff;
+                                            border-width: 0 2px 2px 0;
+                                            transform: rotate(45deg);
+                                        }
+                                    }
+                                }
+                            }
+            
+                            p {
+                                font-size: 14px;
+                                color: #666;
+                                margin-left: 26px;
+                                margin-top: 2px;
+                            }
+                        }
+            
+                        .confirm-button {
+                            margin-top: 20px;
+                            background-color: #000;
+                            color: white;
+                            padding: 8px 16px;   // Smaller padding for a smaller button
+                            font-size: 14px;     // Smaller text size for a compact button
+                            font-weight: bold;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            transition: background-color 0.3s ease;
+                            text-align: center;
+                            width: 20%;
+                            height: 2rem;
+            
+                            &:hover {
+                                background-color: #444;
+                            }
+            
+                            &:active {
+                                background-color: #333;  // Darker shade when clicked
+                            }
+                        }
+                    }
+                }
+                .sb-spout{
+                    background-color: #D9BBF7;
+                    height: 95%;
+                    width: 98%;
+                    display: flex;
+                    justify-content: start;
+                    align-items: center;
+                    border: solid 2px black;
+                    border-left: none;
+                    .sb-pcont{
+                        background-color: white;
+                        border: solid 2px black;
+                        border-left: none;
+                        height: 98%;
+                        width: 99.5%;
+                        padding: 1rem;
+                        padding-left: 2rem;
+                        .sb-pd{
+                            height: 4rem;
+                            padding-left: 1rem;
+                            display: flex;
+                            justify-content: start;
+                            align-items: end;
+                            font-size: 1.5rem;
+                            font-family: 'Righteous';
+                            font-weight: bold;
+                        }
+                        .sb-dbody{
+                            height: 47rem;
+                            display: flex;
+                            .sb-dinp{
+                                flex: 1.3;
+                                display: flex;
+                                flex-direction: column;
+                                .sb-dfd{
+                                    height: 5rem;
+                                    display: flex;
+                                    .sb-dfdi{
+                                        flex: .5;
+                                        display: flex;
+                                        justify-content: start;
+                                        align-items: center;
+                                        span{
+                                            height: 80%;
+                                            width: 100%;
+                                            border: solid 4px blue;
+                                            border-radius: 100px;
+                                            background-position: center;
+                                            background-repeat: no-repeat;
+                                            background-size: 100%;
+                                        }
+                                    }
+                                    .sb-dfdp{
+                                        flex: 5;
+                                        padding-left: 1rem;
+                                        place-content: center;
+                                        .sb-dfdn{
+                                            font-family: 'Outfit';
+                                            font-size: 2rem;
+                                            color: #6800D0;
+                                            padding-left: .5rem;
+                                        }
+                                        .sb-dfde{
+                                            opacity: .5;
+                                            font-family: 'Poppins';
+                                        }
+                                    }
+                                }
+                                .sb-dfb{
+                                    flex: 1;
+                                    display: flex;
+                                    padding-top: 2rem;
+                                    .dfb-cont{
+                                        flex: 1;
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 2rem;
+                                        justify-content: start;
+                                        input{
+                                            flex:  0 0 auto;
+                                            height: 8%;
+                                            width: 90%;
+                                            border: solid 2px black;
+                                            border-radius: 8px;
+                                            font-size: 1.5rem;
+                                            padding-left: 2rem;
+                                        }
+                                        label{
+                                            font-size: 2rem;
+                                            font-family: 'Outfit';
+                                            font-weight: 400;
+                                        }
+                                    }
+                                }
+                            }
+                            .sb-dimg{
+                                flex: 1;
+                                display: flex;
+                                justify-content: center;
+                                padding-top: 3rem;
+                                span{
+                                    position: relative;
+                                    height: 40%;
+                                    width: 60%;
+                                    border: solid 4px blue;
+                                    border-radius: 360px;
+                                    background-position: center;
+                                    background-size: 100%;
+                                    background-repeat: no-repeat;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    div {
+                                        z-index: 5;
+                                        height: 40%;
+                                        width: 50%;
+                                        background-image: url('../assets/edit.svg');
+                                        background-size: 50%;
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                        cursor: pointer;
+                                        transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s;
+                                    }
+                                    
+                                    div:hover {
+                                        transform: scale(1.2); 
+                                        opacity: 0.9; 
+                                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+                
+                .sb-ascont {
+                    flex: 1;
+                    height: 100%;
+                    background-color: white;
+                    border-top: solid 2px black;
+                    padding-left: 5rem;
+                    padding-top: 5rem;
+                }
+                
+                .sb-ascont form {
+                    width: 80%;
+                    height: 70%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4rem;
+                    padding-top: 2rem;
+                }
+                
+                .sb-ascont form div {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                }
+                
+                .sb-ascont form div label {
+                    font-size: 1.3rem;
+                }
+                
+                .sb-ascont form div input {
+                    height: 3.5rem;
+                    border: solid 2px;
+                    border-radius: 16px;
+                    padding-left: 2rem;
+                    outline: none;
+                    transition: border-color 0.3s ease;
+                }
+                
+                .sb-ascont form div input:focus {
+                    border-color: #007bff;
+                }
+                
+                .sb-ascont .cbutton {
+                    height: 20rem;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    .cc{
+                        background-color: red;
+                        color: white;
+                    }
+                }
+                
+                .sb-ascont .cbutton button {
+                    width: 15%;
+                    height: 55%;
+                    background-color: black;
+                    color: white;
+                    border: none;
+                    border-radius: 16px;
+                    padding: 1rem;
+                    cursor: pointer;
+                    font-size: 1rem;
+                    transition: background-color 0.3s ease, transform 0.2s ease;
+                }
+                
+                .sb-ascont .cbutton button:hover {
+                    background-color: #333;
+                    transform: scale(1.05);
+                }
+                
+                .sb-ascont .cbutton button:active {
+                    background-color: #555;
+                    transform: scale(0.95);
+                }
+            }
+            .sb-dbtns{
+                height: 5rem;
+                width: 90%;
+                display: flex;
+                gap: 1rem;
+                justify-content: end;
+                align-items: center;
+                padding-right: 2rem;
+                button {
+                    height: 50%;
+                    width: 10%;
+                    background-color: black;
+                    color: white;
+                    border-radius: 8px;
+                    border: none; 
+                    cursor: pointer; 
+                    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s; 
+                }
+                
+                button:hover {
+                    background-color: #444;
+                    transform: scale(1.05); 
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+                }
+                
+                button:active {
+                    transform: scale(0.95); 
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                }
+                .bc{
+                    background-color: red;
+                }
+                .bc:hover {
+                    background-color: white;
+                    color: red;
+                    transform: scale(1.05); 
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+                }
+            }
+        }
+    }
     .sb-body {
         flex: 8;
         background-color: #F2EAF7;
@@ -596,6 +1036,9 @@
                 }
             }
         }
+    }
+    .sb-sfooter{
+        height: 0rem;
     }
     .sb-footer {
         height: 30rem;
