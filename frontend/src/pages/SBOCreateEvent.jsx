@@ -227,10 +227,9 @@ const SBOCreateEvent = () => {
             <section>
               <p style={{ fontSize: "15px", marginTop: "20px", marginBottom: "5px"}}>Waitlist Setup</p>
               <p>[ ]Enable Waitlist</p>
-              <p style={{ border: "1px solid", paddingBottom: "15vh", borderRadius: "20px" }}>Note: 
+              <p style={{ border: "1px solid", padding: "10px", borderRadius: "20px", marginTop: "10px"}}>Note: 
                 When the checkbox is unchecked:
                 The system will only accept registrations up to the specified capacity.
-
                 When the checkbox is checked:
                 Participants who try to register after reaching capacity will be able to join the waitlist.
                 An additional message can appear:"Thank you for your interest! You will be notified if a spot opens up."
@@ -354,16 +353,7 @@ const SBOCreateEvent = () => {
     <div style={{ display: "flex", height: "100vh" }}>
       <div className="sbo-create-events-container">
         <div className="sboce-info-container">
-          <h2
-            style={{
-              color: "#6C23B5",
-              marginBottom: 5,
-              fontFamily: "Righteous",
-              fontWeight: "normal",
-            }}
-          >
-            Create Your Event!
-          </h2>
+          <h2 style={{ color: "#6C23B5", marginBottom: 5, fontFamily: "Righteous", fontWeight: "normal" }}>Create Your Event!</h2>
           <p>To create your event, please follow the</p>
           <p>step-by-step form below. Be sure to</p>
           <p>provide all the necessary details so</p>

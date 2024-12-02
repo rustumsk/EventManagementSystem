@@ -112,7 +112,7 @@
 }
 
 /* Modal Styles */
-.modal-overlay {
+.sbome-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -122,22 +122,65 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .sbome-modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50vw;
+    height: 50vh;
+    text-align: center;
+
+    .sbome-modal-data-container {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 100vh;
+
+      .sbome-modal-data {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        height: 30vh;
+        width: 25vw;
+        gap: 10px;
+        margin-top: 30px;
+      }
+    }
+    
+    .sbome-modal-data-container img {
+      width: 15vw;
+      height: 25vh;
+      filter: brightness(0);
+    }
+
+    .sbome-eo-btn-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      height: 10vh;
+
+
+      .sbome-close-btn {
+        padding: 5px;
+        background-color: black;
+        color: white;
+        border-radius: 25px;
+        width: 7vw;
+        cursor: pointer;
+      }
+      .sbome-vr-btn {
+        padding: 5px;
+        background-color: black;
+        color: white;
+        border-radius: 25px;
+        width: 11vw;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 50vw;
-  text-align: center;
-}
 
-.close-btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
