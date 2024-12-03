@@ -1,6 +1,6 @@
 import { jwtDecode } from 'jwt-decode';
-const checkStudentAuthorized = (token) =>{
+const decodeToken = (token) =>{
     return token? jwtDecode(token): false;
 }
 
-export {checkStudentAuthorized};
+export {decodeToken};

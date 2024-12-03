@@ -3,19 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import '../../styles/student-dashboard.scss';
 import StudentEvent from '../../components/studentDashboard/StudentEvent';
 import StudentDiscover from '../../components/studentDashboard/StudentDiscover';
-import { checkStudentAuthorized } from '../../utils/auth';
+import { decodeToken } from '../../utils/auth';
 import StudentHome from '../../components/studentDashboard/StudentHome';
 import getStudent from '../../services/studentServices/getStudent';
 import {userContext} from '../../main';
 import StudentSettings from '../../components/studentDashboard/StudentSettings';
-import userIcon from '../../assets/mainlogo.png'
+import defaultIcon from '../../assets/pfp.png'
 
 export default function StudentDashboard() {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [userToken,setUserToken] = useState(localStorage.getItem('userToken'))
     const navigate = useNavigate();
-    const [isActive, setIsActive] = useState('settings');
+    const [isActive, setIsActive] = useState('default');
     const [isLoading, setIsLoading] = useState(true);
+    const [userIcon, setUserIcon] = useState();
     
     const {user,setUser} = useContext(userContext);
 
@@ -41,6 +42,7 @@ export default function StudentDashboard() {
         localStorage.removeItem('userToken');
         setUserToken('');
     }
+    
     if(!userToken){
         navigate('/studentlogin');
     }
@@ -57,8 +59,8 @@ export default function StudentDashboard() {
                     navigate('/studentlogin');
                     return;
                 }
-    
-                const studentId = checkStudentAuthorized(token)?.userObj;
+                setUserIcon(defaultIcon);
+                const studentId = decodeToken(token)?.userObj;
                 
                 if (studentId) {
                     const userData = await getStudent.getStudentById(token, studentId);

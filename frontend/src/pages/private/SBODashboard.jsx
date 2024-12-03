@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef,useContext,useEffect } from "react";
 import '../../styles/sbo-dashboard.scss';
 import SBOCreateEvent from "../../components/sboDashboard/SBOCreateEvent";
 import SBOMyEvents from "../../components/sboDashboard/SBOMyEvents";
@@ -9,9 +9,13 @@ import dashboardImage from "../../assets/SBOD_Logos/House.png";
 import dataImage from "../../assets/SBOD_Logos/dashboard.png";
 import houseImage from "../../assets/SBOD_Logos/space_dashboard.png";
 import spaceImage from "../../assets/SBOD_Logos/data_usage.png";
+import { useNavigate } from 'react-router-dom';
 import tuneImage from "../../assets/SBOD_Logos/tune.png";
 import notifImage from "../../assets/SBOD_Logos/notifications.png";
 import searchImage from "../../assets/SBOD_Logos/search.png";
+import { userContext } from "../../main";
+import { decodeToken } from "../../utils/auth";
+import getSbo from "../../services/sboServices/getSbo";
 
 const images = {
   logo: appImage,
@@ -52,6 +56,9 @@ function SBODashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const todayEventsRef = useRef(null); // Ref for the Today's Events container
   const [currentStep, setCurrentStep] = useState(1); // CREATE USER steps
+  const navigate = useNavigate();
+  const [sboToken, setSboToken] = useState(localStorage.getItem('sboToken'));
+  const {sbo, setSbo} = useContext(userContext);
 
   const handleEventClick = (event) => {
     alert(`You clicked on: ${event}`);
@@ -65,7 +72,6 @@ function SBODashboard() {
     setSearchQuery(e.target.value);
   };
 
-  // Filter events based on search query
   const filteredTodaysEvents = todaysEvents.filter(event =>
     event.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -74,14 +80,34 @@ function SBODashboard() {
     event.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Handle wheel scrolling for horizontal scrolling
   const handleWheelScroll = (e) => {
     if (todayEventsRef.current) {
       todayEventsRef.current.scrollLeft += e.deltaY; 
-      e.preventDefault(); // Prevent default scrolling behavior (vertical scroll)
+      e.preventDefault(); 
     }
   };
 
+  if (!sboToken) {
+    navigate('/sbologin');
+    console.log("invalid!");
+  }
+
+
+  useEffect(() =>{
+      const fetchSboData = async () =>{
+        const token = sboToken;
+        if(!token){
+            navigate('/sbologin');
+            console.log("invalid!");
+        }
+        const sbo_id = decodeToken(token);
+        if (sbo_id){
+          const sboData = await getSbo.getSboById(token, sbo_id.userObj);
+          setSbo(sboData.data);
+        }
+      }
+      fetchSboData();
+  }, [sboToken])
   return (
     <div className="sbod-container">
       {/* Sidebar */}
@@ -100,7 +126,7 @@ function SBODashboard() {
             flexDirection: "column",
             marginLeft: 5
           }}>
-            <span>John Doe</span>
+            <span>{sbo.sbo_name}</span>
             <span className="sbod-role" style={{ marginLeft: 2}}>Admin</span>
           </div>
         </div>

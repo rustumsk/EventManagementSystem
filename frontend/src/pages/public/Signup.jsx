@@ -4,6 +4,8 @@ import logo from "../../assets/logo.png";
 import Toastify from 'toastify-js';
 import "toastify-js/src/toastify.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { createLocalStudent } from "../../services/studentServices/studentCreation";
 
 function Signup() {
   const [signupName, setName] = useState("");
@@ -12,6 +14,7 @@ function Signup() {
   const [signupPass, setPass] = useState("");
   const [signupConfirmpass, setConfirmPass] = useState("");
   const [signupErrors, signupSetErrors] = useState({});
+  const navigate = useNavigate();
 
   const authentication = async (e) => {
     e.preventDefault(); 
@@ -45,13 +48,10 @@ function Signup() {
     };
     
     console.log("Submitting:", data);
-    axios.post('http://localhost:3000/signup', data)
-        .then(response => {
-            console.log('Signup successful:', response.data);
-        })
-        .catch(error => {
-            console.error('Signup failed:', error);
-        });
+    
+    const result = await createLocalStudent(data.id_num, data.email, data.fullname, data.password);
+    console.log(result.data.status);
+    navigate('/studentlogin');
 };
 
   return (

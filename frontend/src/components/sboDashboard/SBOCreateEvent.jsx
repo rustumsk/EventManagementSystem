@@ -12,7 +12,7 @@ const SBOCreateEvent = () => {
   const [eventLocation, setEventLocation] = useState("");
   const [eventCategory, setEventCategory] = useState("");
   const [eventOverview, setEventOverview] = useState("");
-
+  const [eventPic, setEventPic] = useState(null);
   const handleChange = () => {
     setIsChecked(!isChecked);
   };
@@ -21,6 +21,11 @@ const SBOCreateEvent = () => {
     fontSize: "13px",
   };
 
+  const handlePicChange = (e) => {
+    if (e.target.files) {
+      setEventPic(e.target.files[0]);
+    }
+  };
   const handleButtonClick =() => {
     setCurrentStep(step => step + 1);
   };
@@ -164,8 +169,10 @@ const SBOCreateEvent = () => {
             <div style={{marginTop: "30px"}}>
               <h5>Upload File</h5>
               <input
+                className="ce-file"
                 type="file"
                 placeholder="Upload Files Here"
+                onChange={handlePicChange}
                 style={{
                   padding: "10px",
                   width: "50%",
@@ -174,21 +181,9 @@ const SBOCreateEvent = () => {
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                 }}
               />
-            </div>
-
-            <div style={{marginTop: "30px"}}>
-              <h5>Upload File</h5>
-              <input
-                type="file"
-                placeholder="Upload Files Here"
-                style={{
-                  padding: "10px",
-                  width: "50%",
-                  border: "1px solid black",
-                  borderRadius: "5px",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                }}
-              />
+              <div>
+                {eventPic && <p>Selected file: {eventPic.name}</p>} {/* Show selected file name */}
+              </div>
             </div>
 
             <div className="buttonContainer">
@@ -313,16 +308,6 @@ const SBOCreateEvent = () => {
       <div className="sboce-step5-container">
         <div className="sboce-create-event-container">
           <div className="sboce-details">
-            <section className="sboce-interest-section">
-              <h5>Interest in Volunteer Opportunities:</h5>
-              <label className="sboce-interest-option">
-                <p>[ ] yes</p> {/* IKAW NA BAHALA ANA CHECKBOX PRE DIKO KABALO AHHAHA */}
-                <p>[ ] no</p>
-              </label>
-              <input type="text" style={{ width: "25vw", paddingTop: "10px", borderBottom: "1px solid black" }}/>
-              <button style={{ width: "25vw", backgroundColor: "white", padding: "5px", marginTop: "10px", border: "1px solid" }}>+</button>
-            </section>
-
             <section className="sboce-final-steps">
               <label style={{ padding: "10px", fontFamily: "Righteous", fontWeight: "normal" }}>
                 <h2>Final Steps</h2>

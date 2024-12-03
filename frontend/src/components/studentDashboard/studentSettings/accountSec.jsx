@@ -23,7 +23,7 @@ export default function AccountSec() {
                 </div>
                 <div className="cbutton">
                     <button onClick={clickEditable} className={editable? 'cc':null }>{editable? "Cancel":"Change Password" }</button>
-                    {editable? <button> Confirm Password Change </button>: null}
+                    {editable? <button> Confirm </button>: null}
                 </div>
             </form>
         </section>
