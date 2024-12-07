@@ -1,11 +1,11 @@
 import { useState } from "react";
 export default function ProfileSec({user, userIcon}){
-    const [studentName, setStudentName] = useState(user.fullname);
-    const [studentEmail, setStudentEmail] = useState(user.student_email);
+    const [studentName, setStudentName] = useState(user.fullname? user.fullname: user.sbo_name);
+    const [studentEmail, setStudentEmail] = useState(user.student_email? user.student_email: user.sbo_email);
     const [editable, setEditable] = useState(false);
 
-    const [originalName, setOriginalName] = useState(user.fullname);
-    const [originalEmail, setOriginalEmail] = useState(user.student_email);
+    const [originalName, setOriginalName] = useState(user.fullname? user.fullname: user.sbo_name);
+    const [originalEmail, setOriginalEmail] = useState(user.student_email? user.student_email: user.sbo_email);
 
     const handleCancelEdit = () => {
         setStudentName(originalName);

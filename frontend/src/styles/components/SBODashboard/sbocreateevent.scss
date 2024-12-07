@@ -58,7 +58,14 @@
     border-radius: 20px;
     border: 2px solid black;
     background-color: #D7B9F7;
-
+    div{
+      textarea{
+        border: solid 2px black;
+        height: 15rem;
+        width: 50%;
+        padding: 3rem;
+      }
+    }
     .sboce-create-event-container {
         display: flex;
         flex-direction: column;
@@ -76,12 +83,44 @@
         margin: 50px;
         width: 60vw;
         height: 100vh;
+        .sbe-type{
+          height: 15rem;
+          padding-top: 3rem;
+          font-size: 2rem;
+          font-family: 'Righteous';
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          .event-select {
+            width: 70%; /* Adjust width as needed */
+            padding: 0.8rem; /* Space inside the box */
+            font-size: 1rem;
+            font-family: 'Righteous', sans-serif;
+            color: #333; /* Text color */
+            background-color: #fff; /* Background color */
+            border: 2px solid black; /* Border for the box */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            transition: border-color 0.3s, box-shadow 0.3s; /* Smooth hover effect */
+          }
+          
+          .event-select:focus {
+            outline: none;
+            border-color: #007bff; /* Highlight color on focus */
+            box-shadow: 0 0 4px #007bff; /* Subtle glow effect */
+          }
+          
+          .event-select option {
+            font-size: .8rem; /* Slightly smaller font for dropdown options */
+          }
+        }
     }
     .buttonContainer {
         display: flex;
         align-items: flex-end;
         justify-content: flex-end;
         flex: 1; /* take up remaining space */
+        gap: 1rem;
     }
     .buttonStyle {
         background-color: black;
@@ -90,9 +129,185 @@
         font-size: 16px;
         border: none;
         border-radius: 50px;
-        width: 20vh;
+        width: 8rem;
         cursor: pointer;
     }
+    .addBtn {
+        background-color: white;
+        border: 2px solid black;
+        color: black;
+        font-weight: bold;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .addBtn:hover {
+        background-color: black;
+        color: white;
+        transform: scale(1.05);
+    }
+    .modalOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      
+      .modalContent {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 350px;
+      
+        h3 {
+          margin-bottom: 20px;
+          text-align: center;
+        }
+      
+        .inputFieldContainer {
+          margin-bottom: 20px;
+          display: flex;
+          flex-direction: column;
+      
+          label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: left;
+          }
+      
+          input,
+          select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+          }
+        }
+      
+        .previewFieldContainer {
+          margin-top: 20px;
+          display: flex;
+          flex-direction: column;
+      
+          .previewLabel {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: left;
+          }
+      
+          .previewInput {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+          }
+        }
+      
+        .modalActions {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 20px;
+      
+          button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+      
+            &:hover {
+              opacity: 0.8;
+            }
+      
+            &:first-child {
+              background-color: black;
+              color: white;
+            }
+      
+            &:last-child {
+              background-color: black;
+              color: white;
+            }
+          }
+        }
+      }
+      .modalOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      
+      .modalContent {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 350px;
+        text-align: center;
+      
+        h2 {
+          margin-bottom: 20px;
+          font-size: 1.2rem;
+          font-weight: bold;
+        }
+      
+        input {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          margin-bottom: 15px;
+          font-size: 1rem;
+        }
+      
+        .modalActions {
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+      
+          button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+      
+            &:hover {
+              opacity: 0.8;
+            }
+      
+            &.cancel-btn {
+              background-color: #cccccc;
+              color: #333333;
+            }
+      
+            &.save-btn {
+              background-color: black;
+              color: white;
+            }
+          }
+        }
+      }
 }
 
 

@@ -2,9 +2,10 @@ import '../../styles/complete-profile.scss';
 import { jwtDecode } from 'jwt-decode'; // Use named import
 const urlParams = new URLSearchParams(window.location.search);
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { genToken } from '../../utils/jwt';
 import { createGoogleStudent } from '../../services/studentServices/studentCreation';
+import getSbo from '../../services/sboServices/getSbo';
 
 const aInfo = urlParams.get('aInfo');
 let google_id = "";
@@ -18,12 +19,14 @@ if (aInfo) {
 
 export default function CompleteProfile() {
     const navigate = useNavigate();
+    const [sbos, setSbos] = useState([]);
     const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState({
         fullName: "",
         idNumber: "",
         password: "",
         confirmPassword: "",
+        sbo: "", // Added SBO field
     });
 
     const handleInputChange = (e) => {
@@ -32,7 +35,6 @@ export default function CompleteProfile() {
             ...prev,
             [id]: value,
         }));
-        // Remove error message for the field being edited
         setErrors((prev) => ({
             ...prev,
             [id]: "",
@@ -51,6 +53,9 @@ export default function CompleteProfile() {
         if (formData.password !== formData.confirmPassword) {
             newErrors.confirmPassword = "Passwords do not match.";
         }
+        if (!formData.sbo) {
+            newErrors.sbo = "Please select an SBO.";
+        }
         return newErrors;
     };
 
@@ -61,24 +66,41 @@ export default function CompleteProfile() {
             setErrors(validationErrors);
             return;
         }
-        try{
-            const dat = await createGoogleStudent(formData.idNumber, email, formData.fullName, formData.password, google_id);
-            const token = await genToken(formData.idNumber, email, formData.fullName, formData.password, google_id);
+        try {
+            const dat = await createGoogleStudent(
+                formData.idNumber,
+                email,
+                formData.fullName,
+                formData.password,
+                google_id,
+                formData.sbo
+            );
+            const token = await genToken(
+                formData.idNumber,
+                email,
+                formData.fullName,
+                formData.password,
+                google_id
+            );
 
             navigate(`/studentlogin`);
-        }
-        catch(e){
+        } catch (e) {
             console.log(e);
         }
-        // navigate(`/signup/email-verification?info=${token}`);
     };
+
+    useEffect(() => {
+        const getAll = async () => {
+            const data = await getSbo.getAllSbo();
+            setSbos(data.data.rows);
+        };
+        getAll();
+    }, []);
 
     return (
         <div className="cp-container">
             <form onSubmit={submitCompleteProfile} method="POST">
-                <header className="cp-f-header">
-                    Complete Registration
-                </header>
+                <header className="cp-f-header">Complete Registration</header>
                 <label htmlFor="fullName">Full Name</label>
                 <input
                     type="text"
@@ -109,6 +131,7 @@ export default function CompleteProfile() {
                 />
                 {errors.password && <span className="error">{errors.password}</span>}
 
+
                 <label htmlFor="confirmPassword">Confirm Password</label>
                 <input
                     type="password"
@@ -117,8 +140,25 @@ export default function CompleteProfile() {
                     onChange={handleInputChange}
                     placeholder="********"
                 />
-                {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
+                {errors.confirmPassword && (
+                    <span className="error">{errors.confirmPassword}</span>
+                )}
 
+                <label htmlFor="sbo">Select SBO</label>
+                <select
+                    id="sbo"
+                    value={formData.sbo}
+                    onChange={handleInputChange}
+                >
+                    <option value="">-- Select an SBO --</option>
+                    {sbos.map((sbo) => (
+                        <option key={sbo.sbo_name} value={sbo.sbo_name}>
+                            {sbo.sbo_name}
+                        </option>
+                    ))}
+                </select>
+                {errors.sbo && <span className="error">{errors.sbo}</span>}
+                
                 <button type="submit">Submit</button>
             </form>
         </div>

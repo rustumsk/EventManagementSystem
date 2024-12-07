@@ -9,8 +9,14 @@ const getSboById = async(authToken,sbo_id) =>{
     return data;
 }
 
+const getAllSbo = async() => {
+    const data = await axios.get('http://localhost:3000/sbo/names');
+    return data;
+}
+
 const getSbo = {
-    getSboById
+    getSboById,
+    getAllSbo
 };
 
 export default getSbo;

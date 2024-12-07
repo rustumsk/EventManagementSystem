@@ -1,7 +1,9 @@
 import { useState, useRef,useContext,useEffect } from "react";
 import '../../styles/sbo-dashboard.scss';
+
 import SBOCreateEvent from "../../components/sboDashboard/SBOCreateEvent";
 import SBOMyEvents from "../../components/sboDashboard/SBOMyEvents";
+import SBOSettings from "../../components/sboDashboard/SBOSettings";
 
 import appImage from "../../assets/SBOD_Logos/logo.png";
 import avatarImage from "../../assets/SBOD_Logos/Avatar.png";
@@ -12,6 +14,7 @@ import spaceImage from "../../assets/SBOD_Logos/data_usage.png";
 import { useNavigate } from 'react-router-dom';
 import tuneImage from "../../assets/SBOD_Logos/tune.png";
 import notifImage from "../../assets/SBOD_Logos/notifications.png";
+import lo from '../../assets/SBOD_Logos/logout.svg';
 import searchImage from "../../assets/SBOD_Logos/search.png";
 import { userContext } from "../../main";
 import { decodeToken } from "../../utils/auth";
@@ -27,6 +30,7 @@ const images = {
   tune: tuneImage,
   notification: notifImage,
   search: searchImage,
+  delete: lo
 };
 
 const todaysEvents = [
@@ -104,6 +108,7 @@ function SBODashboard() {
         if (sbo_id){
           const sboData = await getSbo.getSboById(token, sbo_id.userObj);
           setSbo(sboData.data);
+          console.log(sboData.data);
         }
       }
       fetchSboData();
@@ -119,7 +124,7 @@ function SBODashboard() {
         {/* Avatar */}
         <div 
           className="sbod-avatar" 
-          onClick={() => setActiveTab("User Avatar")}>
+          onClick={() => setActiveTab("Settings")}>
           <img src={images.avatar} alt="App Logo" />
           <div style={{
             display: "flex",
@@ -161,6 +166,14 @@ function SBODashboard() {
             label="Settings"
             isActive={activeTab === "Settings"}
             onClick={() => setActiveTab("Settings")}
+          />
+          <NavItem
+            icon={images.delete}
+            label="Logout"
+            onClick={() => {
+              localStorage.removeItem('sboToken');
+              navigate('/sbologin');
+            }}
           />
         </div>
       </nav>
@@ -268,7 +281,7 @@ function SBODashboard() {
           </div>
         )}
         {activeTab === "Create Events" && (
-          <SBOCreateEvent />
+          <SBOCreateEvent sbo={sbo} sboToken={sboToken}/>
         )}
         {activeTab === "My Events" && (
           <SBOMyEvents />
@@ -281,7 +294,7 @@ function SBODashboard() {
         )}
         {activeTab === "Settings" && (
           <div>
-            {/* FUcking shit*/}
+            <SBOSettings sbo={sbo}/>
             
           </div>
         )}
