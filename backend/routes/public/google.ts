@@ -2,7 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 const googleRoute = Router();
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'; // Use OAuth 2.0 instead of OIDC
-import { generateToken, generateTokenForPayload } from "../../helper/auth/jwt";
+import { generateIdToken, generateToken, generateTokenForPayload, generateUserToken } from "../../helper/auth/jwt";
 import { CustomUser } from "../../configs/types/type";
 import findStudent from "../../model/studentModel/read/findStudent";
 import createStudent from "../../model/studentModel/create/createStudent";
@@ -24,16 +24,16 @@ passport.use(new GoogleStrategy({
         const existingUser = await findStudent.getStudentByGoogleId(profile.id);
         
         if (existingUser.rows && existingUser.rows.length > 0) {
-            const token = generateToken(email);
+            console.log(typeof existingUser.rows[0].student_id);
+            console.log(existingUser.rows[0].student_id);
+            const token = generateUserToken(existingUser.rows[0].student_id);
 
+            console.log(token);
             return done(null, {
                 type: 'existingUser',
-                token: generateToken(email),
-                user: existingUser
+                token: token,
             }); 
         }
-
-        const userStatus = false;
 
         const addInfo = {
             email: profile.emails[0].value,
@@ -63,7 +63,8 @@ googleRoute.get('/oauth2/redirect/google', passport.authenticate('google', { ses
     }
 
     if (userData.type === 'existingUser'){
-        res.status(200).json(userData.token)
+        console.log(`Inside: ${userData.token}`);
+        res.redirect(`http://localhost:5173/studentdashboard?usertoken=${userData.token}`);
     }
 
     if (userData.type ==='newUser'){

@@ -8,9 +8,19 @@ const getFeaturedEvent = async () => {
         return (e);
     }
 }
+const getMyEventWithId = async (sbo_id: any) =>{
+    try{
+        const data = await pool.query('SELECT * FROM event where sbo_id = $1', [sbo_id]);
+        return data.rows;
+    }catch(e){
+        console.log(e);
+        return (e);
+    }
+}
 
 const getEvent = {
-    getFeaturedEvent
+    getFeaturedEvent,
+    getMyEventWithId
 };
 
 export default getEvent

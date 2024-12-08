@@ -15,4 +15,5 @@ const passwordHelper = {
     verifyPassword,
     hashPassword
 }
+
 export default passwordHelper;
