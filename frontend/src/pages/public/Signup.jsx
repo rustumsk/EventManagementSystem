@@ -6,6 +6,9 @@ import "toastify-js/src/toastify.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { createLocalStudent } from "../../services/studentServices/studentCreation";
+import googleLogo from "../../assets/gg.png";
+import appImage from "../../assets/SBOD_Logos/logo.png";
+import suDesign from "../../assets/su-design.png";
 
 function Signup() {
   const [signupName, setName] = useState("");
@@ -16,7 +19,11 @@ function Signup() {
   const [signupErrors, signupSetErrors] = useState({});
   const navigate = useNavigate();
 
-  const authentication = async (e) => {
+  const handleLoginClick = () => {
+    alert("Hi pre")
+  }
+
+ const authentication = async (e) => {
     e.preventDefault(); 
 
     signupSetErrors({}); // Reset errors
@@ -55,128 +62,51 @@ function Signup() {
 };
 
   return (
-    <div className="signup-container">
-      
-      <section className="signup-left-container">
-        <img src={logo} alt="signup-Logo" className="signup-logo" />
-        <section className="signup-right-side" />
+    <div className="signup-container">  
+      <section className="signup-design-container">
+        <section className="signup-logo-container">
+          <img className="signup-logo" src={appImage}/>
+        </section>
+        <section className="signup-design-human-container">
+          <img className="signup-design-human" src={suDesign}/>
+        </section>
       </section>
-      
+
+      <section className="signup-sidebar-design"></section>
+
       <section className="signup-main-container">
-        <h1
-          style={{
-            paddingRight: 200,
-            paddingBottom: 15,
-            fontSize: 32,
-            fontFamily: "Righteous",
-          }}
-        >
-          STUDENT ACCOUNT
-        </h1>
-          
-        <div className="signup-personal-details">
-          <div className="signup-form-group">
-            <h3 className="signup-perTails">Personal Details</h3>
-            <label htmlFor="signupName">Full Name</label>
-            <input // NAME INPUT
-              id="signupName"
-              className="signupName"
-              name="fullname"
-              type="text"
-              placeholder={signupErrors.signupName || "enter full name"}
-              value={signupName}
-              onChange={(e) => setName(e.target.value)}
-              style={{ borderColor: signupErrors.signupName ? "red" : "#ccc" }} // Red border if error
-            />
-          </div>
-
-          <div className="signup-form-group">
-            <label htmlFor="signupIdno">ID Number</label>
-            <input // ID NUMBER INPUT
-              id="signupIdno"
-              className="signupIdno"
-              type="text"
-              name="id_num"
-              placeholder={signupErrors.signupIdno || "enter your ID number"}
-              value={signupIdno}
-              onChange={(e) => setIdno(e.target.value)}
-              style={{ borderColor: signupErrors.signupIdno ? "red" : "#ccc" }} // Red border if error
-            />
-          </div>
-
-          <div className="signup-form-group">
-            <label htmlFor="signupEmad">Email Address</label>
-            <input // EMAIL ADDRESS INPUT
-              id="signupEmad"
-              className="signupEmad"
-              type="email"
-              name="email"
-              placeholder={signupErrors.signupEmad || "johndoe@gmail.com"}
-              value={signupEmad}
-              onChange={(e) => setEmad(e.target.value)}
-              style={{ borderColor: signupErrors.signupEmad ? "red" : "#ccc" }} // Red border if error
-            />
-          </div>
-        </div>
-
-        <div className="signup-password-details">
-          <div className="signup-form-group">
-            <h3 className="signup-passText">Password Details</h3>
-            <label htmlFor="signupPass">Password</label>
-            <input // PASSWORD INPUT
-              id="signupPass"
-              className="signupPass"
-              type="password"
-              name="password"
-              placeholder={signupErrors.signupPass || "enter your password"}
-              value={signupPass}
-              onChange={(e) => setPass(e.target.value)}
-              style={{ borderColor: signupErrors.signupPass ? "red" : "#ccc" }} // Red border if error
-            />
-          </div>
-
-          <div className="signup-form-group">
-            <label htmlFor="signupConfirmpass">Confirm Password</label>
-            <input // CONFIRM PASSWORD INPUT
-              id="signupConfirmpass"
-              className="signupConfirmpass"
-              type="password"
-              placeholder={
-                signupErrors.signupConfirmpass || "confirm your password"
-              }
-              value={signupConfirmpass}
-              onChange={(e) => setConfirmPass(e.target.value)}
-              style={{
-                borderColor: signupErrors.signupConfirmpass ? "red" : "#ccc",
-              }} // Red border if error
-            />
-          </div>
-        </div>
-
-        <button className="signup-register-button" onClick={authentication}>
-          <b>Register</b>
-        </button>
-
-        <button
-          className="signup-google-button"
-          onClick={() => window.location.href = 'http://localhost:3000/google'}
-        >
-          <b>Sign up with Google</b>
-        </button>
-
-        <button
-          className="signup-facebook-button"
-          onClick={() => window.location.href = 'http://localhost:3000/auth/facebook'}
-        >
-          <b>Sign up with Facebook</b>
-        </button>
-        
-        <p className="signup-login-text">
-          Already have an account?{" "}
-          <a href="/StudentLogin">
-            <b>Login</b>
-          </a>
-        </p>
+        <h2 style={{ fontFamily: "Righteous" }}>STUDENT ACCOUNT</h2>
+        <section className="signup-details">
+          <section className="signup-personal">
+            <p className="signup-p-design">Personal Details</p>
+            <p className="signup-p-label">Full Name</p>
+            <input type="text" placeholder="enter your full name" className="signup-input-style"/>
+            <p className="signup-p-label">ID Number</p>
+            <input type="text" placeholder="enter your ID number" className="signup-input-style"/>
+            <p className="signup-p-label">Email Address</p>
+            <input type="text" placeholder="johndoe@gmail.com" className="signup-input-style"/>
+          </section>
+          <section className="signup-password">
+            <p className="signup-p-design">Password Details</p>
+            <p className="signup-p-label">Password</p>
+            <input type="password" placeholder="enter your password" className="signup-input-style"/>
+            <p className="signup-p-label">Confirm Password</p>
+            <input type="text" placeholder="confirm password" className="signup-input-style"/>
+          </section>
+          <section className="signup-btns-container">
+            <button className="signup-register-btn">Register</button>
+            <button className="signup-google-btn">
+              <img 
+                src={googleLogo} 
+                className="google-logo"
+            />Sign up with Google</button>
+            <p> Already have an account?{' '}
+              <span onClick={handleLoginClick} style={{ color: 'black', textDecoration: 'underline', cursor: 'pointer' }} >
+                Login
+              </span>
+            </p>
+          </section>
+        </section>
       </section>
     </div>
   );

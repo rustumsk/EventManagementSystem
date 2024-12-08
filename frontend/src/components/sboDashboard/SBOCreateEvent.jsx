@@ -219,6 +219,18 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
     setErrors({}); // Clear any previous errors
     setCurrentStep((step) => step + 1); // Move to the next step
   };
+  const clearAll = () => {
+    setSboId('null');
+    setEventDescription('');
+    setEventName('');
+    setEventDate('');
+    setLocationId('null');
+    setCategoryId('null');
+    setEventCapacity('');
+    setEndsAt('');
+    setEventImage('');
+    setEventType('');
+  };
 
   const handlePublishEvent = async (isDraft) => {
     const validateInputs = () => {
@@ -349,6 +361,7 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
       };
       createEvent(sboToken, dataPayload);
     }
+    clearAll();
   };
 
   useEffect(() => {

@@ -284,7 +284,7 @@ function SBODashboard() {
           <SBOCreateEvent sbo={sbo} sboToken={sboToken}/>
         )}
         {activeTab === "My Events" && (
-          <SBOMyEvents />
+          <SBOMyEvents sbo_id={sbo} authToken={sboToken}/>
         )}
         {activeTab === "Analytics" && (
           <div>

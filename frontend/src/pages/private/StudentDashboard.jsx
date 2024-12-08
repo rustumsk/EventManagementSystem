@@ -9,6 +9,8 @@ import getStudent from '../../services/studentServices/getStudent';
 import {userContext} from '../../main';
 import StudentSettings from '../../components/studentDashboard/StudentSettings';
 import defaultIcon from '../../assets/pfp.png'
+import getSbo from '../../services/sboServices/getSbo';
+import { getEventById } from '../../services/eventServices/getEvent';
 
 export default function StudentDashboard() {
     const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -17,7 +19,8 @@ export default function StudentDashboard() {
     const [isActive, setIsActive] = useState('default');
     const [isLoading, setIsLoading] = useState(true);
     const [userIcon, setUserIcon] = useState();
-    
+    const [events, setEvents] = useState([]);
+    const [sboId, setSboId] = useState('');
     const {user,setUser} = useContext(userContext);
 
     const homeClick = () =>{
@@ -65,6 +68,9 @@ export default function StudentDashboard() {
                 if (studentId) {
                     const userData = await getStudent.getStudentById(token, studentId);
                     setUser(userData.data);
+                    const sId = await getSbo.getSboId(userToken, userData.data.sbo_name);
+                    const sEvent = await getEventById(userToken, sId.sbo_id);
+                    setEvents(sEvent);
                     localStorage.setItem('userToken', token);
                 }
     
@@ -77,6 +83,10 @@ export default function StudentDashboard() {
     
         fetchStudentData();
     }, [userToken, navigate, setUser]);
+    
+    useEffect(() =>{
+        console.log(sboId);
+    },[]);
 
     if (isLoading) {
         return (
@@ -119,7 +129,7 @@ export default function StudentDashboard() {
             {isActive === 'default' ? (
                 <StudentHome user={user} discoveryClick={discoveryClick} eventClick={eventClick}/>
             ) : isActive === 'discovery' ? (
-                <StudentDiscover isActive={isActive} discoveryClick={discoveryClick} eventclick={eventClick}/>
+                <StudentDiscover isActive={isActive} discoveryClick={discoveryClick} eventclick={eventClick} events={events} user={user}/>
             ): isActive ==='myevent'?(
                 <StudentEvent isActive={isActive} discoveryClick={discoveryClick} eventclick={eventClick}/>
             ): isActive === 'settings'?(

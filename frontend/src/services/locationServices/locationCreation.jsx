@@ -7,7 +7,6 @@ const createLocation = async(authToken, data) =>{
                 'Authorization': `Bearer ${authToken}`
             }
         })
-
         return location_id.data.location_id;
     }catch(e){
         console.log(e);

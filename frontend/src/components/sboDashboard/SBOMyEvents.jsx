@@ -1,18 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import '../../styles/components/SBODashboard/sbomyevent.scss';
 import SBOME_PM from "./SBOME_PM";
 import appImage from "../../assets/SBOD_Logos/logo.png";
+import { getEventById } from "../../services/eventServices/getEvent";
+import { convertToWritten } from "../../utils/dateConvert";
+import { getLocationById } from "../../services/locationServices/getLocation";
+import { getDraftById } from "../../services/draftServices/getDraftById";
 
-function SBOMyEvents() {
+
+function SBOMyEvents({setTab, sbo_id, authToken}) {
   const [eventCategory, setEventCategory] = useState("");
   const [currentStep, setCurrentStep] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
   const [selectedEvent, setSelectedEvent] = useState(null); // Store the selected event
   const [activeTab, setActiveTab] = useState("MY Events");
+  const [published, setPublished] = useState([]);
+  const [modalValue, setModalValue] = useState({});
+  const [location, setLocation] = useState({});
+  const [draftEvent, setDraftEvent] = useState([]);
+  const useNigga = (obj) =>{
+      const date = convertToWritten(new Date(obj.event_date));
+      // const l = location?.location_name && location?.location_city
+      // ? `${location.location_name}, ${location.location_city}`
+      // : "Loading location...";
+      return(
+        <div className="sbome-modal-overlay">
+              <div className="sbome-modal-content">
+                <h3 style={{ fontFamily: "Righteous", fontWeight: "bold", fontSize: '1.3rem' }}>Event Overview</h3>
+                <section className="sbome-modal-data-container">
+                <span style={{ backgroundImage: `url(${obj.event_image})` }}></span>
 
-
-  const cards = Array(14).fill(null);
-
+                  <label className="sbome-modal-data">
+                    <p>Event Name: {obj.event_name}</p>
+                    <p>Date: {date}</p>
+                    <p>Location: {location?.location_name && location?.location_city ? `${location.location_name}, ${location.location_city}` : 'Loading...'}</p>
+                    <p style={{ textAlign: "left"  }}>Description: {obj.event_description}.</p>
+                    <p>Total Capacity: {obj.capacity} Participants</p>
+                    <p>Registered Participants: todo </p>
+                  </label>
+                </section>
+                <section className="sbome-eo-btn-container">
+                  <button className="sbome-close-btn" onClick={closeModal}>Close</button>
+                  <button className="sbome-vr-btn" onClick={viewRegistrationHandler}>View Registration</button>
+                </section>
+              </div>
+            </div>
+      )
+  }
   // Function to open the modal and set event details
   const openModal = (eventDetails) => {
     setSelectedEvent(eventDetails);
@@ -29,7 +63,40 @@ function SBOMyEvents() {
   const viewRegistrationHandler = () => {
     setActiveTab("Participant Management");
   }
+  useEffect(() =>{
+    const getpublishedEvent = async() =>{
+      try{
+        const data = await getEventById(authToken,sbo_id.sbo_id);
+        setPublished(data);
+      }catch(e){
+        console.log(e);
+      }
+    }
+    const getDraftEvent = async() =>{
+      try{
+        const data = await getDraftById(authToken, sbo_id.sbo_id);
+        setDraftEvent(data);
+      }catch(e){
+        console.log(e);
+      }
+    }
+    getpublishedEvent();
+    getDraftEvent();
+  },[]);
 
+  useEffect(() =>{
+    const getModalValue = async() =>{
+      try{
+        const data = await getLocationById(authToken, modalValue.location_id);
+        console.log(data);
+        setLocation(data);
+      }
+      catch(e){
+        console.log(e);
+      }
+    }
+    getModalValue();
+  }, [modalValue])
   return (
     <>
       {activeTab === "MY Events" && (
@@ -52,42 +119,53 @@ function SBOMyEvents() {
           </section>
     
           <section className="sbome-items-back-container">
-            <section className="sbome-items-front-container">
-              <label className="sbome-items-container">
-                {cards.map((_, index) => (
-                  <card key={index} className="sbome-item">
-                    <button className="sbome-vd-btn" onClick={() => openModal(`Event ${index + 1} Details`)}>
-                      View Details
-                    </button>
-                  </card>
-                ))}
-              </label>
+            <section className="sbome-items-front-container" onClick={() =>{console.log('Fuck you')}}>
+              <div className="sbome-items-container">
+              {currentStep === 2 ? (
+                published.length > 0 ? (
+                  published.map((obj, index) => (
+                    <div className="sbome-item">
+                      <p className="b">Event:</p>
+                      <p className="b">{obj.event_name}</p>
+                      <p>Date: March 10 2024</p>
+                      <p>Participant 69 / 0</p>
+                      <button
+                        onClick={() => {
+                          openModal(`Event ${index + 1} Details`);
+                          setModalValue(obj);
+                        }}
+                        className="sbome-vd-btn"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <div className="nevents"> No events available <a href="">Create Events</a></div>
+                )
+              ) : (
+                draftEvent.length > 0 ? (
+                  draftEvent.map((obj, index) => (
+                    <div className="sbome-item">
+                      <p className="b">Drafted Event: </p>
+                      <p className="b">{obj.draft_name}</p>
+                      <p>Created at: March 18 2022</p>
+                      <div className="btn-cont">
+                        <button className="det">View Details</button>
+                        <button className="pub">Publish</button>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="nevents">{console.log(draftEvent)} No drafts  available <a href="">Create Drafts</a></div>
+                )
+              )}
+              </div>
             </section>
           </section>
     
-          {/* Modal Popup */}
           {isModalOpen && (
-            <div className="sbome-modal-overlay">
-              <div className="sbome-modal-content">
-                <h3 style={{ fontFamily: "Righteous", fontWeight: "normal" }}>Event Overview</h3>
-                <p>{selectedEvent}</p>
-                <section className="sbome-modal-data-container">
-                  <img icon={appImage}/> {/* Temp img kaya na nimo pre sa*/}
-                  <label className="sbome-modal-data">
-                    <p>Event Name: National Heroe's Day</p>
-                    <p>Date: August 28, 2024</p>
-                    <p>Location: School Gymnasium </p>
-                    <p style={{ textAlign: "left"  }}>Description: National Heroes Day is a day to honor the Filipino heroes who fought for the country's freedom and independence.</p>
-                    <p>Total Capacity: 100 Participants</p>
-                    <p>Registered Participants: 80 Confirmed </p>
-                  </label>
-                </section>
-                <section className="sbome-eo-btn-container">
-                  <button className="sbome-close-btn" onClick={closeModal}>Close</button>
-                  <button className="sbome-vr-btn" onClick={viewRegistrationHandler}>View Registration</button>
-                </section>
-              </div>
-            </div>
+            useNigga(modalValue)
           )}
         </div>
       )}

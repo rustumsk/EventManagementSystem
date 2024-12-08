@@ -8,6 +8,7 @@ import EmailVerification from "./pages/public/emailVerification";
 import ErrorProfile from "./pages/public/ErrorProfile";
 import StudentDashboard from "./pages/private/StudentDashboard";
 import SBODashboard from "./pages/private/SBODashboard";
+import RegistrationFrom from "./components/studentDashboard/RegistraionForm";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <Signup />
+  },
+  {
+    path: '/eventregister',
+    element: <RegistrationFrom />
   },
   {
     path: '/signup/complete-profile',
