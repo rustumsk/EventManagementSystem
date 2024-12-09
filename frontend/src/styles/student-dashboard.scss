@@ -957,6 +957,11 @@
             grid-auto-rows: minmax(25rem, auto); 
             justify-content: center;
             gap: 2rem;
+            span{
+                align-self: center;
+                justify-self: center;
+                font-size: 3rem;
+            }
         }
         
         .sb-devents{
@@ -1146,11 +1151,16 @@
                     }
                 }
                 .sb-mrevents{
-                    height: 50rem;
+                    height: auto;
                     display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    grid-template-rows: 1fr 1fr;
+                    grid-template-columns: repeat(2, minmax(15rem, 1fr)); 
+                    grid-auto-rows: minmax(25rem, auto); 
                     gap: 2rem;
+                    span{
+                        justify-self: center;
+                        align-self: center;
+                        font-size: 3rem;
+                    }
                     div{
                         background-color: white;
                         border: solid 2px black;
@@ -1161,7 +1171,7 @@
         
         .sb-mprev {
             flex: 0 0 auto;
-            height: 30rem;
+            height: auto;
             background-color: #E6D2F7;
             border: solid 2px black;
             display: flex;
@@ -1183,8 +1193,10 @@
             .sb-mpevents{
                 flex: 1;
                 padding: 2rem;
+                height: auto;
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-columns: repeat(3, minmax(15rem, 1fr)); 
+                grid-auto-rows: minmax(25rem, auto); 
                 gap: 2rem;
                 div{
                     background-color: white;

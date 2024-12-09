@@ -94,8 +94,8 @@ function Signup() {
             <input type="text" placeholder="confirm password" className="signup-input-style"/>
           </section>
           <section className="signup-btns-container">
-            <button className="signup-register-btn">Register</button>
-            <button className="signup-google-btn">
+            <button className="signup-register-btn" onClick>Register</button>
+            <button className="signup-google-btn" onClick={() => window.location.href = "http://localhost:3000/google"}>
               <img 
                 src={googleLogo} 
                 className="google-logo"

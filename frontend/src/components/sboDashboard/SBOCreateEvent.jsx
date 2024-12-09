@@ -744,10 +744,9 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
                       value={fieldType}
                       onChange={(e) => setFieldType(e.target.value)}
                     >
-                      <option value="text">Text</option>
-                      <option value="number">Number</option>
-                      <option value="radio">Radio</option>
-                      <option value="checkbox">Checkbox</option>
+                      <option value="text">Description</option>
+                      <option value="radio">Yes or No</option>
+                      <option value="checkbox">Multiple Choice</option>
                     </select>
                   </div>
 

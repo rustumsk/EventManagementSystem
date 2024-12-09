@@ -129,7 +129,7 @@ export default function StudentDashboard() {
             {isActive === 'default' ? (
                 <StudentHome user={user} discoveryClick={discoveryClick} eventClick={eventClick}/>
             ) : isActive === 'discovery' ? (
-                <StudentDiscover isActive={isActive} discoveryClick={discoveryClick} eventclick={eventClick} events={events} user={user}/>
+                <StudentDiscover isActive={isActive} discoveryClick={discoveryClick} eventclick={eventClick} events={events} user={user} userToken={userToken}/>
             ): isActive ==='myevent'?(
                 <StudentEvent isActive={isActive} discoveryClick={discoveryClick} eventclick={eventClick}/>
             ): isActive === 'settings'?(

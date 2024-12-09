@@ -9,6 +9,7 @@ import ErrorProfile from "./pages/public/ErrorProfile";
 import StudentDashboard from "./pages/private/StudentDashboard";
 import SBODashboard from "./pages/private/SBODashboard";
 import RegistrationFrom from "./components/studentDashboard/RegistraionForm";
+import RegistrationDetails from "./components/studentDashboard/RegistrationDetails";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path:'/studentdashboard',
     element: <StudentDashboard />
+  },
+  {
+    path:'/registerdetails',
+    element: <RegistrationDetails />
   },
   {
     path:'/sbodashboard',

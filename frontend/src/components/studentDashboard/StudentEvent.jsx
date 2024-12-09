@@ -1,4 +1,5 @@
 export default function StudentEvent({isActive,eventclick,discoveryClick}){
+    const registeredEvents = [];
     return(
         <section className="sb-body">
                     <section className='sb-welcome'>
@@ -30,10 +31,9 @@ export default function StudentEvent({isActive,eventclick,discoveryClick}){
                                 </div>
                             </section>
                             <section className='sb-mrevents'>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
+                                {registeredEvents.length > 0? registeredEvents.map((event) =>{
+                                    return <div> </div>
+                                }): <span>Not Registered To Any Events!</span>}
                             </section>
                         </section>
                         <section className='sb-mprev'>

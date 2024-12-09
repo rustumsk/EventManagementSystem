@@ -10,4 +10,17 @@ const convertToWritten = (date) =>{
 
 };
 
-export {convertToWritten}
+const extractTimeFromTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+  
+    if (isNaN(date)) {
+      throw new Error("Invalid timestamp provided.");
+    }
+  
+    return date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true, 
+    });
+  };
+export {convertToWritten, extractTimeFromTimestamp}

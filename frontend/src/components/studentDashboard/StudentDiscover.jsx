@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-export default function StudentDiscover({ isActive, discoveryClick, eventclick, events, user }) {
+export default function StudentDiscover({ isActive, discoveryClick, eventclick, events, user, userToken }) {
     const [searchQuery, setSearchQuery] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState(null);
@@ -14,7 +14,7 @@ export default function StudentDiscover({ isActive, discoveryClick, eventclick, 
         setSelectedEvent(event);
         console.log(event);
         setIsModalOpen(true);
-        navigation('/eventregister', {state: {event: event, user:user}});
+        navigation('/eventregister', {state: {event: event, user:user, token:userToken}});
     };
 
     const closeModal = () => {
@@ -48,7 +48,8 @@ export default function StudentDiscover({ isActive, discoveryClick, eventclick, 
                 </div>
             </section>
             <section className='sb-ediscover'>
-                {filteredEvents.map((event) => (
+            {filteredEvents.length > 0
+                ? filteredEvents.map((event) => (
                     <div className="sb-devents" key={event.id}>
                         <div className="sb-du">
                             <p>{event.event_name}</p>
@@ -71,7 +72,9 @@ export default function StudentDiscover({ isActive, discoveryClick, eventclick, 
                             </div>
                         </div>
                     </div>
-                ))}
+                ))
+                : <span> No Events Available at The Moment </span>
+            }
             </section>
             <section className='small-footer'>
                 <p>© 2024 UniJam. All rights reserved. Unauthorized use of content and materials is prohibited.</p>
