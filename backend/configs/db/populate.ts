@@ -70,7 +70,6 @@ const SQL = `
         status BOOLEAN DEFAULT FALSE,
         FOREIGN KEY (sbo_id) REFERENCES Sbo(sbo_id)
     );
-
     CREATE TABLE IF NOT EXISTS Feedback (
         feedback_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         event_id INT NOT NULL,
@@ -93,12 +92,13 @@ const SQL = `
         participant_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         event_id INT NOT NULL,
         student_id INT NOT NULL,
-        registered_at TIMESTAMP,
-        attendance_status VARCHAR(255),
-        checked_in BOOLEAN,
+        registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        attendance_status VARCHAR(255) DEFAULT 'Not Attended',
+        checked_in BOOLEAN DEFAULT false,
         custom_responses JSON,
         FOREIGN KEY (student_id) REFERENCES Student(student_id),
-        FOREIGN KEY (event_id) REFERENCES Event(event_id)
+        FOREIGN KEY (event_id) REFERENCES Event(event_id),
+        CONSTRAINT unique_event_participant UNIQUE (event_id, student_id) -- Ensures no duplicate participant per event
     );
 
     CREATE TABLE IF NOT EXISTS Support (

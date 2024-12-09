@@ -15,6 +15,7 @@ import categoryRoute from './routes/public/category';
 import sboRoute from './routes/private/sbo';
 import locationRoute from './routes/services/location';
 import draftRoute from './routes/private/draft';
+import participantRoute from './routes/private/participant';
 import passport = require('passport');
 import { sendVerificationCode } from './routes/services/mailer';
 dotenv.config();
@@ -36,6 +37,7 @@ app.use('/sbo', sboRoute);
 app.use('/category', categoryRoute);
 app.use('/draft', draftRoute);
 app.use('/location', locationRoute);
+app.use('/participant', participantRoute);
 popul();
 app.post('/mail', (req,res) =>{
     const {code,email} = req.body
