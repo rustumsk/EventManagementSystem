@@ -19,6 +19,9 @@ import searchImage from "../../assets/SBOD_Logos/search.png";
 import { userContext } from "../../main";
 import { decodeToken } from "../../utils/auth";
 import getSbo from "../../services/sboServices/getSbo";
+import { convertToWritten,extractTimeFromTimestamp } from "../../utils/dateConvert";
+import { getEventById } from "../../services/eventServices/getEvent";
+import { getLocationById } from "../../services/locationServices/getLocation";
 
 const images = {
   logo: appImage,
@@ -33,27 +36,6 @@ const images = {
   delete: lo
 };
 
-const todaysEvents = [
-  "Buwan ng Wika Celebration",
-  "Intramural Sports Festival",
-  "Annual Sports Day",
-  "Talent Showcase",
-  "Talent Showcase",
-  "Talent Showcase",
-  "Talent Showcase",
-];
-
-const upcomingEvents = [
-  "Buwan ng Wika Celebration",
-  "Intramural Sports Festival",
-  "Annual Sports Day",
-  "Talent Showcase",
-  "Talent Showcase",
-  "Talent Showcase",
-  "Talent Showcase",
-  "Talent Showcase",
-  "Talent Showcase",
-];
 
 function SBODashboard() {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -63,6 +45,9 @@ function SBODashboard() {
   const navigate = useNavigate();
   const [sboToken, setSboToken] = useState(localStorage.getItem('sboToken'));
   const {sbo, setSbo} = useContext(userContext);
+  const [event, setEvent] = useState([]);
+  const [today, setToday] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
 
   const handleEventClick = (event) => {
     alert(`You clicked on: ${event}`);
@@ -76,14 +61,6 @@ function SBODashboard() {
     setSearchQuery(e.target.value);
   };
 
-  const filteredTodaysEvents = todaysEvents.filter(event =>
-    event.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const filteredUpcomingEvents = upcomingEvents.filter(event =>
-    event.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   const handleWheelScroll = (e) => {
     if (todayEventsRef.current) {
       todayEventsRef.current.scrollLeft += e.deltaY; 
@@ -96,23 +73,69 @@ function SBODashboard() {
     console.log("invalid!");
   }
 
-
-  useEffect(() =>{
-      const fetchSboData = async () =>{
-        const token = sboToken;
-        if(!token){
-            navigate('/sbologin');
-            console.log("invalid!");
-        }
-        const sbo_id = decodeToken(token);
-        if (sbo_id){
-          const sboData = await getSbo.getSboById(token, sbo_id.userObj);
-          setSbo(sboData.data);
-          console.log(sboData.data);
-        }
+  const returnEventDiv = (event) =>{
+    const d = convertToWritten(new Date(event.event_date));
+    const ft = extractTimeFromTimestamp(event.event_date);
+    const et = extractTimeFromTimestamp(event.ends_at);
+    return(
+          <div className="sti-cont">
+            <header className="sti-head">{event.event_name}</header>
+            <div className="sti-d"><span>Date: </span> {d}</div>
+            <div className="sti-d"><span>Time: </span> {ft + et}</div>
+            <div className="sti-d"><span>Location: </span> School Auditorium</div>
+            <div className="sti-d"><span>Category: </span> Cultural</div>
+            <footer className="sti-images">
+              <div className="sti-image" style={{ backgroundColor: "#6C7A89" }}></div>
+              <div className="sti-image" style={{ backgroundColor: "#34495E" }}></div>
+              <div className="sti-image" style={{ backgroundColor: "#95A5A6" }}></div>
+              <div className="sti-image">+5</div>
+            </footer>
+          </div>
+    )
+  }
+  useEffect(() => {
+    const fetchSboData = async () => {
+      const token = sboToken;
+      const todayDate = new Date();
+      todayDate.setHours(0,0,0,0);
+  
+      if (!token) {
+        navigate('/sbologin');
+        console.log("invalid!");
       }
-      fetchSboData();
-  }, [sboToken])
+  
+      const sbo_id = decodeToken(token);
+      if (sbo_id) {
+        const sboData = await getSbo.getSboById(token, sbo_id.userObj);
+        setSbo(sboData.data);
+        console.log(sboData.data);
+  
+        const data = await getEventById(sboToken, sboData.data.sbo_id);
+  
+        const todayEvents = [];
+        const upcomingEvents = [];
+  
+        data.forEach( async (dat) => {
+          const eventDate = new Date(dat.event_date);
+          eventDate.setHours(0,0,0,0);
+  
+          if (eventDate.getTime() === todayDate.getTime()) {
+            todayEvents.push(dat);
+            const l = await getLocationById(sboToken,dat.location_id);
+            console.log(l);
+          } else if (eventDate > todayDate) {
+            upcomingEvents.push(dat);
+          }
+        });
+  
+        setToday(todayEvents);
+        setUpcoming(upcomingEvents);
+      }
+    };
+  
+    fetchSboData();
+  }, [activeTab]);
+
   return (
     <div className="sbod-container">
       {/* Sidebar */}
@@ -232,22 +255,20 @@ function SBODashboard() {
               {/* Today's Event Main Container */}
               <div
                 className="sbod-tevent-cards"
-                ref={todayEventsRef} // Attach ref here
-                onWheel={handleWheelScroll} // Add wheel event handler
+                ref={todayEventsRef} 
+                onWheel={handleWheelScroll}
               >
                 {/* Today's Event cards */}
-                {filteredTodaysEvents.length > 0 ? (
-                  filteredTodaysEvents.map((event, index) => (
-                    <div
-                      key={index}
-                      className="sbod-tevent-items"
-                      onClick={() => handleEventClick(event)}
+                {today.length > 0 ? (
+                  today.map((event) => (
+                    <div  key={event.event_id}
+                    className="sbod-tevent-items"
                     >
-                      {event}
-                    </div>
+                      {returnEventDiv(event)}
+                  </div>
                   ))
                 ) : (
-                  <div className="no-events">Sir None</div>
+                  <span className="no-events">You have no events today!</span>
                 )}
               </div>
               <h2 style={{ 
@@ -257,18 +278,18 @@ function SBODashboard() {
               {/* Upcoming Events Main Container */}
               <div className="sbod-uevent-cards">
                 {/* Event cards */}
-                {filteredUpcomingEvents.length > 0 ? (
-                  filteredUpcomingEvents.map((event, index) => (
+                {upcoming.length > 0 ? (
+                  upcoming.map((event) => (
                     <div
-                      key={index}
+                      key={event.event_id}
                       className="sbod-uevent-items"
-                      onClick={() => handleEventClick(event)}  
                     >
-                      {event}
+                      {returnEventDiv(event)}
                     </div>
+  
                   ))
                 ) : (
-                  <div className="no-events">Sir None</div>
+                  <div className="no-events">You have no upcoming Events!</div>
                 )}
               </div>
             </section>
@@ -276,7 +297,6 @@ function SBODashboard() {
         )}
         {activeTab === "User Avatar" && (
           <div>
-            {/* FUcking shit*/}
             
           </div>
         )}
@@ -288,7 +308,6 @@ function SBODashboard() {
         )}
         {activeTab === "Analytics" && (
           <div>
-            {/* FUcking shit*/}
             
           </div>
         )}

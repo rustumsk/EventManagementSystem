@@ -828,6 +828,9 @@
             display: flex;
             flex-direction: column;
             margin-bottom: 2rem;
+            span{
+                font-size: 4rem;
+            }
             .sb-fe{
                 font-family: 'Outfit';
                 font-weight: bold;
@@ -875,7 +878,7 @@
             
         }
         .sb-uregistered{
-            height: 50rem;
+            height: auto;
             background-color: #FFF5D5;
             border: solid 2px black;
             border-radius: 17px;
@@ -932,12 +935,17 @@
                 }
             }
             .sb-ur-cont{
-                height: 100%;
+                height: auto;
                 display: grid;
                 padding-left: 2rem;
                 padding-right: 2rem;
-                grid-template: 1fr 1fr / 1fr 1fr 1fr 1fr;
+                grid-template-columns: repeat(3, minmax(20rem, 1fr)); 
+                grid-auto-rows: minmax(25rem, auto); 
                 gap: 2rem;
+                span{
+                    font-size: 3rem;
+                    align-self: center  ;
+                }
                 div{
                     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
                     border: solid 2px black;
@@ -1025,6 +1033,9 @@
                     }
                     .sb-adp{
                         flex: 1;
+                        .adp-span{
+                            font-size: 1rem;
+                        }
                     }
                     .sb-adb{
                         flex: .4;

@@ -1,5 +1,6 @@
 export default function StudentEvent({isActive,eventclick,discoveryClick}){
     const registeredEvents = [];
+    const pastEvents = [];
     return(
         <section className="sb-body">
                     <section className='sb-welcome'>
@@ -41,9 +42,9 @@ export default function StudentEvent({isActive,eventclick,discoveryClick}){
                                 <p>Previous Events</p>
                             </header>
                             <section className='sb-mpevents'>
-                                <div></div>
-                                <div></div>
-                                <div></div>
+                            {pastEvents.length > 0? pastEvents.map((event) =>{
+                                    return <div> </div>
+                                }): <span>You don't have any past events!</span>}
                             </section>
                         </section>
                     </section>

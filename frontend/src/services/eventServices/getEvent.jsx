@@ -13,4 +13,15 @@ const getEventById = async(authToken, sbo_id) =>{
     }
 }
 
-export {getEventById};
+const getEventByIdNameDate = async (sbo_id, event_name, event_date) => {
+    try {
+      const result = await axios.get('http://localhost:3000/events/sbo/event', {
+        params: { sbo_id, event_name, event_date }
+      });
+      console.log('Response:', result);
+      return result.data;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+export {getEventById, getEventByIdNameDate};

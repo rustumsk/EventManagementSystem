@@ -64,7 +64,7 @@ export default function StudentDiscover({ isActive, discoveryClick, eventclick, 
                                     <p className="sb-pd">{event.event_description}</p>
                                 </div>
                                 <div className="sb-adp">
-                                    <p> <span style={{ fontWeight: 'bold' }}> Capacity</span>:  {`50/ ${event.capacity}`}</p>
+                                    <p> <span className="adp-span"style={{ fontWeight: 'bold' }}> Capacity</span>:  {`50/ ${event.capacity}`}</p>
                                 </div>
                                 <div className="sb-adb">
                                     <button onClick={() => handleJoinClick(event)}>Join</button>

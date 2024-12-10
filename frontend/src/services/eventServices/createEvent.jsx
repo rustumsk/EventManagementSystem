@@ -6,7 +6,7 @@ const createEvent = async(authtoken, data) =>{
             'Authorization': `Bearer ${authtoken}`
         }
     })
-    console.log(createE);
+    console.log(createE.data);
 }
 
 export default createEvent;

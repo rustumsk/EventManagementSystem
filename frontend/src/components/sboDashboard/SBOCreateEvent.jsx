@@ -6,6 +6,9 @@ import createEvent from '../../services/eventServices/createEvent';
 import createLocation from '../../services/locationServices/locationCreation';
 import getCategoryId from '../../services/categoryServices/getCategoryId';
 import draftCreation from '../../services/draftServices/draftCreation';
+import { getEventByIdNameDate } from '../../services/eventServices/getEvent';
+import { motion } from "framer-motion";
+
 const SBOCreateEvent = ({sbo, sboToken}) => {
   const step = 1;
   const [currentStep, setCurrentStep] = useState(step);
@@ -337,6 +340,14 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
         custom_field: fields ? fields : null,
         event_type: eventType
       };
+      const result = await getEventByIdNameDate(sbo.sbo_id, eventName, completeDate);
+      if(result.length > 0){
+        console.log("The same event is already published!");
+        return;
+      }
+      else{
+        console.log(`Hello, ${result}`);
+      }
 
       const da = {
         sbo_id: sbo.sbo_id,
@@ -853,6 +864,12 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
   };
 
   return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }} // Initial state (hidden, shifted down)
+      animate={{ opacity: 1, y: 0 }} // Final state (visible, original position)
+      exit={{ opacity: 0, y: -50 }} // Exit state (hidden, shifted up)
+      transition={{ duration: 0.5, ease: "easeOut" }} // Smooth animation
+    >
     <div style={{ display: "flex", height: "100vh" }}>
       <div className="sbo-create-events-container">
         <div className="sboce-info-container">
@@ -921,6 +938,7 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
         {activeStep[currentStep]}
       </div>
     </div>
+    </motion.div>
   );
 };
 

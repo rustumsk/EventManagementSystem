@@ -1,8 +1,8 @@
 import { useRef } from "react";
 export default function StudentHome({user, discoveryClick, eventClick}){
     const containerRef = useRef(null);
-    const featuredEvent = [1,2,3,4,5,6];
-    const registeredEvent = [1,2,3,4,5,6,7,8];
+    const featuredEvent = [];
+    const registeredEvent = [];
     const handleMouseEnter = (index) => {
         
         const targetDiv = containerRef.current.children[index];
@@ -33,12 +33,13 @@ export default function StudentHome({user, discoveryClick, eventClick}){
             <section className='sb-featured'>
                 <p className='sb-fe'>Featured Events</p>
                 <section className='sb-fm' ref={containerRef}>
-                    {featuredEvent.map((item, index) => (
+                    {featuredEvent.length > 0?featuredEvent.map((item, index) => (
                         <div 
                             onMouseEnter={() => handleMouseEnter(index)}
                         >
                         </div>
-                    ))}
+                    )):<span>No Featured Events Available!</span> }
+                    
                 </section>
             </section>
             <section className='sb-uregistered'>
@@ -49,12 +50,12 @@ export default function StudentHome({user, discoveryClick, eventClick}){
                     </div>
                 </header>
                 <section className='sb-ur-cont'>
-                    {registeredEvent.map((item, index) => (
+                    {registeredEvent.length > 0?registeredEvent.map((item, index) => (
                         <div 
                             onMouseEnter={() => handleMouseEnter(index)}
                         >
                         </div>
-                    ))}
+                    )): <span>No Upcoming Registered Events!</span>}
                 </section>  
             </section>
             <section className='small-footer'>

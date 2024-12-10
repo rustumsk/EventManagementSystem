@@ -83,10 +83,6 @@ export default function StudentDashboard() {
     
         fetchStudentData();
     }, [userToken, navigate, setUser]);
-    
-    useEffect(() =>{
-        console.log(sboId);
-    },[]);
 
     if (isLoading) {
         return (
