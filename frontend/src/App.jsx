@@ -10,6 +10,7 @@ import StudentDashboard from "./pages/private/StudentDashboard";
 import SBODashboard from "./pages/private/SBODashboard";
 import RegistrationFrom from "./components/studentDashboard/RegistraionForm";
 import RegistrationDetails from "./components/studentDashboard/RegistrationDetails";
+import SBORegister from "./pages/public/SBORegister"
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/',
-    element: <LandingPage />
+    element: <SBORegister />
   },
   {
     path: '/signup',
