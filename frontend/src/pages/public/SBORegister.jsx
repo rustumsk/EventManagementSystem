@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { createLocalStudent } from "../../services/studentServices/studentCreation";
 import googleLogo from "../../assets/gg.png";
 import appImage from "../../assets/SBOD_Logos/logo.png";
-import sboRegisterDesign from "../../assets/sboregister-design.png";
+import sboRegisterDesign from "../../assets/sbor-design.png";
 
 function SBORegister() {
 //   const [sboRegisterName, setName] = useState("");
