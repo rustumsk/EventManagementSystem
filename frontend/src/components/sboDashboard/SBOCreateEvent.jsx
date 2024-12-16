@@ -8,6 +8,7 @@ import getCategoryId from '../../services/categoryServices/getCategoryId';
 import draftCreation from '../../services/draftServices/draftCreation';
 import { getEventByIdNameDate } from '../../services/eventServices/getEvent';
 import { motion } from "framer-motion";
+import { ToastContainer, toast } from 'react-toastify';
 
 const SBOCreateEvent = ({sbo, sboToken}) => {
   const step = 1;
@@ -33,13 +34,116 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
   const [fields, setFields] = useState([]);
   const [errors, setErrors] = useState({});
   const [draftError, setDraftError] = useState(" ")
+  const [end,setEnd] = useState("");
   const [categories, setCategories] = useState([]);
+  const [boxes, setBoxes] = useState([]);
   const [eventType, setEventType] = useState('');
   const [draftModal, setDraftModal] = useState(false);
+  const [boxName, setBoxName] = useState('');
+  const [openAdd, setOpenAdd] = useState(false);
+//   const [sam, setSam] = useState([
+//     {
+//         type: 'text',
+//         main_label: 'Input Type',
+//         inps: {
+//             inp: 'text',
+//             place_holder: 'placeholder',
+//         },
+//     },
+//     {
+//         type: 'radio',
+//         main_label: 'Radio Type',
+//         inps: {
+//             inp: 'radio',
+//             n: 'option',
+//             rads: [
+//                 { rlabel: 'YES' },
+//                 { nlabel: '123' },
+//             ],
+//         },
+//     },
+//     {
+//       type: 'checkbox',
+//       main_label: 'Fav Foods',
+//       boxes:[
+//         {value: 'penis'},
+//         {value: 'dick'},
+//         {value: 'puthy'},
+//       ]
+//   }
+// ]);
   const handleChange = () => {
     setIsChecked(!isChecked);
   };
-
+  const handleOpen = () =>{
+    setOpenAdd(!openAdd);
+  }
+  const deleteField = (index) => {
+    setFields((prevFields) => prevFields.filter((_, i) => i !== index));
+  };
+  const renderInput = (obj, index) =>{
+    if (obj.type === 'text'){
+      return(
+        <div className='inpdiv'>
+          <div className='lab-cont'>
+            <label htmlFor="" className='lab'>{obj.main_label}</label>
+            <input type={obj.inps.inp} className='txtinp' placeholder={obj.inps.placeholder}/>
+          </div>
+          <div className='lbtn-cont'>
+            <span className='dlb' onClick={() => deleteField(index)}></span>
+            <span className='eb'></span>
+          </div>
+        </div>
+      )
+    }
+    else if (obj.type === 'radio'){
+      return(
+        <div className='inpdiv'>
+          <div className='lab-cont'>
+            <label htmlFor="" className='lab rd'>{obj.main_label}</label>
+            <div className="radio-cont">
+              <label htmlFor="yes" className="radio-label">
+                {obj.inps.rads[0].rlabel}
+                <input type={obj.inps.type} className="radinp" id="yes" name={obj.inps.n}  />
+              </label>
+              <label htmlFor="no" className="radio-label">
+                {obj.inps.rads[1].nlabel}
+                <input type={obj.inps.type} className="radinp" id="no" name={obj.inps.n} />
+              </label>
+            </div>
+          </div>        
+          <div className='lbtn-cont'>
+            <span className='dlb' onClick={() => deleteField(index)}></span>
+            <span className='eb'></span>
+          </div>
+        </div>
+      )
+    }
+    else if (obj.type ==='checkbox') {
+      return(
+        <div className='inpdiv'>
+                  <div className='lab-cont'>
+                    <label htmlFor="" className='lab cb'>{obj.main_label}</label>
+                  
+                    <div className='check-cont'>
+                      {obj.boxes.map((box, index) => {
+                        return(
+                          <div className='check'>
+                            <input type="checkbox" name="checks" id={`${obj.main_label}${index}`} value={box.value} className='c'/>
+                            <label htmlFor="food1">{box.value}</label>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                  <div className='lbtn-cont'>
+                    <span className='dlb' onClick={() => deleteField(index)}></span>
+                    <span className='eb'></span>
+                  </div>
+          </div>
+      )
+    }
+  }
   const handleEventTypeChange = (e) => {
     const value = e.target.value;
     setEventType(value);
@@ -75,9 +179,11 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
       }
   
       if (!eventTime) {
-        newErrors.eventTime = "Event time is required.";
+        newErrors.eventTime = "Event Start Time is required.";
       }
-  
+      if (!end){
+        newErrors.eventEnd = "Event End Time is required!";
+      }
       if (!eventLocation.trim()) {
         newErrors.eventLocation = "Event location is required.";
       }
@@ -138,29 +244,80 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
     }; 
 
     setDraftModal(!draftModal);
-
-
   }
+  const handleSaveBox = () =>{
+
+    if(!boxName){
+      toast.error("Field Should Not Be Empty!");
+      return;
+    }
+    if (boxes.find(box => boxName === box.value)){
+      toast.error("Option Already Exists!");
+      return;
+    }
+    const box = {value: boxName};
+
+    setBoxes([...boxes, box]);
+    setOpenAdd(!openAdd);
+  }
+
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
     setFieldLabel('Default Label');
     setFieldType('text');
     setPlaceholder("");
+    setBoxes([]);
   };
   const handleFileInput = (e) =>{
     setEventPic(e.target.files[0]);
-  }
+  };
 
   const handleSave = () => {
-    if (placeholder){
-      setFields([...fields, { label: fieldLabel, type: fieldType, placeholder }]);
+    if (fieldType === 'text'){
+      console.log("Text Bro!");
+      const input = {
+            type: 'text',
+            main_label: fieldLabel,
+            inps: {
+                inp: 'text',
+                placeholder: placeholder
+            },
+        }
+      setFields([...fields, input]);
     }
-    else{
-      setFields([...fields, { label: fieldLabel, type: fieldType }]);
+    else if (fieldType === 'radio'){
+      const radio = {
+        type: 'radio',
+        main_label: fieldLabel,
+        inps:{
+          inp: 'radio',
+          n: 'option',
+          rads:[
+            {rlabel: "YES"},
+            {nlabel: "NO"}
+          ]
+        }
+      }
+      setFields([...fields, radio]);
+    }
+    else if (fieldType === 'checkbox'){
+      if (!boxes.length > 0){
+        toast.error("Options should not be empty!");
+        return;
+      }
+      const b = {
+        type: 'checkbox',
+        main_label: fieldLabel,
+        boxes: boxes
+      }
+      console.log(boxes);
+      setFields([...fields, b]);
+      console.log(fields);
     }
     console.log(fields);
     setModalOpen(false);
   };
+
   const validateStep = (currentStep) => {
     const errors = {};
 
@@ -172,7 +329,10 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
         errors.eventDate = "Event Date is required.";
       }
       if (!eventTime) {
-        errors.eventTime = "Event Time is required.";
+        errors.eventTime = "Event Start Time is required.";
+      }
+      if (!end) {
+        errors.end = "Event End Time is required!";
       }
       if (!eventLocation.trim()) {
         errors.eventLocation = "Event Location is required.";
@@ -213,14 +373,14 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
     return errors;
   };
   const handleButtonClick = () => {
-    const validationErrors = validateStep(currentStep); // Validate the current step
+    const validationErrors = validateStep(currentStep);
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors); // Set errors if validation fails
-      return; // Stop navigation to the next step
+      setErrors(validationErrors); 
+      return; 
     }
   
-    setErrors({}); // Clear any previous errors
-    setCurrentStep((step) => step + 1); // Move to the next step
+    setErrors({}); 
+    setCurrentStep((step) => step + 1); 
   };
   const clearAll = () => {
     setSboId('null');
@@ -250,9 +410,11 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
       }
   
       if (!eventTime) {
-        newErrors.eventTime = "Event time is required.";
+        newErrors.eventTime = "Event start time is required.";
       }
-  
+      if (!end){
+        newErrors.end = "Event end time is required!";
+      }
       if (!eventLocation.trim()) {
         newErrors.eventLocation = "Event location is required.";
       }
@@ -311,16 +473,13 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
         alert("Please fill up the forms in the previous steps!");
         return;
     }; 
-  
-    const completeDate = `${eventDate} ${eventTime}`;
-    const completeDDate = `${eventDDate} ${eventDTime}`;
-  
+
     const data = await convertUrl(eventPic);
     const locationData = {
       location_city: eventCity,
       location_name: eventLocation,
     };
-  
+    const completeDD = `${eventDDate} ${eventDTime}`
     const location_id = await createLocation(sboToken, locationData);
     const sample = await getCategoryId(eventCategory);
     const category_id = sample.data.category_id;
@@ -331,11 +490,13 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
         sbo_id: sbo.sbo_id,
         event_description: eventOverview,
         event_name: eventName,
-        event_date: completeDate,
+        event_date: eventDate,
+        start_time: eventTime,
+        end_time: end,
         location_id: location_id,
         category_id: category_id,
         capacity: eventCapacity,
-        ends_at: completeDDate,
+        ends_at: completeDD,
         event_image: data.url,
         custom_field: fields ? fields : null,
         event_type: eventType
@@ -354,23 +515,38 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
         draft_name: draftName,
         event_data: dataPayload
       }
-      draftCreation(sboToken, da);
+      try{
+        await draftCreation(sboToken, da);
+        toast.success("Draft Successfully Created!");
+      }catch(e){
+        console.log(e);
+        toast.error("Draft Already Exists or An Event like this Draft Exist!");
+      }
     } else {
-
+      console.log("Hi");
+      console.log(eventTime)
+      console.log(end)
       const dataPayload = {
         sbo_id: sbo.sbo_id,
         event_description: eventOverview,
         event_name: eventName,
-        event_date: completeDate,
+        event_date: eventDate,
+        start_time: eventTime,
+        end_time: end,
         location_id: location_id,
         category_id: category_id,
         capacity: eventCapacity,
-        ends_at: completeDDate,
+        ends_at: completeDD,
         event_image: data.url,
-        custom_field: fields ? fields : null,
+        custom_fields: JSON.stringify(fields),
         event_type: eventType
       };
-      createEvent(sboToken, dataPayload);
+      try{
+        await createEvent(sboToken, dataPayload);
+        toast.success("Event Created Successfully!");
+      }catch(e){
+        toast.error("Invalid Event, or Event Already Exists!");
+      }
     }
     clearAll();
   };
@@ -416,7 +592,6 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
               {errors.eventName && <p style={{ color: "red", fontSize: "12px" }}>{errors.eventName}</p>}
             </div>
 
-            {/* Date and Time */}
             <div style={{ marginTop: 10, display: "flex" }}>
               <div style={{ display: "flex", flexDirection: "column", marginRight: "20px" }}>
                 <p style={{ fontSize: "15px", marginBottom: "10px" }}>Date</p>
@@ -435,8 +610,11 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
                 />
                 {errors.eventDate && <p style={{ color: "red", fontSize: "12px" }}>{errors.eventDate}</p>}
               </div>
+            </div>
+            
+            <div style={{ marginTop: 10, display: "flex" , gap:'1rem' }}>
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <p style={{ fontSize: "15px", marginBottom: "10px" }}>Time</p>
+                <p style={{ fontSize: "15px", marginBottom: "10px" }}>Start Time</p>
                 <input
                   type="time"
                   value={eventTime}
@@ -452,8 +630,24 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
                 />
                 {errors.eventTime && <p style={{ color: "red", fontSize: "12px" }}>{errors.eventTime}</p>}
               </div>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <p style={{ fontSize: "15px", marginBottom: "10px" }}>End Time</p>
+                <input
+                  type="time"
+                  value={end}
+                  onChange={(e) => setEnd(e.target.value)}
+                  style={{
+                    width: "40vh",
+                    paddingLeft: "10px",
+                    padding: "7px",
+                    border: errors.eventTime ? "1px solid red" : "1px solid black",
+                    borderRadius: "5px",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                  }}
+                />
+                {errors.end && <p style={{ color: "red", fontSize: "12px" }}>{errors.end}</p>}
+              </div>
             </div>
-
             {/* Location */}
             <div style={{ marginTop: 20 }}>
               <p style={{ fontSize: "15px", marginBottom: "10px" }}>Location</p>
@@ -602,8 +796,7 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
             Registration Details
           </h2>
           <p>
-            Specify the registration deadline, participant capacity, and whether
-            you’d like to include a waitlist for those interested!
+            Specify the registration deadline and participant capacity.
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", marginRight: "20px" }}>
@@ -673,27 +866,6 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
             )}
           </div>
 
-          <section>
-            <p style={{ fontSize: "15px", marginTop: "20px", marginBottom: "5px" }}>
-              Waitlist Setup
-            </p>
-            <p>[ ]Enable Waitlist</p>
-            <p
-              style={{
-                border: "1px solid",
-                padding: "10px",
-                borderRadius: "20px",
-                marginTop: "10px",
-              }}
-            >
-              Note: When the checkbox is unchecked: The system will only accept
-              registrations up to the specified capacity. When the checkbox is
-              checked: Participants who try to register after reaching capacity will
-              be able to join the waitlist. An additional message can appear: "Thank
-              you for your interest! You will be notified if a spot opens up."
-            </p>
-          </section>
-
           <div className="buttonContainer">
             <button className="buttonStyle" onClick={handleButtonClick}>
               Next Step
@@ -709,27 +881,11 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
           <div className="sboce-details">
             <h2 style={{ fontFamily:"Righteous", fontWeight: 'normal' }}>Registration Questions (Optional)</h2>
             <p>Add any specific questions you’d like to ask participants during registration. This helps tailor the experience to their needs.</p>
-
-            {fields.map((field) =>{
-              return(
-                <div style={{ marginTop:20}}>
-                  <p style={{ fontSize: "15px", marginBottom: "10px" }}>{field.label}</p>
-                  <input
-                    type={field.type}
-                    placeholder={field.placeholder? field.placeholder: ""}
-                    style={{
-                      width: "60vh",
-                      paddingLeft: "10px",
-                      padding: "7px",
-                      border: "1px solid black",
-                      borderRadius: "5px",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                    }}
-                  />
-                </div>
-              )
-            })}
-
+            <div className='inp-cont'> 
+                {fields.map((inp, index) => (
+                    renderInput(inp, index)
+                ))}   
+            </div>
             <div className="buttonContainer">
               <button className="buttonStyle addBtn" onClick={toggleModal}>Add Field</button>
               <button className="buttonStyle" onClick={handleButtonClick}>Next Step</button>
@@ -739,15 +895,6 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
               <div className="modalOverlay">
                 <div className="modalContent">
                   <h3>Create Custom Field</h3>
-
-                  <div className="inputFieldContainer">
-                    <label>Field Label:</label>
-                    <input
-                      type="text"
-                      value={fieldLabel}
-                      onChange={(e) => setFieldLabel(e.target.value)}
-                    />
-                  </div>
 
                   <div className="inputFieldContainer">
                     <label>Field Type:</label>
@@ -761,28 +908,104 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
                     </select>
                   </div>
 
-                  {(fieldType === "text" || fieldType === "number") ? (
+                  {(fieldType === "text") ? (
                       <div className="inputFieldContainer">
+                        <div className="inputFieldContainer">
+                          <label>Field Label:</label>
+                          <input
+                            type="text"
+                            value={fieldLabel}
+                            onChange={(e) => setFieldLabel(e.target.value)}
+                          />
+                        </div>
                         <label>PlaceHolder</label>
                         <input
                           type={fieldType}
                           value={placeholder}
                           onChange={(e) => setPlaceholder(e.target.value)}
                         />
+                         <div className="previewFieldContainer">
+                          <label className="previewLabel">
+                            {fieldLabel || "Field Label"}
+                          </label>
+                          <input
+                            className="previewInput"
+                            type={fieldType || "text"}
+                            placeholder={placeholder}
+                            disabled
+                          />
+                        </div>
                       </div>
-                  ) : null}
+                      
+                  ):(fieldType === 'radio')? (
+                    <div className="inputFieldContainer">
+                        <div className="inputFieldContainer">
+                          <label>Field Label:</label>
+                          <input
+                            type="text"
+                            value={fieldLabel}
+                            onChange={(e) => setFieldLabel(e.target.value)}
+                          />
+                        </div>
+                         <div className="previewFieldContainer">
+                          <label className="previewLabel">
+                            {fieldLabel || "Field Label"}
+                          </label>
+                          <div className="radio-cont">
+                            <label htmlFor="yes" className="radio-label">
+                              Yes
+                              <input type='radio' className="radinp" id="yes" name='rad'  />
+                            </label>
+                            <label htmlFor="no" className="radio-label">
+                            No
+                              <input type='radio' className="radinp" id="no" name='rad' />
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                  ):(fieldType === 'checkbox')? (
+                    <div className="inputFieldContainer">
+                        <div className="inputFieldContainer">
+                          <label>Field Label:</label>
+                          <input
+                            type="text"
+                            value={fieldLabel}
+                            onChange={(e) => setFieldLabel(e.target.value)}
+                          />
+                          <button className='obtn' onClick={handleOpen}>Add Option</button>
 
-                  <div className="previewFieldContainer">
-                    <label className="previewLabel">
-                      {fieldLabel || "Field Label"}
-                    </label>
-                    <input
-                      className="previewInput"
-                      type={fieldType || "text"}
-                      placeholder={placeholder}
-                      disabled
-                    />
-                  </div>
+                        </div>
+                         <div className="previewFieldContainer">
+                          <label className="previewLabel">
+                            {fieldLabel || "Field Label"}
+                          </label>
+                          <div className='check-cont'>
+                          {boxes.map((box) =>{
+                            return(
+                            <div className='check'>
+                              <input type="checkbox" name="checks" value={box.value} className='c'/>
+                              <label htmlFor="food1">{box.value}</label>
+                            </div>
+                            )
+                          })}
+      
+                          {openAdd&&
+                            <div> 
+                                  <div className='check'>
+                                    <input type="checkbox" name="checks" className='c'/>
+                                    <input type="text" name="" id="" onChange={(e) => setBoxName(e.target.value)}/>
+                                  </div>
+                              <div className='cbcont'>
+                                <button onClick={handleSaveBox}>Save!</button>
+                                <button onClick={() => setOpenAdd(!openAdd)}>Cancel</button>
+                              </div>
+                            </div>
+                          }
+                          </div>
+                        </div>
+                      </div>
+                  ): null
+                  }
 
                   <div className="modalActions">
                     <button onClick={handleSave}>Save</button>
@@ -870,6 +1093,7 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
       exit={{ opacity: 0, y: -50 }} // Exit state (hidden, shifted up)
       transition={{ duration: 0.5, ease: "easeOut" }} // Smooth animation
     >
+    <ToastContainer />
     <div style={{ display: "flex", height: "100vh" }}>
       <div className="sbo-create-events-container">
         <div className="sboce-info-container">

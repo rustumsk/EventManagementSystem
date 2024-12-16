@@ -36,10 +36,25 @@ const getSboId = async(authToken,sbo_name) =>{
         console.log(e);
     }
 }
+
+const getUnverified = async(authToken) =>{
+    try{
+        const data = await axios.get('http://localhost:3000/sbo/unverified', {
+            headers:{
+                'Authorization': `Bearer ${authToken}`
+            }
+        })
+        return data.data;
+    }catch(e){
+        console.log(e);
+        throw e;
+    }
+};
 const getSbo = {
     getSboById,
     getAllSbo,
-    getSboId
+    getSboId,
+    getUnverified
 };
 
 export default getSbo;

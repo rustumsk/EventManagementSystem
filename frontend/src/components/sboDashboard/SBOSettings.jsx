@@ -4,7 +4,7 @@ import AccountSec from "../studentDashboard/studentSettings/accountSec";
 import NotifSec from "../studentDashboard/studentSettings/notifSec";
 import '../../styles/components/SBODashboard/sbosettings.scss'
 
-export default function SBOSettings({sbo}) {
+export default function SBOSettings({sbo, sboIcon}) {
     const [selected, setSelected] = useState("profile");
 
     return (
@@ -47,7 +47,7 @@ export default function SBOSettings({sbo}) {
                 </header>
                 <section className="sb-spocont">
                     {selected === 'profile' ? (
-                        <ProfileSec user={sbo}/>
+                        <ProfileSec user={sbo} userIcon={sboIcon}/>
                     ) : selected === 'account' ? (
                         <AccountSec sbo={sbo}/>
                     ): selected === 'notifications'? (

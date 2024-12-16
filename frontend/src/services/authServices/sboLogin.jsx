@@ -11,7 +11,7 @@ const sboLogin = async (email, sbo_password) =>{
         return result;
     }catch(e){
         console.log(e);
-        console.error(e);
+        throw e.response.data;
     }
 }
 

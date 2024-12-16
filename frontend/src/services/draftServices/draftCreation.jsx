@@ -10,6 +10,7 @@ const draftCreation = async(authToken, data) =>{
         console.log("Draft Created!");
     }catch(e){
         console.log(e);
+        throw e;
     }
 }
 export default draftCreation

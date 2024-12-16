@@ -39,6 +39,7 @@
                 padding-bottom: 1rem;
                 display: flex;
                 flex-direction: column;
+                
                 .qr-tits{
                     flex: 1;
                     display: grid;
@@ -49,6 +50,37 @@
                 }
                 .qr{
                     flex: 5;
+                    }
+                    canvas {
+                        border: 2px solid #6C23B5;
+                        border-radius: 10px;
+                        padding: 1rem;
+                        background: #FFFAEA;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+                      }
+          
+                    button {
+                      margin-top: 1rem;
+                      padding: 0.8rem 1.5rem;
+                      font-size: 1rem;
+                      font-weight: bold;
+                      color: white;
+                      background-color: #6C23B5; // Primary theme color
+                      border: none;
+                      border-radius: 0.5rem;
+                      cursor: pointer;
+                      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                      transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+          
+                      &:hover {
+                        background-color: #53209A; // Slightly darker on hover
+                        transform: scale(1.05);
+                      }
+          
+                      &:active {
+                        transform: scale(0.95);
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                      }
                 }
             }
         }

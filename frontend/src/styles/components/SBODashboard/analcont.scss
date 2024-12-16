@@ -1,0 +1,313 @@
+.anal-cont{
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    .anal-head{
+        height: 7rem;
+        display: flex;
+        padding-left: 5rem;
+        .anal-tit{
+            flex: 1;
+            display: flex;
+            align-items: end;
+            span{
+                font-size: 2.5rem;
+                text-align: center;
+                height: 50%;
+                font-family: 'Outfit';
+                font-weight: bold;
+            }
+        }
+        .anald{
+            flex: 1;
+            display: flex;
+            align-items: end;
+            justify-content: end;
+            .anald-cont{
+                height: 50%;
+                width: 40%;
+                display: flex;
+                gap: 1rem;
+            }
+        }
+    }
+    .tot-reg {
+        height: 10rem;
+        background-color: #6C23B5;
+        width: 95%;
+        position: relative; // Enable relative positioning for the parent
+        align-self: center;
+        border-radius: 16px;
+        border: solid 2px black;
+        .tot-reg-cont {
+          height: 10rem;
+          width: 100%;
+          border-radius: 16px;
+          border: solid 2px black;
+          background-color: white;
+          position: absolute; // Make the child position absolute
+          top: 5%; // Center vertically
+          left: 1%; // Center horizontally
+          z-index: 1; // Ensure it overlaps
+          display: flex;
+          padding: 1.5rem;
+          padding-left: 3rem;
+          div{
+            flex: 1;
+            span{
+                font-size: 1.5rem;
+                font-family: 'Outfit';
+                font-weight: 600;
+            }
+            .tre{
+                font-size: 2rem;
+                color: #6C23B5; 
+            }
+            .ar{
+                font-size: 2rem;
+                color: gray;
+            }
+            .fs{
+                font-size: 2rem;
+                color: #FEE17B;
+            }
+          }
+        }
+    }
+    .big-tot{
+        min-height: 70rem;
+        padding: 0rem 2rem;
+        display: flex;
+        .bl{
+            flex: 2;
+            .bl-up{
+                height: 50%;
+                display: flex;
+                align-items: end;
+                .bl-ocont{
+                    height: 30rem;
+                    background-color: #FEE17B;
+                    width: 95%;
+                    position: relative; // Enable relative positioning for the parent
+                    align-self: center;
+                    border-radius: 16px;
+                    border: solid 2px black;
+                    .bl-mcont{
+                        height: 30rem;
+                        width: 100%;
+                        border-radius: 16px;
+                        border: solid 2px black;
+                        background-color: white;
+                        position: absolute; // Make the child position absolute
+                        top: 1%; // Center vertically
+                        right: .5%; // Center horizontally
+                        z-index: 1; // Ensure it overlaps
+                        padding: 1.5rem 1rem;
+                        padding-bottom: 0rem;
+                        display: flex;
+                        flex-direction: column;
+                        .mcont-head{
+                            height: 3.5rem;
+                            font-size: 2rem;
+                            font-weight: bold;
+                            font-family: 'Outfit';
+                        }
+                        .mcont-cont{
+                            height: 23rem;
+                        }
+                    }
+                }
+            }
+            .bl-up{
+                height: 50%;
+                margin-bottom: 2rem;
+                display: flex;
+                align-items: end;
+                .bl-ocont{
+                    height: 30rem;
+                    background-color: #FEE17B;
+                    width: 95%;
+                    position: relative; // Enable relative positioning for the parent
+                    align-self: center;
+                    border-radius: 16px;
+                    border: solid 2px black;
+                    .bl-mcont{
+                        height: 30rem;
+                        width: 100%;
+                        border-radius: 16px;
+                        border: solid 2px black;
+                        background-color: white;
+                        position: absolute; // Make the child position absolute
+                        top: 1%; // Center vertically
+                        right: .5%; // Center horizontally
+                        z-index: 1; // Ensure it overlaps
+                    }
+                }
+            }
+            .bl-down{
+                height: 40%;
+                margin-bottom: 2rem;
+                display: flex;
+                align-items: end;
+                .bl-down-ocont{
+                    height: 30rem;
+                    background-color: #D9BBF7;
+                    width: 95%;
+                    position: relative;
+                    display: flex;
+                    align-self: center;
+                    border-radius: 16px;
+                    border: solid 2px black;
+                    .bl-down-mcont{
+                        min-height: 30rem;
+                        overflow: hidden;
+                        width: 100%;
+                        border-radius: 16px;
+                        border: solid 2px black;
+                        background-color: white;
+                        position: absolute; 
+                        top: 1%; 
+                        left: .5%;
+                        z-index: 1;
+                        padding: 1.5rem;
+                        .events-table-container {
+                            max-height: 22rem; /* Adjust height as needed */
+                            overflow-y: auto; /* Add vertical scroll if the table overflows */
+                            overflow-x: hidden; /* Hide horizontal overflow */
+                            margin-top: 1rem;
+                        }
+                        
+                        .events-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-family: 'Outfit', sans-serif;
+                        }
+                        
+                        .events-table th, .events-table td {
+                            border: 1px solid black;
+                            padding: 0.75rem;
+                            text-align: center;
+                        }
+                        
+                        .events-table th {
+                            background-color: #f4f4f4;
+                            font-weight: bold;
+                        }
+                        
+                        .events-table tr:nth-child(even) {
+                            background-color: #f9f9f9;
+                        }
+                        
+                        .events-table tr:hover {
+                            background-color: #e0e0e0;
+                        }
+                        .down-mcont-head{
+                            height: 3rem;
+                            font-size: 2rem;
+                            font-family: 'Outfit';
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .sl{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem 0rem;
+            .sl-up{
+                flex: 1;
+                display: flex;
+                position: relative;
+                .sl-up-ocont {
+                    position: absolute;
+                    top: 2%;   
+                    left: 0;   
+                    right: 0;  
+                    width: 90%;
+                    height: 90%; 
+                    justify-self: center;
+                    background-color:#D9BBF7;
+                    border-radius: 16px;
+                    border: solid 2px black;
+                }
+                .sl-up-mcont {
+                    position: absolute;
+                    top: 0;   
+                    left: 0;   
+                    right: 0;  
+                    height: 90%; 
+                    background-color: white;
+                    border-radius: 16px;
+                    border: solid 2px black;
+                    padding: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    .up-header{
+                        height: 3rem;
+                        font-size: 1.8rem;
+                        font-family: 'Outfit';
+                        font-weight: bold;
+                    }
+                    .up-bchart{
+                        flex: 1;
+                        display: flex;
+                        .pchart{
+                            flex: 1;
+                        }
+                        .pchart-anal{
+                            flex: .8;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                    }
+                }
+            }
+            .sl-down{
+                flex: 1;
+                display: flex;
+                position: relative;
+                .sl-down-ocont {
+                    position: absolute;
+                    top: 0%;   
+                    left: 0;   
+                    right: 0;  
+                    width: 100%;
+                    height: 90%; 
+                    justify-self: center;
+                    background-color:#7A7A7A;
+                    border-radius: 16px;
+                    border: solid 2px black;
+                }
+                .sl-down-mcont {
+                    position: absolute;
+                    top: 2.5%;   
+                    left: 0;   
+                    right: 0;  
+                    height: 90%; 
+                    background-color: white;
+                    border-radius: 16px;
+                    border: solid 2px black;
+                    padding: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    .down-head{
+                        height: 3rem;
+                        font-size: 2rem;
+                        font-family: 'Outfit';
+                        font-weight: bold;
+                    }
+                    .down-chart{
+                        flex: 1;
+                    }
+                }
+            }
+        }
+    }
+}

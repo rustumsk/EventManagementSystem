@@ -1,69 +1,70 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9f9f9; /* Adjust to match your app's background color */
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-top: 5px solid #4caf50; /* Adjust to match your theme color */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
-  
-  body {
-    font-family: Arial, Helvetica, sans-serif;
+  to {
+    transform: rotate(360deg);
   }
-  .loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f9f9f9; // Adjust to match your app's background color
-  }
-  
-  .loading-spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #ccc;
-    border-top: 5px solid #4caf50; // Adjust to match your theme color
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  .rf-container {
-    min-height: 100vh;
-    height: auto;
-    width: 100vw;
-    background-color: #FFFAEA;
-    padding: 5rem 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+}
+
+.rf-container {
+  min-height: 100vh;
+  height: auto;
+  width: 100vw;
+  background-color: #FFFAEA;
+  padding: 5rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .rf {
     background-color: #fff;
     border: 1px solid #333;
     border-radius: 16px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    
     width: 500px;
     display: flex;
     flex-direction: column;
     padding: 2rem;
-    justify-content: space-between; 
+    justify-content: space-between;
     gap: 1.5rem;
-    .rf-d{
-        .pi{
-            font-size: 1.4rem;
-            font-weight: bold;
-        }
-        p{
-            font-family: 'Righteous';
-        }
+  
+    .rf-d {
+      .pi {
+        font-size: 1.4rem;
+        font-weight: bold;
+      }
+      p {
+        font-family: 'Righteous';
+      }
     }
+  
     h2 {
       font-size: 1.8rem;
       color: #6C23B5;
@@ -105,14 +106,21 @@
       .form-group {
         display: flex;
         align-items: center;
+        gap: 15px; 
+        margin-bottom: 12px; 
       }
   
       label {
         font-size: 0.9rem;
         font-weight: bold;
+        margin-left: 10px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center; 
+        gap: 10px; 
       }
     }
-  
+    
     .footer {
       font-size: 0.8rem;
       color: #666;
@@ -120,4 +128,93 @@
       margin-top: 1rem;
     }
   }
-  
+  /* Reset styles for input elements */
+input[type="radio"],
+input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid black;
+  border-radius: 50%; 
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+}
+
+/* Style for checked radio button */
+input[type="radio"]:checked {
+  background-color: black;
+  border-color: black;
+}
+
+/* Add the inner circle when the radio button is checked */
+input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color:black;
+}
+
+/* Style for checked checkbox */
+input[type="checkbox"]:checked {
+  background-color: black;
+}
+
+/* Add a checkmark when the checkbox is checked */
+input[type="checkbox"]:checked::after {
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 10px;
+  height: 14px;
+  border-left: 3px solid white;
+  border-bottom: 3px solid white;
+  transform: rotate(-45deg);
+}
+
+/* Optional: Add hover effect on radio buttons and checkboxes */
+input[type="radio"]:hover,
+input[type="checkbox"]:hover {
+  border-color: gray;
+}
+
+/* Optional: Label hover effect */
+input[type="radio"]:hover + label,
+input[type="checkbox"]:hover + label {
+  color: gray;
+}
+
+/* Text input styles */
+input[type="text"],
+input[type="email"] {
+  padding: 0.8rem;
+  border: 1px solid #666;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-top: 10px; /* Add spacing between input fields */
+  width: 100%;
+}
+
+/* Button style */
+button {
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-top: 3rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+}

@@ -1,0 +1,168 @@
+.sbo-cont {
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    justify-content: start;
+    padding-left: 10rem;
+    align-items: center;
+
+    .cont {
+        background-color: white;
+        min-height: 100vh;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+
+        .sba-header {
+            text-align: left;
+            color: #7a1ef8;
+            h2 {
+                font-size: 2rem;
+                margin: 0;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+                margin: 0;
+            }
+
+            p {
+                font-size: 1rem;
+                color: #666;
+            }
+            .sb-ad{
+                color: gray;
+                margin-bottom: 5rem;
+            }
+        }
+
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+        
+            .search-bar {
+                padding: 0.5rem;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                width: 50%;
+            }
+        
+            .filter-dropdown {
+                padding: 0.5rem;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+        
+            .edit-btn,
+            .delete-btn {
+                background: none;
+                border: none;
+                cursor: pointer;
+                width: 2.5rem;
+                height: 2.5rem;
+                transition: transform 0.2s ease, opacity 0.2s ease; /* Smooth hover animation */
+            }
+        
+            .edit-btn {
+                background-image: url('../../../assets/SBOD_Logos/edit_icon.png');
+                background-repeat: no-repeat;
+                background-size: contain;
+        
+                &:hover {
+                    transform: scale(1.1); /* Slightly enlarge on hover */
+                    opacity: 0.8; /* Dim the opacity slightly */
+                }
+        
+                &:active {
+                    transform: scale(1); /* Return to normal size */
+                    opacity: 0.6; /* Make it even dimmer */
+                }
+            }
+        
+            .delete-btn {
+                background-image: url('../../../assets/SBOD_Logos/del_icon.png');
+                background-repeat: no-repeat;
+                background-size: 100%;
+        
+                &:hover {
+                    transform: scale(1.1); /* Slightly enlarge on hover */
+                    opacity: 0.8; /* Dim the opacity slightly */    
+                }
+        
+                &:active {
+                    transform: scale(1); /* Return to normal size */
+                    opacity: 0.6; /* Make it even dimmer */
+                }
+            }
+            .btn-cont{
+                width: 10rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+            }
+        }
+
+        .sba-table {
+            width: 100%;
+            border: solid 2px black;
+
+            thead {
+                height: 5rem;
+                background-color: #fee17b;
+
+                th {
+                    text-align: left;
+                    padding: 0.5rem;
+                }
+            }
+
+            tbody {
+                background-color: #fff;
+
+                .table-rows {
+                    background-color: #f9f9f9;
+                    border-bottom: 2px solid black;
+                    height: 4rem;
+
+                    &:hover {
+                        background-color: #f1f1f1;
+                    }
+
+                    td {
+                        padding: 0.5rem;
+                    }
+
+                    .approve-btn {
+                        background-color: #4caf50;
+                        color: white;
+                        border: none;
+                        padding: 0.5rem 1rem;
+                        border-radius: 4px;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: #45a049;
+                        }
+                    }
+
+                    .reject-btn {
+                        background-color: #f44336;
+                        color: white;
+                        border: none;
+                        padding: 0.5rem 1rem;
+                        border-radius: 4px;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: #e53935;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

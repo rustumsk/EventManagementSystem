@@ -184,10 +184,40 @@
                             width: 4vw;
                             height: 3vh;
                             color: white;
-                            background-color: black;
+                            background-color: rgb(156, 155, 155); // Default background color
                             border-radius: 20px;
                             cursor: pointer;
-                        }
+                            transition: background-color 0.3s ease, transform 0.2s ease;
+                        
+                          }
+                          
+                          .rd {
+                            background-color: red;
+                          
+                            &:hover {
+                              transform: scale(1.05);
+                              background-color: darkred; 
+                            }
+                          
+                            &:active {
+                              transform: scale(0.95);
+                              background-color: crimson; 
+                            }
+                          }
+                          
+                          .grn {
+                            background-color: green;
+                          
+                            &:hover {
+                              transform: scale(1.05);
+                              background-color: darkgreen; 
+                            }
+                          
+                            &:active {
+                              transform: scale(0.95);
+                              background-color: limegreen; 
+                            }
+                          }
                     }
                 }
 

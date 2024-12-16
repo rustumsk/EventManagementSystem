@@ -4,6 +4,7 @@ import { userContext } from '../../main';
 import { useState, useContext, useEffect } from 'react';
 import { studentLogin } from '../../services/authServices/studentLogin';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function StudentLogin() {
     const [showPassword, setShowPassword] = useState(false);
@@ -54,6 +55,7 @@ export default function StudentLogin() {
 
             } catch (error) {
                 setErrorMessage('Login failed. Please try again.');
+                toast.info(error)
                 console.error("Error during login:", error);
             }
         }
@@ -63,12 +65,13 @@ export default function StudentLogin() {
         setErrorMessage('');
     };
     useEffect(() =>{
-        if (userToken){
-            navigate('/studentdashboard');
-        }
+        // if (userToken){
+        //     navigate('/studentdashboard');
+        // }
     })
     return (
         <div className="sl-container">
+            <ToastContainer />
             <section className="sl-lsection">
                 <header className="sl-logo">
                     <span className="sl-l"></span>

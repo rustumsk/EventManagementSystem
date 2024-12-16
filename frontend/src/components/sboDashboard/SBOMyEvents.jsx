@@ -19,14 +19,17 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
   const [published, setPublished] = useState([]); // For published events
   const [modalValue, setModalValue] = useState({});
   const [modalValue2, setModal2Value] = useState({});
+  const [currentEvent, setCurrentEvent] = useState({});
   const [location, setLocation] = useState({});
   const [draftEvent, setDraftEvent] = useState([]); // For drafts
+  const [refresh, setRefresh] = useState(false);
 
   const createEdeleteF = async(obj, draft_id) =>{
       try{
         await createEvent(authToken, obj);
         await deleteDraftById(authToken, draft_id);
         console.log("Draft Published!");
+        setRefresh(prev => !prev);
       }
       catch(e){
         console.log(e);
@@ -37,7 +40,6 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
     const date = convertToWritten(new Date(obj.event_date));
     return (
       <div className="sbome-modal-overlay">
-        {console.log(obj)}
         <div className="sbome-modal-content">
           <h3 style={{ fontFamily: "Righteous", fontWeight: "bold", fontSize: '1.3rem' }}>Event Overview</h3>
           <section className="sbome-modal-data-container">
@@ -53,7 +55,7 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
           </section>
           <section className="sbome-eo-btn-container">
             <button className="sbome-close-btn" onClick={closeModal}>Close</button>
-            <button className="sbome-vr-btn" onClick={viewRegistrationHandler}>View Registration</button>
+            <button className="sbome-vr-btn" onClick={() => viewRegistrationHandler(obj)}>View Registration</button>
           </section>
         </div>
       </div>
@@ -108,8 +110,10 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
     setIsModal2Open(false);
     setSelectedEvent(null);
   }
-  const viewRegistrationHandler = () => {
+  const viewRegistrationHandler = (event) => {
     setActiveTab("Participant Management");
+    setCurrentEvent(event);
+    closeModal();
   };
 
   useEffect(() => {
@@ -144,7 +148,7 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
 
     getPublishedEvents();
     getDraftEvents();
-  }, [authToken, sbo_id.sbo_id]);
+  }, [authToken, sbo_id.sbo_id, refresh]);
 
   useEffect(() => {
     const getModalValue = async () => {
@@ -159,7 +163,7 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
     if (modalValue.location_id) {
       getModalValue();
     }
-  }, [modalValue, authToken]);
+  }, [modalValue, authToken, refresh]);
 
   return (
     <>
@@ -232,7 +236,7 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
           </section>
         </div>
       )}
-      {activeTab === "Participant Management" && <SBOME_PM />}
+      {activeTab === "Participant Management" && <SBOME_PM event={currentEvent} authToken={authToken}/>}
       {isModalOpen && useNigga(modalValue)}
       {isModal2Open && useNigga2(modalValue2)}
     </>

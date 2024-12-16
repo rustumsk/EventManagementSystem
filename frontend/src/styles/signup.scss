@@ -20,7 +20,11 @@
     }
   }
 }
-
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
 .signup-design-human-container {
   display: flex;
   align-items: center;
@@ -45,6 +49,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding-top: 5rem;
   width: 70vw;
   margin-top: 10px;
 
@@ -85,6 +91,17 @@
         background-color: black;
         border-radius: 10px;
         cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      .signup-register-btn:hover {
+        background-color: #6C23B5;
+        transform: scale(1.05);
+      }
+
+      .signup-register-btn:active {
+        background-color: #4A187D;
+        transform: scale(0.95);
       }
 
       .signup-google-btn {
@@ -97,10 +114,21 @@
         border-radius: 10px;
         background-color: white;
         cursor: pointer;
+        transition: box-shadow 0.3s, transform 0.3s;
+      }
 
-        .google-logo {
-          width: 25px; 
-        }
+      .signup-google-btn:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .signup-google-btn:active {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transform: translateY(2px);
+      }
+
+      .google-logo {
+        width: 25px; 
       }
     }
     

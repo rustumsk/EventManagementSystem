@@ -1,14 +1,23 @@
+import { motion } from 'framer-motion';
 import '../../styles/components/SBODashboard/sbome_pm.scss';
 import notifImage from "../../assets/SBOD_Logos/notifications.png";
 import searchImage from "../../assets/SBOD_Logos/search.png";
 import delImage from "../../assets/SBOD_Logos/del_icon.png";
 import editImage from "../../assets/SBOD_Logos/edit_icon.png";
 import { Scanner } from '@yudiel/react-qr-scanner';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import getStudent from '../../services/studentServices/getStudent';
+import { convertToWritten, convertTimestampToReadableFormat, formatCurrentTime } from '../../utils/dateConvert';
+import { deleteParticipantById } from '../../services/participantServices/deleteParticipant';
+import { updateParticipantStatus } from '../../services/participantServices/updateParticipant';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function SBOME_PM () {
+function SBOME_PM({ event, authToken}) {
   const [showScanner, setShowScanner] = useState(false);
-
+  const [participant, setParticipant] = useState([]);
+  const [buttonType, setButtonType] = useState("NoAction");
+  const [refresh,setRefresh] = useState(false);
   const handleNotificationClick = () => {
     alert("Sup bitch");
   };
@@ -20,12 +29,85 @@ function SBOME_PM () {
   const closeScanner = () => {
     setShowScanner(false);
   };
-  const qrOnScan = (result) =>{
-    console.log(result[0].rawValue);
+  const handleDelete = () =>{
+    if(buttonType === 'Delete'){
+      setButtonType('NoAction');
+      return
+    }
+    setButtonType('Delete');
+  };
+
+  const handleManual = () =>{
+    if(buttonType === 'CheckIn'){
+      setButtonType('NoAction');
+      return
+    }
+    setButtonType('CheckIn');
   }
 
-  return(
-    <div className="sbome-pm-main-container">
+  const deleteParticipant = async(participant_id) =>{
+    try{
+      console.log("Hello123");
+      const dat = await deleteParticipantById(authToken, participant_id);
+      console.log(dat);
+      toast.success('Participant deleted successfully!');
+      console.log("Hello123");
+      setRefresh(prev => !prev);
+    }catch(e){
+      console.log(e);
+      toast.error('Failed to delete participant!');
+    }
+  };
+
+  const updateParticipant = async (participant_id, attendance_status, checked_in, check) => {
+    if (check) {
+      toast.warn('Participant already Checked In!');
+      return;
+    }
+    try {
+      const result = await updateParticipantStatus(authToken, participant_id, attendance_status, checked_in);
+      toast.success('Participant status updated successfully!');
+      setRefresh(prev => !prev);
+    } catch (e) {
+      console.error(e);
+      toast.error('Failed to update participant status!');
+    }
+  };
+
+  const qrOnScan = async (result) => {
+    console.log(result[0].rawValue);
+    const participant_id = Number(result[0].rawValue);
+    try {
+      const result = await updateParticipantStatus(authToken, participant_id, formatCurrentTime(), true);
+      toast.success('Participant status updated successfully!');
+      setRefresh(prev => !prev);
+    } catch (e) {
+      console.error(e);
+      toast.error('Failed to update participant status!');
+    }
+  };
+
+  useEffect(() =>{
+    const getAllParticipant = async() =>{
+      try{
+        const data = await getStudent.getAllParticipatedStudent(authToken, event.event_id);
+        console.log(data);
+        setParticipant(data);
+      }catch(e){
+        console.log(e);
+      }
+    }
+    getAllParticipant();
+  },[refresh]);
+  
+  return (
+    <motion.div
+      className="sbome-pm-main-container"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    > 
+      <ToastContainer />
       <section className="sbome-pm-back">
         <section className="sbome-pm-front">
           <div className="sbome-pm-content">
@@ -33,16 +115,34 @@ function SBOME_PM () {
               {/* HEADER AND INPUT */}
               <header className="sbome-header">
                 <h4>Participant Management for</h4>
-                <h1 style={{ color: "#6C23B5", fontSize: "30px", fontFamily: "Righteous", fontWeight: "normal"}}>“ Intramurals Sports Festival “</h1>
+                <h1
+                  style={{
+                    color: "#6C23B5",
+                    fontSize: "30px",
+                    fontFamily: "Righteous",
+                    fontWeight: "normal",
+                  }}
+                >
+                  {event.event_name}
+                </h1>
                 <div className="sbome-search">
-                  <div style={{ position: "relative"}}>
-                    <img src={searchImage} alt="Search Icon" className="sbome-imglogo"/>
-                    <input type="text" placeholder="Search"/>
+                  <div style={{ position: "relative" }}>
+                    <img
+                      src={searchImage}
+                      alt="Search Icon"
+                      className="sbome-imglogo"
+                    />
+                    <input type="text" placeholder="Search" />
                   </div>
-                  <button className="sbome-qr-btn" onClick={handleScanQRClick}>Scan QR Code</button>
+                  <button
+                    className="sbome-qr-btn"
+                    onClick={handleScanQRClick}
+                  >
+                    Scan QR Code
+                  </button>
                   <div>
-                    <img src={delImage} className="sbome-logos-design"></img>
-                    <img src={editImage} className="sbome-logos-design"></img>
+                    <img src={delImage} className="sbome-logos-design" onClick={handleDelete}></img>
+                    <img src={editImage} className="sbome-logos-design" onClick={handleManual}></img>
                   </div>
                 </div>
               </header>
@@ -56,21 +156,42 @@ function SBOME_PM () {
                   <p>Check-In Time</p>
                   <p>Actions</p>
                 </div>
-                <div className="sbome-datas">
-                  <p>Jane Cooper</p>
-                  <p>Checked-In</p>
-                  <p>March 1,2025</p>
-                  <p>09:17 AM</p>
-                  <button className="sbome-undo-btn">Undo</button>
-                </div>
+                {participant.map((p) => {
+                  return (
+                    <div className="sbome-datas" key={p.participant_id}> 
+                      <p>{p.fullname}</p>
+                      <p>{p.checked_in ? 'Checked-In' : 'Not Checked-In'}</p>
+                      <p>{convertToWritten(new Date(p.registered_at))}</p>
+                      {console.log(p)}
+                      <p>{p.attendance_status? p.attendance_status: 'NOT CHECKED IN'}</p>
+                      {buttonType === 'NoAction' ? (
+                        <button className="sbome-undo-btn" >No Action</button>
+                      ) : buttonType === 'Delete' ? (
+                        <button className="sbome-undo-btn rd" onClick={() => deleteParticipant(p.participant_id)}>Delete</button>
+                      ) : buttonType === 'CheckIn' ? (
+                        <button className="sbome-undo-btn grn" onClick={() => updateParticipant(p.participant_id, formatCurrentTime(), true, p.checked_in)}>Check In</button>
+                      ) : null}
+                    </div>
+                  );
+                })}
               </main>
             </div>
 
             {/* SIDE CONTENTS */}
             <div className="sbome-pm-sidecontent">
               <div className="sbome-notif-logo-container">
-                <p style={{ cursor: "pointer" }} onClick={handleNotificationClick}>Set reminder</p>
-                <img src={notifImage} alt="Notification Icon" className="sbome-notif-logo" onClick={handleNotificationClick} />
+                <p
+                  style={{ cursor: "pointer" }}
+                  onClick={handleNotificationClick}
+                >
+                  Set reminder
+                </p>
+                <img
+                  src={notifImage}
+                  alt="Notification Icon"
+                  className="sbome-notif-logo"
+                  onClick={handleNotificationClick}
+                />
               </div>
               <section className="sbome-participants">
                 <h2>Participants</h2>
@@ -80,7 +201,9 @@ function SBOME_PM () {
                 <div className="sbome-comments">
                   <p>Jane Cooper</p>
                   <p>⭐⭐⭐⭐⭐</p>
-                  <p style={{ fontSize: "10px" }}>Rated 5.0/5.0 by participants</p>
+                  <p style={{ fontSize: "10px" }}>
+                    Rated 5.0/5.0 by participants
+                  </p>
                   <p>“Amazing event! Well-organized and fun.”</p>
                 </div>
               </section>
@@ -94,14 +217,16 @@ function SBOME_PM () {
         <div className="scanner-overlay">
           <div className="scanner-container">
             <Scanner onScan={qrOnScan} />
-            <button className="scanner-close-btn" onClick={closeScanner}>Close</button>
+            <button className="scanner-close-btn" onClick={closeScanner}>
+              Close
+            </button>
           </div>
         </div>
       )}
       <section className="sbome-pm-cb-container">
         <button className="sbome-pm-cc-btn">Close Check Ins</button>
       </section>
-    </div>
+    </motion.div>
   );
 }
 

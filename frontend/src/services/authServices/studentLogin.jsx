@@ -8,8 +8,7 @@ const studentLogin = async (password, id_number = 0, email = "") =>{
         const result = await axios.post("http://localhost:3000/login", data);
         return result;
     }catch(e){
-        console.log(e);
-        console.error(e);
+        throw e.response.data;
     }
 }
 

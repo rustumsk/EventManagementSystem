@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import tuneImage from "../../assets/SBOD_Logos/tune.png";
 import notifImage from "../../assets/SBOD_Logos/notifications.png";
 import lo from '../../assets/SBOD_Logos/logout.svg';
+import check  from '../../assets/checked.png'
 import searchImage from "../../assets/SBOD_Logos/search.png";
 import { userContext } from "../../main";
 import { decodeToken } from "../../utils/auth";
@@ -22,7 +23,9 @@ import getSbo from "../../services/sboServices/getSbo";
 import { convertToWritten,extractTimeFromTimestamp } from "../../utils/dateConvert";
 import { getEventById } from "../../services/eventServices/getEvent";
 import { getLocationById } from "../../services/locationServices/getLocation";
-
+import SBOME_PM from "../../components/sboDashboard/SBOME_PM";
+import SBOApproval from "../../components/sboDashboard/SBOAprroval";
+import Analytics from "../../components/sboDashboard/SBOAnalytics";
 const images = {
   logo: appImage,
   avatar: avatarImage,
@@ -33,7 +36,8 @@ const images = {
   tune: tuneImage,
   notification: notifImage,
   search: searchImage,
-  delete: lo
+  delete: lo,
+  check: check
 };
 
 
@@ -46,9 +50,10 @@ function SBODashboard() {
   const [sboToken, setSboToken] = useState(localStorage.getItem('sboToken'));
   const {sbo, setSbo} = useContext(userContext);
   const [event, setEvent] = useState([]);
+  const [activeEvent, setActiveEvent] = useState({});
   const [today, setToday] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
-
+  const img = event.event_image;
   const handleEventClick = (event) => {
     alert(`You clicked on: ${event}`);
   };
@@ -56,7 +61,10 @@ function SBODashboard() {
   const handleNotificationClick = () => {
     alert("Notification icon clicked");
   };
-
+  const clickEvent = (event) =>{
+    setActiveEvent(event)
+    setActiveTab("Sample")
+  }
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -78,7 +86,7 @@ function SBODashboard() {
     const ft = extractTimeFromTimestamp(event.event_date);
     const et = extractTimeFromTimestamp(event.ends_at);
     return(
-          <div className="sti-cont">
+          <div className="sti-cont" onClick={() => clickEvent(event)}>
             <header className="sti-head">{event.event_name}</header>
             <div className="sti-d"><span>Date: </span> {d}</div>
             <div className="sti-d"><span>Time: </span> {ft + et}</div>
@@ -114,20 +122,18 @@ function SBODashboard() {
   
         const todayEvents = [];
         const upcomingEvents = [];
-  
         data.forEach( async (dat) => {
           const eventDate = new Date(dat.event_date);
           eventDate.setHours(0,0,0,0);
-  
-          if (eventDate.getTime() === todayDate.getTime()) {
+          const dateToday = new Date();
+          dateToday.setHours(0,0,0,0);
+          if (eventDate.getTime() === dateToday.getTime()) {
             todayEvents.push(dat);
-            const l = await getLocationById(sboToken,dat.location_id);
-            console.log(l);
-          } else if (eventDate > todayDate) {
+          } else{
             upcomingEvents.push(dat);
           }
         });
-  
+        console.log(upcomingEvents)
         setToday(todayEvents);
         setUpcoming(upcomingEvents);
       }
@@ -148,7 +154,7 @@ function SBODashboard() {
         <div 
           className="sbod-avatar" 
           onClick={() => setActiveTab("Settings")}>
-          <img src={images.avatar} alt="App Logo" />
+          <img src={sbo.sbo_image} alt="App Logo" />
           <div style={{
             display: "flex",
             flexDirection: "column",
@@ -189,6 +195,12 @@ function SBODashboard() {
             label="Settings"
             isActive={activeTab === "Settings"}
             onClick={() => setActiveTab("Settings")}
+          />
+          <NavItem
+            icon={images.check}
+            label="Registration"
+            isActive={activeTab === "approve"}
+            onClick={() => setActiveTab("approve")}
           />
           <NavItem
             icon={images.delete}
@@ -306,14 +318,24 @@ function SBODashboard() {
         {activeTab === "My Events" && (
           <SBOMyEvents sbo_id={sbo} authToken={sboToken}/>
         )}
+        {
+          activeTab === "Sample" &&(
+            <SBOME_PM event={activeEvent} authToken={sboToken}/>
+          )
+        }
         {activeTab === "Analytics" && (
           <div>
-            
+            <Analytics />
+          </div>
+        )}
+        {activeTab === "approve" &&(
+          <div>
+            <SBOApproval authToken={sboToken} sbo={sbo}/>
           </div>
         )}
         {activeTab === "Settings" && (
           <div>
-            <SBOSettings sbo={sbo}/>
+            <SBOSettings sbo={sbo} sboIcon={sbo.sbo_image}/>
             
           </div>
         )}

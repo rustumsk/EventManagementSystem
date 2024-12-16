@@ -11,6 +11,7 @@ import StudentSettings from '../../components/studentDashboard/StudentSettings';
 import defaultIcon from '../../assets/pfp.png'
 import getSbo from '../../services/sboServices/getSbo';
 import { getEventById } from '../../services/eventServices/getEvent';
+import { motion } from 'framer-motion';
 
 export default function StudentDashboard() {
     const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -94,6 +95,11 @@ export default function StudentDashboard() {
     }
 
     return (
+        <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        >   
         <div className="sb-container">
             <header className="sb-header">
                 <div className="sb-l-container">
@@ -181,5 +187,6 @@ export default function StudentDashboard() {
             </footer>
             )}
         </div>
+        </motion.div>
     );
 }

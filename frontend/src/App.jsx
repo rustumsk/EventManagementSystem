@@ -10,11 +10,27 @@ import StudentDashboard from "./pages/private/StudentDashboard";
 import SBODashboard from "./pages/private/SBODashboard";
 import RegistrationFrom from "./components/studentDashboard/RegistraionForm";
 import RegistrationDetails from "./components/studentDashboard/RegistrationDetails";
-
+import SBORegister from "./pages/public/SBORegister";
+import Admin from "./pages/public/admin";
+import AdminApprove from "./pages/private/adminApprove";
+import Calendar from "./components/studentDashboard/Calendar";
+import Analytics from "./components/sboDashboard/SBOAnalytics";
 const router = createBrowserRouter([
   {
     path:'/error',
     element: <ErrorProfile />
+  },
+  {
+    path:'calendar',
+    element: <Calendar />
+  },
+  {
+    path:'/eulu',
+    element: <Admin />
+  },
+  {
+    path: '/adminapprove',
+    element: <AdminApprove />
   },
   {
     path:'/studentdashboard',
@@ -27,6 +43,10 @@ const router = createBrowserRouter([
   {
     path:'/sbodashboard',
     element: <SBODashboard />
+  },
+  {
+    path:'/sboregister',
+    element: <SBORegister />
   },
   {
     path:'/',
