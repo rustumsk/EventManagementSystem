@@ -2,7 +2,7 @@ import pool from "../../../configs/db/pool";
 
 const findSboByEmail = async(email:string) =>{
     try{
-        return await pool.query('SELECT sbo_id,sbo_password from Sbo where sbo_email = $1', [email]); 
+        return await pool.query('SELECT sbo_id,sbo_password, is_verified from Sbo where sbo_email = $1', [email]); 
     }catch(e){
         console.log(e);
     }
@@ -13,6 +13,9 @@ const findSboById = async(sbo_id:string) =>{
 }
 const getAllSbo = async() =>{
     return await pool.query('SELECT sbo_name from sbo');
+}
+const getAllUnverified = async() =>{
+    return await pool.query('SELECT * from sbo where is_verified = false');
 }
 const findIdByName = async(sbo_name:any) =>{
     try{
@@ -27,7 +30,8 @@ const findSbo = {
     findSboByEmail,
     findSboById,
     getAllSbo,
-    findIdByName
+    findIdByName,
+    getAllUnverified
 }
 
 export default findSbo;

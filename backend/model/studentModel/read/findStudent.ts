@@ -41,12 +41,32 @@ const getStudentPassword = async (email?: string, id_num?: number): Promise<Quer
         throw e;
     }
 };
+const findAllStudentParticipant = async (event_id: any) => {
+    try{
+        const result = await pool.query(`SELECT p.participant_id, s.fullname, p.checked_in, p.registered_at, p.attendance_status FROM Student s INNER JOIN Participant p ON s.student_id = p.student_id WHERE event_id = $1`,[event_id]);
+        return result.rows;
+    }catch(e){
+        console.log(e);
+        throw e;
+    }
+}
 
+const getStudentBySbo = async (sbo_name:any) =>{
+    try{
+        const result = await pool.query(`SELECT * From student where sbo_name = $1 AND is_verified = false`, [sbo_name]);
+        return result.rows;
+    }catch(e){
+        console.log(e);
+        throw e;
+    }
+}
 const findStudent = {
     getStudentByEmail,
     getStudentPassword,
     getStudentByGoogleId,
-    getStudentByStudentId
+    getStudentByStudentId,
+    findAllStudentParticipant,
+    getStudentBySbo
 };
 
 export default findStudent;

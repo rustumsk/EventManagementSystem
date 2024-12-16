@@ -10,4 +10,15 @@ const getEventByIdController = async(req:Request, res:Response) =>{
         console.log("Hello!");
     }
 }
-export {getEventByIdController}
+const getEventByIdNameController = async (req: Request, res: Response) => {
+    try {
+      console.log('req.query:', req.query); 
+      const { sbo_id, event_name, event_date } = req.query;
+      const data = await getEvent.getEventByIdNameDate(sbo_id, event_name, event_date);
+      res.status(200).json(data);
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+export {getEventByIdController, getEventByIdNameController}

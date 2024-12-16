@@ -7,7 +7,7 @@ const createLocalSbo = async(sbo_email:string,sbo_name:string, password:string, 
         console.log("Sbo Created!");
     }
     catch(e){
-        console.error(e);
+        throw e;
     }
     
 }

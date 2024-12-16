@@ -18,6 +18,14 @@ const generateIdToken = (student_id: string): string =>{
     );
 };
 
+const generateAdminToken = (admin_id: string): string =>{
+    return jwt.sign(
+        {admin_id},
+        process.env.SECRET_KEY,
+        {expiresIn: '1d'}
+    );
+};
+
 const generateUserToken = (userObj: object) => {
     return jwt.sign({
         userObj
@@ -59,4 +67,4 @@ const generateTokenForGoogle = (id_number: number, email: number, fullname: stri
     )
 }
 
-export {verifyToken, generateToken, generateTokenForPayload, generateTokenForGoogle, generateUserToken, generateIdToken};
+export {verifyToken, generateToken, generateTokenForPayload, generateTokenForGoogle, generateUserToken, generateIdToken, generateAdminToken};

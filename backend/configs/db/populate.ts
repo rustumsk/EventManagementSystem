@@ -3,12 +3,19 @@ import { Client } from 'pg';
 dotenv.config();
 
 const SQL = `
+    CREATE TABLE IF NOT EXISTS admin(
+        admin_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        admin_name VARCHAR(255) UNIQUE NOT NULL,
+        admin_password VARCHAR(255) NOT NULL
+    );
+
     CREATE TABLE IF NOT EXISTS Sbo (
         sbo_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         sbo_email VARCHAR(255) UNIQUE NOT NULL,
         sbo_password VARCHAR(255) NOT NULL,
         sbo_name VARCHAR(255) UNIQUE NOT NULL,
         sbo_image VARCHAR(255) DEFAULT 'https://res.cloudinary.com/dkjvr8efj/image/upload/v1733383626/uploads/Avatar.png.png',
+        is_verified boolean DEFAULT FALSE,
         contact_num VARCHAR(20) NOT NULL
     );
 
@@ -43,7 +50,9 @@ const SQL = `
         sbo_id INT NOT NULL,
         event_description TEXT NOT NULL,
         event_name VARCHAR(255) NOT NULL,
-        event_date TIMESTAMP NOT NULL,
+        event_date DATE NOT NULL,
+        start_time TIME NOT NULL,
+        end_time TIM NOT NULL,
         location_id INT NOT NULL,
         category_id INT NOT NULL,
         capacity INT NOT NULL,

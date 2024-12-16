@@ -11,4 +11,24 @@ const getStudentByIdController:RequestHandler = async (req: Request,res: Respons
     }    
 }
 
-export {getStudentByIdController};
+const getAllParticipatedStudnetController = async(req:Request, res: Response) =>{
+    const {event_id} = req.params;
+    try{
+        const data = await findStudent.findAllStudentParticipant(event_id);
+        res.status(200).json(data);
+    }catch(e){
+        console.error(e);
+        res.status(500).json({message: "Error"});
+    }
+}
+const getStudentBySboController = async(req:Request, res:Response) =>{
+    const {sbo_name} = req.params;
+    try{
+        const data = await findStudent.getStudentBySbo(sbo_name);
+        res.status(200).json(data);
+    }catch(e){
+        console.error(e);
+        res.status(500).json("Internal Server Error");
+    }
+}
+export {getStudentByIdController, getAllParticipatedStudnetController, getStudentBySboController};

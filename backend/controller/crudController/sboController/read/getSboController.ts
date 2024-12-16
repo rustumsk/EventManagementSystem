@@ -30,4 +30,14 @@ const getSboIdByNameController = async(req:Request, res:Response) =>{
         res.status(404).json({message:"Internal Server Error!"});
     }
 }
-export {getSboController, getSboNamesController,getSboIdByNameController};
+
+const getUnverifiedController = async(req:Request, res:Response) =>{
+    try{
+        const data = await findSbo.getAllUnverified();
+        res.status(200).json(data.rows); 
+    }catch(e){
+        res.status(500).json("Internal Server Error");
+    }
+};
+
+export {getSboController, getSboNamesController,getSboIdByNameController, getUnverifiedController};

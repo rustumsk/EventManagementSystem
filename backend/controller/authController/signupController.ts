@@ -5,6 +5,7 @@ import createStudent from "../../model/studentModel/create/createStudent";
 import { generateToken } from "../../helper/auth/jwt";
 import { QueryResult } from "pg";
 import { createLocalSbo } from "../../model/sboModel/create/createSbo";
+import { createAdmin } from "../../model/helper/adminModel";
 
 const createLocalStudentController: RequestHandler = async (req: Request, res: Response) => {
     const { id_num, email, fullname, password } = req.body;
@@ -62,4 +63,15 @@ const createLSbo = async(req:Request, res:Response) =>{
         res.status(400).json({error: e});
     }
 } 
-export { createLocalStudentController, createGoogleStudentController, createLSbo };
+
+const createAd = async(req:Request, res:Response) =>{
+    const {admin_name, admin_password} = req.body;
+
+    try{
+        await createAdmin(admin_name, admin_password);
+        res.status(200).json("Admin Created!");
+    }catch(e){
+        res.status(500).json("Internal Server Error");
+    };
+}
+export { createLocalStudentController, createGoogleStudentController, createLSbo, createAd };

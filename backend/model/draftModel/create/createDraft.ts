@@ -7,7 +7,6 @@ const createDraft = async(sbo_id:number, draft_name:string, event_data:any) =>{
         console.log("Draft Created!");
     }
     catch(e){
-        console.log(e);
         throw error(e);
     }
 }

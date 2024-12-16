@@ -18,6 +18,7 @@ import draftRoute from './routes/private/draft';
 import participantRoute from './routes/private/participant';
 import passport = require('passport');
 import { sendVerificationCode } from './routes/services/mailer';
+import adminRouter from './routes/private/admin';
 dotenv.config();
 const PORT = process.env.PORT;
 
@@ -34,6 +35,7 @@ app.use('/students', studentRouter);
 app.use('/events', eventRouter);
 app.use('/convert', imageRoute);
 app.use('/sbo', sboRoute);
+app.use('/admin', adminRouter);
 app.use('/category', categoryRoute);
 app.use('/draft', draftRoute);
 app.use('/location', locationRoute);

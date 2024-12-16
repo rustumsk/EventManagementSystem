@@ -19,7 +19,12 @@ const localLogin: RequestHandler = async (req, res): Promise<void> => {
             res.status(404).json({ message: "User not found" });
             return;
         }
-        const match:boolean = await passwordHelper.verifyPassword(user.rows[0].password, password);
+
+        if (!user.rows[0].is_verified){
+            res.status(404).json("Pending Registeration Approval by Your SBO!");
+            return
+        }
+        const match:boolean = await passwordHelper.verifyPassword   (user.rows[0].password, password);
 
         if (!match){
             res.status(404).json({message:"Incorrect Password!"});
@@ -46,10 +51,16 @@ const localLoginSBO = async(req:Request , res:Response) =>{
     try{
         const sbo = await findSbo.findSboByEmail(email);
         
+        if (!sbo?.rows[0].is_verified){
+            res.status(400).json("Please Wait For Admin Verification! Try Again Later");
+            return;
+        }
+
         if (sbo?.rows.length === 0){
             res.status(404).json({message:"SBO not found!"});
             return;
         }
+
         const match = await passwordHelper.verifyPassword(sbo?.rows[0].sbo_password, sbo_password);
         if(!match){
             res.status(404).json({message:"invalid password!"});
@@ -59,7 +70,7 @@ const localLoginSBO = async(req:Request , res:Response) =>{
         const token = generateUserToken(sbo?.rows[0].sbo_id);
         console.log(token);
 
-        res.status(200).json({message:"Login Successful!", token: token});
+        res.status(200).json({message:"Log  in Successful!", token: token});
     }catch(e){
         console.error(e);
         res.status(500).json({message:"Internal server error!"});

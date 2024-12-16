@@ -6,8 +6,8 @@ const createDraftController = async(req:Request, res:Response) =>{
 
     try{
         await createDraft(sbo_id, draft_name, event_data);
-    }catch(e){
-        res.status(404).json({message: "Internal Server Error!", error: e})
+    }catch(e:any){
+        res.status(404).json(e);
     }
 }
 
