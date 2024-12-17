@@ -9,4 +9,12 @@ const getLocationById = async(location_id: any) =>{
     }
 }
 
-export{getLocationById};
+const getLocationNameById = async(location_id: any) =>{
+    try{
+        const data = await pool.query("SELECT location_name, location_city FROM location where location_id = $1", [location_id]);
+        return data.rows;
+    }catch(e){
+        throw e;
+    }
+}
+export{getLocationById, getLocationNameById};

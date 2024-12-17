@@ -8,7 +8,7 @@ import { createLocalSbo } from "../../model/sboModel/create/createSbo";
 import { createAdmin } from "../../model/helper/adminModel";
 
 const createLocalStudentController: RequestHandler = async (req: Request, res: Response) => {
-    const { id_num, email, fullname, password } = req.body;
+    const { id_num, email, fullname, password, sbo_name } = req.body;
     const hashedPassword = await passwordHelper.hashPassword(password);
 
     try {
@@ -19,7 +19,7 @@ const createLocalStudentController: RequestHandler = async (req: Request, res: R
             return;
         }
 
-        await createStudent.createStudentByLocal(id_num,email,fullname,hashedPassword);
+        await createStudent.createStudentByLocal(id_num,email,fullname,hashedPassword, sbo_name);
         console.log("Student Created!");
         res.status(200).json({message: "Student Created!"});
     } catch (error) {

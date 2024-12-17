@@ -18,9 +18,20 @@ const getCategoryIdController = async(req:Request, res:Response) =>{
         res.status(400).json({error:e});
     }
 }
+const getCategoryByIdController = async(req:Request, res:Response) =>{
+    const {category_id} = req.params;
+    try{
+        console.log(category_id);
+        const data = pool.query("SELECT category_name from category where category_id = $1", [category_id]);
+        res.status(200).json((await data).rows);
+    }catch(e){
+        res.status(500).json(e);
+    }
+}
 const CategoryController = {
     getCategoryController,
-    getCategoryIdController
+    getCategoryIdController,
+    getCategoryByIdController
 };
 
 export default CategoryController;

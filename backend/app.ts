@@ -19,6 +19,7 @@ import participantRoute from './routes/private/participant';
 import passport = require('passport');
 import { sendVerificationCode } from './routes/services/mailer';
 import adminRouter from './routes/private/admin';
+import feedbackRoute from './routes/private/feedback';
 dotenv.config();
 const PORT = process.env.PORT;
 
@@ -40,6 +41,7 @@ app.use('/category', categoryRoute);
 app.use('/draft', draftRoute);
 app.use('/location', locationRoute);
 app.use('/participant', participantRoute);
+app.use('/feedback', feedbackRoute);
 popul();
 app.post('/mail', (req,res) =>{
     const {code,email} = req.body

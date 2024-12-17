@@ -21,4 +21,23 @@ const getEventByIdNameController = async (req: Request, res: Response) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   };
-export {getEventByIdController, getEventByIdNameController}
+
+const getEventBystudentIdController = async (req:Request, res:Response) =>{
+  try{
+    const {student_id} = req.params;
+    const data = await getEvent.getEventByStudentId(student_id);
+    res.status(200).json(data);
+  }catch(e){
+    res.status(500).json(e);
+  }
+}
+
+const getTopEventController = async (req:Request, res:Response) =>{
+  try{
+    const data = await getEvent.getTopEvent();
+    res.status(200).json(data);
+  }catch(e){
+    res.status(500).json(e);
+  }
+}
+export {getEventByIdController, getEventByIdNameController, getEventBystudentIdController,getTopEventController}

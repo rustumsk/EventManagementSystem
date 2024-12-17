@@ -52,7 +52,7 @@ const SQL = `
         event_name VARCHAR(255) NOT NULL,
         event_date DATE NOT NULL,
         start_time TIME NOT NULL,
-        end_time TIM NOT NULL,
+        end_time TIME NOT NULL,
         location_id INT NOT NULL,
         category_id INT NOT NULL,
         capacity INT NOT NULL,
@@ -60,6 +60,8 @@ const SQL = `
         event_image VARCHAR(255) NOT NULL,
         custom_fields JSON,
         event_type VARCHAR(255) NOT NULL,
+        is_done BOOLEAN DEFAULT FALSE,
+        is_open BOOLEAN DEFAULT FALSE,
         FOREIGN KEY (sbo_id) REFERENCES Sbo(sbo_id),
         FOREIGN KEY (location_id) REFERENCES Location(location_id),
         FOREIGN KEY (category_id) REFERENCES Category(category_id)
@@ -79,13 +81,16 @@ const SQL = `
         status BOOLEAN DEFAULT FALSE,
         FOREIGN KEY (sbo_id) REFERENCES Sbo(sbo_id)
     );
+
     CREATE TABLE IF NOT EXISTS Feedback (
         feedback_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         event_id INT NOT NULL,
         student_id INT NOT NULL,
         rating INT NOT NULL,
+        feedback TEXT NOT NULL,
         FOREIGN KEY (event_id) REFERENCES Event(event_id),
-        FOREIGN KEY (student_id) REFERENCES Student(student_id)
+        FOREIGN KEY (student_id) REFERENCES Student(student_id),
+        CONSTRAINT unique_feedback UNIQUE (event_id, student_id)
     );
 
     CREATE TABLE IF NOT EXISTS Notification (
