@@ -42,12 +42,14 @@
                 gap: 10px;
 
                 .lp-logo {
-                    width: 20%;
+                    width: 10%;
                     display: grid;
-                    place-content: center;
+                    align-items: center;
+                    justify-content: start;
                     font-family: $jaro;
                     font-size: 2.2rem;
                     font-weight: bold;
+                    padding-left: 20px;
                 }
 
                 .lp-infos {
@@ -59,7 +61,8 @@
                         display: grid;
                         place-content: center;
                         font-family: 'roboto';
-                        font-size: 1.2rem;
+                        font-size: 1.0rem;
+                        font-weight: bold;
 
                         @keyframes smoothMove {
                             0% {
@@ -169,19 +172,31 @@
     }
 
     .lp-f-body {
-        background-color: white;
         flex: 12;
+        margin-top: 20px;
         display: flex;
         border-radius: 12px;
 
         .lp-l-sec {
             flex: 1;
             border-radius: 13px;
-            height: 95%;
+            height: 100%;
             background-color: #D9BBF8;
-            display: grid;
+            display: flex;
             justify-content: center;
-            padding-top: 12rem;
+
+            .lp-l-d-c {
+                display: flex;
+                height: 100%;
+                width: 100%;
+                padding-top: 30px;
+                align-items: start;
+                justify-content: center;
+                .lp-l-d{
+                    width: 80%;
+                    height: 70vh;
+                }
+            }
 
             .lp-l-cont {
                 height: 20rem;
@@ -234,20 +249,77 @@
             }
         }
 
+
         .lp-r-sec {
             flex: 0.6;
-            background-color: white;
             place-content: start;
-            padding-top: 2rem;
-            opacity: 0%;
-            &:hover{
-                flex: 1;
-                opacity: 100%;
-                .lp-l-sec{
-                    flex: .6;
-                    opacity: 0%;
+            opacity: 50%;
+            border-radius: 13px;
+            background-color: #FFF5D5;
+
+            .lp-r-d-c {
+                display: flex;
+                height: 40vh;
+                width: 100%;
+                padding-top: 10px;
+                justify-content: center;
+                //background-color: red;
+                .lp-r-d{
+                    width: 80%;
+                    height:70vh;
                 }
             }
+
+            .lp-r-e-c {
+                display: flex;
+                height: 30%;
+                width: 83%;
+                justify-content: end;
+                align-items: end;
+                //background-color: blue;
+                .lp-r-e{
+                    width: 50%;
+                    height: 100%;
+                }
+            }
+
+            .lp-r-t-c {
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                margin-top: 20px;
+                height: 10vh;
+                //background-color: blue;
+
+                .lp-r-text-c {
+                    display: flex;
+                    justify-content: start;
+                    align-items: end;
+                    margin: 10px;
+                    margin-left: 200px;
+                    //background-color: red;
+                }
+
+                .lp-r-button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap:  8px;
+                    padding: 10px;
+                    margin-right: 100px;
+                    cursor: pointer;
+                    background-color: #FFF5D5;
+                }
+            }
+
+            
+
+            &:hover{
+                flex: 1.5;
+                opacity: 100%;
+                scale: 1.05;
+            }
+            
             .lp-r-cont {
                 height: 92%;
                 background-color: #FCDF78;
@@ -333,78 +405,216 @@
     display: flex;
     padding-bottom: 2rem;
     padding-top: 2rem;
-    .lp-sl{
-        flex: .6;
-        background-color: rgba(57, 58, 58, 0.5);
-    }
+    background-color: #FFF5D5;
     .lp-sr{
         flex: 1;
-        background-color: $variable;
         display: flex;
         place-content: center;
-        align-items: center;
+        align-items: start;
         .lp-t-con{
-            height: 80%;
+            height: 100%;
             width: 80%;
-            padding-top: 3rem;
+            padding-top: 1rem;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            // /background-color: red;
+
             .lp-s{
                 font-family: 'Righteous';
                 font-weight: bold;
-                font-size: 3rem;
+                font-size: 2rem;
+                color: #6C23B5;
             }
             .lp-n{
                 font-family: "Inter";
                 font-weight: light;
-                margin-bottom: 2rem;
+                font-size: 1.6rem;
+                margin-bottom: 1rem;
+                font-style: italic;
+                color: #B89108;
             }
-            .lp-p{
-                height: 5rem;
+
+            .lp-p-c {
+                display: flex;
+                justify-content: end;
+                margin-bottom: 1rem;
+                .lp-p{
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    width: 90%;
+                    background-color: white;
+                }
+                .lp-student-design {
+                    height: 230px;
+                    width: 280px;
+                }
+            }
+
+            .lp-p1-c {
+                display: flex;
+                justify-content: start;
+                margin-bottom: 1rem;
+                .lp-p1{
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    width: 90%;
+                    background-color: #F9DE83;
+                }
+                .lp-student-design {
+                    height: 230px;
+                    width: 250px;
+                }
+            }
+
+            .lp-p2-c {
+                display: flex;
+                justify-content: end;
+                margin-right: -100px;
+                .lp-p2{
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    width: 83%;
+                    background-color: #DABCF7;
+                }
+                .lp-student-design {
+                    height: 250px;
+                    width: 300px;
+                }
+            }
+
+            .lp-p,
+            .lp-p1,
+            .lp-p2{
+                height: 10rem;
                 font-family: "Outfit";
                 font-size: 1.5rem;
                 text-align: left;
                 font-weight: bold;
+                border-radius: 20px;
+                border: 1px solid black;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
             }
+
         }
     }
 }
 
 .lp-third {
     display: flex;
-    padding-bottom: 2rem;
-    padding-top: 2rem;
+    padding-bottom: 1rem;
+    background-color: #dabbf862;
     .lp-sl{
         flex: 1;
-        background-color: $variable;
         display: flex;
         place-content: center;
         align-items: center;
         .lp-t-con{
-            height: 80%;
-            width: 80%;
-            padding-top: 3rem;
+            height: 90%;
+            width: 90%;
+            padding-top: 1rem;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            //background-color: blue;
             p{
                 text-align: right;
             }
             .lp-s{
                 font-family: 'Righteous';
                 font-weight: bold;
-                font-size: 3rem;
+                font-size: 2rem;
+                color: #EABA1B;
             }
             .lp-n{
                 font-family: "Inter";
                 font-weight: light;
                 margin-bottom: 2rem;
+                font-size: 1.5rem;
+                font-style: italic;
+                color: #6C23B5;
             }
-            .lp-p{
+
+            .lp-p-c {
+                display: flex;
+                //background-color: red;
+                height: 100%;
+                gap: 20px;
+
+                .lp-p-container {
+                    display: flex;
+                    flex-direction: column;
+                    border: 1px solid black;
+                    height: 90%;
+                    width: 45%;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #FFF5D5;
+                    border-radius: 15px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
+
+                    .lp-p-inside {
+                        display: flex;
+                        height: 400px;
+                        width: 60%;
+                        margin-top: 10px;
+                        margin-bottom: 50px;
+                    }
+                }
+
+                .lp-p1-container {
+                    display: flex;
+                    flex-direction: column;
+                    border: 1px solid black;
+                    height: 90%;
+                    width: 45%;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: white;
+                    border-radius: 15px;
+                    margin-top: 20px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
+
+                    .lp-p1-inside {
+                        display: flex;
+                        height: 100%;
+                        width: 70%;
+                        margin-top: 10px;
+                        margin-bottom: 50px;
+                    }
+                }
+
+                .lp-p2-container {
+                    display: flex;
+                    flex-direction: column;
+                    border: 1px solid black;
+                    height: 90%;
+                    width: 45%;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 15px;
+                    background-color: #DABCF7;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
+
+                    .lp-p2-inside {
+                        display: flex;
+                        height: 100%;
+                        width: 70%;
+                        margin-top: 10px;
+                        margin-bottom: 50px;
+                    }
+                }
+            }
+
+            .lp-p,
+            .lp-p1,
+            .lp-p2{
                 height: 5rem;
                 font-family: "Outfit";
-                font-size: 1.5rem;
+                font-size: 1.3rem;
                 font-weight: bold;
             }
         }
