@@ -933,19 +933,57 @@
                     border-radius: 5px;
                 }
                 
-                div {
+                .fmd {
                     border-radius: 8px;
-                    background-color: white;
+                    background-color: white;    
                     border: solid 2px black;
                     flex: 0 0 auto;
                     height: 80%;
                     width: 25%;
                     transition: width 0.4s ease;
                     scroll-snap-align: center;
+                    padding: 1rem;
+                    display: flex;
+                    gap: 1rem;
+                    flex-direction: column;
+                    .fmdh{
+                        height: 1rem;
+                        display: flex;
+                        justify-content: center;
+                        font-family: 'Outfit';
+                        font-weight: bold;
+                    }
+                    .fmdp{
+                        height: 2rem;
+                        border: solid 2px black;
+                        border-radius: 16px;
+                        padding-left: 1rem;
+                    }
                     &:hover{
                         height: 90%;
                         width: 35%;
                     }
+                    .fmdi {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 8px;
+                      } 
+                  
+                      .i{
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        border: 2px solid black;
+                        background-color: #ccc; /* Placeholder color */
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 12px;
+                        font-weight: bold;
+                        color: black;
+                      }
                 }
             }
             
@@ -1019,11 +1057,51 @@
                     font-size: 3rem;
                     align-self: center  ;
                 }
-                div{
+                .sb{
                     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
                     border: solid 2px black;
                     border-radius: 8px;
                     background-color: white;
+                    padding: 1.3rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                    .sbh{
+                        height: 3rem;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 1.5rem;
+                        font-family: 'Outfit';
+                        font-weight: bold;
+                    }
+                    .sbp{
+                        height: 2.5rem;
+                        border: solid 2px black;
+                        border-radius: 16px;
+                        padding-left: 1rem;
+                    }
+                    .sbi {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 8px;
+                      } 
+                  
+                      .i{
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        border: 2px solid black;
+                        background-color: #ccc; /* Placeholder color */
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 12px;
+                        font-weight: bold;
+                        color: black;
+                      }
                 }
             }
         }
@@ -1194,6 +1272,29 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    gap: 2rem;
+                    .calendar {
+                        width: 3rem;
+                        height: 3rem;
+                        background-image: url('../assets/calendar.png');
+                        background-size: 80%;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        cursor: pointer; /* Add a pointer cursor to indicate it's clickable */
+                        transition: transform 0.2s ease, opacity 0.2s ease; /* Smooth transition for hover and click */
+                      
+                        /* Hover effect */
+                        &:hover {
+                          transform: scale(1.1); /* Slightly enlarge on hover */
+                          opacity: 0.8; /* Slightly fade the icon on hover */
+                        }
+                      
+                        /* Active (Click) effect */
+                        &:active {
+                          transform: scale(0.95); /* Slightly shrink on click */
+                          opacity: 1; /* Reset opacity on click */
+                        }
+                      }
                 }
                 
                 .sb-input-container {

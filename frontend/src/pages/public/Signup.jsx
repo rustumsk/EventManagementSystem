@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/signup.scss";
 import logo from "../../assets/logo.png";
 import Toastify from 'toastify-js';
@@ -10,6 +10,7 @@ import googleLogo from "../../assets/gg.png";
 import appImage from "../../assets/SBOD_Logos/logo.png";
 import suDesign from "../../assets/su-design.png";
 import { ToastContainer, toast } from "react-toastify";
+import getSbo from "../../services/sboServices/getSbo";
 
 function Signup() {
   const [signupName, setName] = useState("");
@@ -18,17 +19,21 @@ function Signup() {
   const [signupPass, setPass] = useState("");
   const [signupConfirmpass, setConfirmPass] = useState("");
   const [signupErrors, signupSetErrors] = useState({});
+  const [sboName, setSboName] = useState("");
+  const [sbos, setSbos] = useState([]);
   const navigate = useNavigate();
-
+  
   const handleLoginClick = () => {
     alert("Hi pre");
   };
-
+  
   const validateEmail = (email) => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return regex.test(email);
   };
-
+  const handleSbo = (e) => {
+    setSboName(e.target.value);
+  };
   const authentication = async (e) => {
     e.preventDefault(); 
 
@@ -47,6 +52,10 @@ function Signup() {
     } else if (!validateEmail(signupEmad)) {
         newErrors.signupEmad = "Please enter a valid email address!";
     }
+    if(!sboName){
+      toast.error("Choose an sbo name!")
+      return;
+    }
     if (!signupPass) newErrors.signupPass = "Password is required!";
     if (!signupConfirmpass) newErrors.signupConfirmpass = "Confirm Password is required!";
     if (signupPass !== signupConfirmpass) newErrors.signupConfirmpass = "Passwords do not match!";
@@ -60,13 +69,14 @@ function Signup() {
         fullname: signupName,
         id_num: Number(signupIdno),
         email: signupEmad,
-        password: signupPass
+        password: signupPass,
+        sbo_name: sboName
     };
     
     console.log("Submitting:", data);
 
     try{
-        const result = await createLocalStudent(data.id_num, data.email, data.fullname, data.password);
+        const result = await createLocalStudent(data.id_num, data.email, data.fullname, data.password, data.sbo_name);
         console.log(result.data.status);
         toast.success("Sucessfully Signed Up!");
         toast.info("Please Wait For Your Sbo to Approve ur Registration!");
@@ -75,7 +85,7 @@ function Signup() {
         toast.error("Student Already Exists!");
     }
 };
-
+  
   const handleInputChange = (e, field) => {
     const { value } = e.target;
     if (field === "email" && signupErrors.signupEmad) {
@@ -87,7 +97,14 @@ function Signup() {
     if (field === "password") setPass(value);
     if (field === "confirmPassword") setConfirmPass(value);
   };
-
+  useEffect(() => {
+    const getAll = async () => {
+          const data = await getSbo.getAllSbo();
+          console.log(data);
+          setSbos(data.data.rows);
+      };
+      getAll();
+  }, []);
   return (
     <div className="signup-container">  
     <ToastContainer />
@@ -156,6 +173,19 @@ function Signup() {
             />
             {signupErrors.signupConfirmpass && <p className="error-message">{signupErrors.signupConfirmpass}</p>}
           </section>
+          <label htmlFor="sbo">Select SBO</label>
+                <select
+                    id="sbo"
+                    value={sboName}
+                    onChange={handleSbo}
+                >
+                    <option value="">-- Select an SBO --</option>
+                    {sbos.map((sbo) => (
+                        <option key={sbo.sbo_name} value={sbo.sbo_name}>
+                            {sbo.sbo_name}
+                        </option>
+                    ))}
+                </select>
           <section className="signup-btns-container">
             <button className="signup-register-btn" onClick={authentication}>Register</button>
             <button className="signup-google-btn" onClick={() => window.location.href = "http://localhost:3000/google"}>

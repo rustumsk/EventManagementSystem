@@ -37,4 +37,13 @@ const getEventByStudentId = async(authToken, student_id) =>{
     console.log(e);
   }
 }
-export {getEventById, getEventByIdNameDate, getEventByStudentId};
+
+const getTopEvent = async() =>{
+  try{
+    const result = await axios.get(`http://localhost:3000/events/top`);
+    return result.data;
+  }catch(e){
+    throw e;
+  }
+}
+export {getEventById, getEventByIdNameDate, getEventByStudentId, getTopEvent};

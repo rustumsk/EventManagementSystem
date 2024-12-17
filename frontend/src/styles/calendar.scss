@@ -37,7 +37,13 @@
             .ltask{
                 flex: 0 0 auto;
                 height: 3rem;
-                background-color: blue;
+                background-color: rgb(212, 209, 209);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1rem;
+                font-family: 'Outfit';
+                color: black;
             }
         }
     }
@@ -78,4 +84,7 @@
             }
         }
     }
+}
+.react-calendar{
+    pointer-events: none;
 }

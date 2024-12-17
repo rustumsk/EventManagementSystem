@@ -6,6 +6,20 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import appImage from "../../assets/SBOD_Logos/logo.png";
+import l_d from "../../assets/lading-l-d.png";
+import r_d from "../../assets/landing-r-d.png";
+import r_e from "../../assets/empower.png";
+import r_b from "../../assets/r-btn.png";
+import s_d from "../../assets/student-d.png";
+import s_d1 from "../../assets/student-d1.png";
+import s_d2 from "../../assets/student-d2.png";
+import e_d from "../../assets/event-dd.png";
+import c_d from "../../assets/comments-d.png";
+import a_d from "../../assets/analytics-d.png";
+
+
+
 
 
 const texts = [
@@ -41,6 +55,9 @@ export default function LandingPage() {
   const handleStudentLoginClick = () => navigate('/StudentLogin');
   const handleSBOLoginClick = () => navigate('/SBOLogin');
   const handleSignup = () => navigate('/Signup');
+  const hiRustum = () => {
+    alert("Hi rustum")
+  }
 
 
   return (
@@ -50,7 +67,7 @@ export default function LandingPage() {
           <section className="lp-head-container">
             <section className="lp-info-container">
               <div className="lp-logo">
-                <span>Logo</span>
+                <img src={appImage} alt="App Logo" />
               </div>
               <div className="lp-infos">
                 <div className="lp-contact"><span>Contact Us</span></div>
@@ -80,22 +97,52 @@ export default function LandingPage() {
         </header>
         <section className="lp-f-body">
           <section className="lp-l-sec">
-            
+            <section className="lp-l-d-c">
+              <img src={l_d} alt="App Logo" className="lp-l-d"/>
+            </section>
           </section>
           <section className="lp-r-sec">
-          
+            <section className="lp-r-d-c">
+              <img src={r_d} alt="App Logo" className="lp-r-d"/>
+            </section>
+            <section className="lp-r-e-c">
+              <img src={r_e} alt="App Logo" className="lp-r-e"/>
+            </section>
+            <section className="lp-r-t-c">
+              <section className="lp-r-text-c">
+                <span>Manage your organization’s events with ease. 
+                Click here to streamline your planning and enhance student engagement!</span>
+                <button className="lp-r-button" onClick={hiRustum}>
+                  <img src={r_b} alt="logo" style={{ width: '35px', height: '35px', backgroundColor: '#FFF5D5' }} />
+                </button>
+              </section>
+            </section>
           </section>
         </section>
       </section>
       <section className="lp-sec lp-second">
-        <section className='lp-sl'></section>
         <section className='lp-sr'>
           <section className='lp-t-con'>
             <p className='lp-s'>For Students</p>
             <p className='lp-n'>{texts[6]}</p>
-            <p className='lp-p'>{texts[7]}</p>
-            <p className='lp-p'>{texts[8]}</p>
-            <p className='lp-p'>{texts[9]}</p>
+            <section className='lp-p-c'>
+              <p className='lp-p'>
+                {texts[7]} 
+                <img src={s_d} className='lp-student-design'/>
+              </p>
+            </section>
+            <section className='lp-p1-c'>
+              <p className='lp-p1'>
+                <img src={s_d1} className='lp-student-design'/>
+                {texts[8]}
+              </p>
+            </section>
+            <section className='lp-p2-c'>
+              <p className='lp-p2'>
+                <img src={s_d2} className='lp-student-design'/>
+                {texts[9]}
+              </p>
+            </section>
           </section>
         </section>
       </section>
@@ -104,12 +151,28 @@ export default function LandingPage() {
           <section className='lp-t-con'>
             <p className='lp-s'>For SBOs</p>
             <p className='lp-n'>{texts[10]}</p>
-            <p className='lp-p'>{texts[11]}</p>
-            <p className='lp-p'>{texts[12]}</p>
-            <p className='lp-p'>{texts[13]}</p>
+            <section className='lp-p-c'>
+              <section className='lp-p-container'>
+                <section className='lp-p-inside'>
+                  <img src={e_d}/>
+                </section>
+                <p className='lp-p'>{texts[11]}</p>
+              </section>
+              <section className='lp-p1-container'>
+                <p className='lp-p1'>{texts[12]}</p>
+                <section className='lp-p1-inside'>
+                 <img src={c_d}/>
+                </section>
+              </section>
+              <section className='lp-p2-container'>
+                <section className='lp-p2-inside'>
+                 <img src={a_d}/>
+                </section>
+                <p className='lp-p2'>{texts[13]}</p>
+              </section>
+            </section>
           </section>
         </section>
-        <section className='lp-sr'></section>
       </section>
       <section className="lp-sec lp-fourth">
         <div className="lp-fcont">

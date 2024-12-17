@@ -1,8 +1,9 @@
 import '../../styles/register-details.scss';
 import QRCode from "react-qr-code";
 import { useNavigate, useLocation } from 'react-router-dom';
-import { convertToWritten, extractTimeFromTimestamp } from '../../utils/dateConvert';
+import { convertToWritten, extractTimeFromTimestamp,extractTimeFromTimestamp1 } from '../../utils/dateConvert';
 import { useRef } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function RegistrationDetails() {
     const navigate = useNavigate();
@@ -11,7 +12,8 @@ export default function RegistrationDetails() {
 
     const { event, user, token, participant_id } = location.state || {};
     const date = convertToWritten(new Date(event.event_date));
-    const time = extractTimeFromTimestamp(event.event_date);
+    const start = extractTimeFromTimestamp1(event.start_time);
+    const end = extractTimeFromTimestamp1(event.end_time);
 
     const homeClick = () => {
         navigate('/studentdashboard');
@@ -20,7 +22,7 @@ export default function RegistrationDetails() {
     if (!participant_id) {
         navigate('/studentdashboard');
     }
-
+    toast.success("event added to calendar!")
     const downloadQRCode = () => {
         const svg = qrRef.current.querySelector("svg");
         const svgData = new XMLSerializer().serializeToString(svg);
@@ -29,21 +31,17 @@ export default function RegistrationDetails() {
         const img = new Image();
 
         img.onload = () => {
-            // Set canvas size
             const padding = 20;
             const fontSize = 20;
             const qrSize = img.width;
             canvas.width = qrSize + padding * 2;
             canvas.height = qrSize + fontSize + padding * 3;
 
-            // Draw background
             ctx.fillStyle = "white";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Draw QR code
             ctx.drawImage(img, padding, padding);
 
-            // Add event name
             ctx.font = `${fontSize}px Arial`;
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
@@ -51,7 +49,6 @@ export default function RegistrationDetails() {
             const textY = qrSize + padding * 2;
             ctx.fillText(event.event_name, textX, textY);
 
-            // Convert to PNG and download
             const pngFile = canvas.toDataURL("image/png");
             const downloadLink = document.createElement("a");
             downloadLink.href = pngFile;
@@ -64,6 +61,7 @@ export default function RegistrationDetails() {
 
     return (
         <div className='rd-body'>
+            <ToastContainer /> 
             <section className="rd-cont">
                 <header className="rd-header">Thank You For Registering!</header>
                 <section className='rd-body'>
@@ -87,8 +85,8 @@ export default function RegistrationDetails() {
                                 <header className='body-head'>Event Details</header>
                                 <section className='body-bod'>
                                     <p>📅 Date: {date}</p>
-                                    <p>🕒 Time: {time}</p>
-                                    <p>📍 Location: [Event Location]</p>
+                                    <p>🕒 Time: {`${start} - ${end}`}</p>
+                                    <p>📍 Location: Cebu City</p>
                                 </section>
                             </section>
                             <footer className='det-foot'>
@@ -100,7 +98,6 @@ export default function RegistrationDetails() {
                 <footer className='rd-footer'>
                     <div className='foot-btns'>
                         <button onClick={homeClick}>Home</button>
-                        <button>Add to Calendar</button>
                     </div>
                     <div className='foot-reg'>
                         We look forward to seeing you soon! If you have any questions, feel free to reach out to us at ujam0027@gmail.com

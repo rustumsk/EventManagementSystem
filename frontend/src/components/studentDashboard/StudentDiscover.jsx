@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getParticipantES } from '../../services/participantServices/getParticipant';
 import { toast, ToastContainer } from 'react-toastify';
+import { motion } from 'framer-motion';
 export default function StudentDiscover({ isActive, discoveryClick, eventclick, events, user, userToken }) {
     const [searchQuery, setSearchQuery] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,6 +11,7 @@ export default function StudentDiscover({ isActive, discoveryClick, eventclick, 
     const filteredEvents = events.filter(event => 
         event.event_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         event.event_description.toLowerCase().includes(searchQuery.toLowerCase())
+
     );
 
     const handleJoinClick = async (event) => {
@@ -30,6 +32,17 @@ export default function StudentDiscover({ isActive, discoveryClick, eventclick, 
     };
 
     return (
+        <motion.div
+            initial={{ x: '-10%'}}  // Start just slightly off-screen to the left
+            animate={{ x: 0}}       // Slide into its normal position
+            transition={{
+            type: 'spring',
+            stiffness: 100,
+            damping: 20,
+            duration: 0.5,   // Short duration for minimal movement
+            ease: 'easeOut', // Smooth finish
+            }}
+        >
         <section className="sb-body">
             <ToastContainer />
             <section className='sb-welcome'>
@@ -107,5 +120,6 @@ export default function StudentDiscover({ isActive, discoveryClick, eventclick, 
                 </div>
             )}
         </section>
+        </motion.div>
     );
 }

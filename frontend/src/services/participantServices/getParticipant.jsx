@@ -11,6 +11,18 @@ const getParticipantES = async( event_id, student_id) =>{
     }
 }
 
+const getParticipantStatus = async( event_id, student_id) =>{
+    try{
+        const data = await axios.get('http://localhost:3000/participant/s', {
+            params: {event_id: event_id, student_id: student_id}
+        })
+        return (data.data[0].checked_in);
+    }catch(e){
+        throw e;
+    }
+}
+
+
 const getAllParticipant = async(sbo_id) =>{
     try{
         const data = await axios.get(`http://localhost:3000/participant/all/${sbo_id}`)
@@ -64,4 +76,4 @@ const getAllPart = async(event_id) =>{
         throw e
     }
 }
-export {getParticipantES, getAllParticipant,getAverage, getAverage1,getChecked, getuChecked, getAllPart}
+export {getParticipantES,getParticipantStatus, getAllParticipant,getAverage, getAverage1,getChecked, getuChecked, getAllPart}

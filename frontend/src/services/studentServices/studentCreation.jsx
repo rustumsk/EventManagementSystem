@@ -16,12 +16,13 @@ const createGoogleStudent = async (id_num, email, fullname, password, google_id,
     }
 }
 
-const createLocalStudent = async(id_num, email,fullname,password) =>{
+const createLocalStudent = async(id_num, email,fullname,password, sbo_name) =>{
     const result = await axios.post('http://localhost:3000/signup', {
         id_num,
         email,
         fullname,
-        password
+        password,
+        sbo_name
     });
     return result;
 }

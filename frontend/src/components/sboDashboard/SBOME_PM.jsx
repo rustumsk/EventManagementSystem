@@ -21,21 +21,25 @@ function SBOME_PM({ event, authToken}) {
   const [buttonType, setButtonType] = useState("NoAction");
   const [refresh,setRefresh] = useState(false);
   const [feedbacks, setFeedbacks] = useState([]);
+  const ev = event;
   const closeCheckIn = async() =>{
-    if (event.is_done){
+    if (ev.is_done){
       toast.error("Event registration is already closed!");
       return;
     }
-    if (!event.is_open){
+    if (!ev.is_open){
+      try{
+        await updateIsOpen(authToken, event.event_id);
+        ev.is_open = true;
+        toast.success("Event Registration is now Closed!");
+        setRefresh(prev => !prev);
+      }catch(e){
+        console.log(e);
+      }
+    }
+    else{
       toast.error("Event registration is already closed!");
       return;
-    }
-    try{
-      await updateIsOpen(authToken, event.event_id);
-      toast.success("Event Registration is now Closed!");
-      setRefresh(prev => !prev);
-    }catch(e){
-      console.log(e);
     }
   }
   const handleNotificationClick = () => {

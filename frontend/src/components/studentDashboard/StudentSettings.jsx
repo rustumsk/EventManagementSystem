@@ -2,11 +2,22 @@ import { useState } from "react";
 import ProfileSec from "./studentSettings/profileSec";
 import AccountSec from "./studentSettings/accountSec";
 import NotifSec from "./studentSettings/notifSec";
-
+import { motion } from "framer-motion";
 export default function StudentSettings({userIcon, user}) {
     const [selected, setSelected] = useState("profile");
 
     return (
+        <motion.div
+            initial={{ x: '10%'}}   // Start just slightly off-screen to the right
+            animate={{ x: 0}}       // Slide in to its normal position
+            transition={{
+            type: 'spring',
+            stiffness: 100,
+            damping: 20,
+            duration: 0.5,  // Subtle and quick
+            ease: 'easeOut', // Smooth easing
+            }}
+        >
         <section className="sb-settings-cont">
             <nav className="sb-lnav">
                 <header className="sb-sheader">
@@ -57,5 +68,6 @@ export default function StudentSettings({userIcon, user}) {
                 </section>
             </section>
         </section>
+        </motion.div>
     );
 }

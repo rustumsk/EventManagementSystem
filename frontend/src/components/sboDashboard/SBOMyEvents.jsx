@@ -190,7 +190,7 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
         >
         <div className="sbome-container">
           <header className="sbome-me-text">
-            <h2 style={{ fontFamily: "Righteous", fontWeight: "normal", fontSize: '3rem' }}>My Events</h2>
+            <h2 style={{ fontFamily: "Righteous", fontWeight: "normal", fontSize: '2rem' }}>My Events</h2>
             <label style={{ display: "flex", alignItems: "end", justifyContent: "end", flex: 1 }}>
             </label>
           </header>

@@ -407,9 +407,9 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
   
       if (!eventDate) {
         newErrors.eventDate = "Event date is required.";
-      }else if (new Date(eventDate) < new Date()) {
-        newErrors.eventDate = "Deadline date cannot be in the past.";
-      }
+      }// }else if (new Date(eventDate) < new Date()) {
+      //   newErrors.eventDate = "Deadline date cannot be in the past.";
+      // }
   
       if (!eventTime) {
         newErrors.eventTime = "Event start time is required.";
@@ -503,7 +503,7 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
         custom_field: fields ? fields : null,
         event_type: eventType
       };
-      const result = await getEventByIdNameDate(sbo.sbo_id, eventName, completeDate);
+      const result = await getEventByIdNameDate(sbo.sbo_id, eventName, completeDD);
       if(result.length > 0){
         console.log("The same event is already published!");
         return;

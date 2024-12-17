@@ -108,7 +108,7 @@ export default function StudentDashboard() {
                 <div className="sb-p-container">
                     <div className="sb-hn-container">
                         <span onClick={homeClick} className={`sb-hicon ${isActive ==='default'? 'hicon-b': ''}`} ></span>
-                        <span className="sb-nicon"></span>
+                        <span style={{paddingTop: 8}}>Home</span>
                     </div>
                     <div className="sb-pr-container">
                         <div className="sb-profile" onClick={toggleDropdown}>
@@ -129,7 +129,7 @@ export default function StudentDashboard() {
                 </div>
             </header>
             {isActive === 'default' ? (
-                <StudentHome user={user} discoveryClick={discoveryClick} eventClick={eventClick}/>
+                <StudentHome user={user} discoveryClick={discoveryClick} eventClick={eventClick} userToken={userToken}/>
             ) : isActive === 'discovery' ? (
                 <StudentDiscover isActive={isActive} discoveryClick={discoveryClick} eventclick={eventClick} events={events} user={user} userToken={userToken}/>
             ): isActive ==='myevent'?(

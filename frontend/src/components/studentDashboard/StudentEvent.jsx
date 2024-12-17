@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { getEventByStudentId } from "../../services/eventServices/getEvent";
 import { useNavigate } from "react-router-dom";
-import { getParticipantES } from "../../services/participantServices/getParticipant";
+import { getParticipantES,getParticipantStatus } from "../../services/participantServices/getParticipant";
 import { toast, ToastContainer } from "react-toastify";
 import { createFeedback } from "../../services/feedbackServices/createFeedback";
-
+import { motion } from "framer-motion";
+import { convertToWritten, extractTimeFromTimestamp, extractTimeFromTimestamp1 } from "../../utils/dateConvert";
 export default function StudentEvent({ user, userToken, isActive, eventclick, discoveryClick }) {
     const [registeredEvents, setRegisteredEvents] = useState([]);
     const [pastEvents, setPastEvents] = useState([]);
@@ -27,6 +28,7 @@ export default function StudentEvent({ user, userToken, isActive, eventclick, di
         setRecentEvent(event);
         setIsModalOpen(true);
     };
+
     const submitModal = async() =>{
         if (!feedback.length > 0){
             toast.error("Feedback must not be empty!");
@@ -39,10 +41,21 @@ export default function StudentEvent({ user, userToken, isActive, eventclick, di
             feedback: feedback
         }
         try{
-            createFeedback(userToken, data);
+            const check = await getParticipantStatus(recentEvent.event_id, user.student_id);
+            if(!check){
+                toast.error("Not Checked in participant cannot give feedback!");
+                return;
+            }
+            await createFeedback(userToken, data);
+            setIsModalOpen(!isModalOpen);
+            toast.success("Feedback submitted!");
         }catch(e){  
-            console.log(e);
+            toast.warn("You already submitted a feedback on this event!");
+            setIsModalOpen(!isModalOpen)
         }
+    }
+    const clickCalendar = (events) =>{
+        navigate('/calendar', { state: { events: events } })
     }
     const clickQr = async (event) => {
         try {
@@ -78,6 +91,17 @@ export default function StudentEvent({ user, userToken, isActive, eventclick, di
     }, []);
 
     return (
+        <motion.div
+            initial={{ x: '10%'}}   // Start just slightly off-screen to the right
+            animate={{ x: 0}}       // Slide in to its normal position
+            transition={{
+            type: 'spring',
+            stiffness: 100,
+            damping: 20,
+            duration: 0.5,  // Subtle and quick
+            ease: 'easeOut', // Smooth easing
+            }}
+        >
         <section className="sb-body">
             <ToastContainer />
             <section className='sb-welcome'>
@@ -96,6 +120,7 @@ export default function StudentEvent({ user, userToken, isActive, eventclick, di
                             <input type="text" placeholder="Search" />
                             <span className="sb-search-icon"></span>
                         </div>
+                        <div className="calendar" onClick={() => clickCalendar(registeredEvents)}></div>
                     </section>
                     <section className='sb-mdesc'>
                         <div className='sb-mp'>
@@ -116,8 +141,8 @@ export default function StudentEvent({ user, userToken, isActive, eventclick, di
                                         <p className="overview">Overview: </p>
                                         <p className="desc">{event.event_description}</p>
                                         <p className="dets">Details:</p>
-                                        <p className="det">   Date: {event.event_date}</p>
-                                        <p className="det">   Time: {event.start_time} - {event.end_time}</p >
+                                        <p className="det">   Date: {convertToWritten(new Date(event.event_date))}</p>
+                                        <p className="det">   Time: {`${extractTimeFromTimestamp1(event.start_time)} - ${extractTimeFromTimestamp1(event.end_time)}`}</p >
                                         <section className="regbtn">
                                             <button onClick={() => clickQr(event)}>QR Code</button>
                                         </section>
@@ -136,7 +161,7 @@ export default function StudentEvent({ user, userToken, isActive, eventclick, di
                             return <div className="pastEvent" key={event.event_id}>
                                 <h2>{event.event_name}</h2>
                                 <p>{`Date: ${event.event_date}`}</p>
-                                <p>{`Time: ${event.start_time} - ${event.end_time}`}</p>
+                                <p>Time: {`${extractTimeFromTimestamp1(event.start_time)} - ${extractTimeFromTimestamp1(event.end_time)}`}</p>
                                 <p>{`Location: ${event.location_id}`}</p>
                                 <div className="rating">
                                     <span>Rate: </span>
@@ -182,5 +207,6 @@ export default function StudentEvent({ user, userToken, isActive, eventclick, di
                 <p>© 2024 UniJam. All rights reserved. Unauthorized use of content and materials is prohibited.</p>
             </section>
         </section>
+        </motion.div>
     );
 }

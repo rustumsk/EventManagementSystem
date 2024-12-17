@@ -28,6 +28,7 @@ import SBOApproval from "../../components/sboDashboard/SBOAprroval";
 import Analytics from "../../components/sboDashboard/SBOAnalytics";
 import { motion } from "framer-motion";
 import { getAllPart } from "../../services/participantServices/getParticipant";
+import { getCategoryName } from "../../services/categoryServices/getCategoryById";
 const images = {
   logo: appImage,
   avatar: avatarImage,
@@ -82,7 +83,7 @@ function SBODashboard() {
     return(
           <div className="sti-cont" onClick={() => clickEvent(event)}>
             <header className="sti-head">{event.event_name}</header>
-            {console.log(event.locationName)}
+            {console.log(event.cat)}
             <div className="sti-d"><span>Date: </span> {d}</div>
             <div className="sti-d"><span>Time: </span> {`${ft} - ${et}`}</div>
             <div className="sti-d"><span>Location: </span> {`${event.locationName[0].location_name}`}</div>
@@ -119,18 +120,17 @@ function SBODashboard() {
         const todayEvents = [];
         const upcomingEvents = [];
   
-        // Using map and Promise.all to wait for all location data to be fetched
         const eventsWithLocation = await Promise.all(
           data.map(async (dat) => {
             const sd = await getLocationNameById(dat.location_id);
-            console.log(sd); // Logging location data
+            console.log(sd); 
             const part = await getAllPart(dat.event_id);
+            
             const eventDate = new Date(dat.event_date);
             eventDate.setHours(0, 0, 0, 0);
             const dateToday = new Date();
             dateToday.setHours(0, 0, 0, 0);
   
-            // Adding location data to the event
             return {
               ...dat,
               locationName: sd,
