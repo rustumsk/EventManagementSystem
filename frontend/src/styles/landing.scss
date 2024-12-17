@@ -633,10 +633,10 @@
         height: 80%;
         width: 80%;
         display: flex;
-        background-color: rgb(206, 205, 205);
+        background-color: #FFF5D5;
         .lp-rs{
             flex: .9;
-            background-color:rgb(206, 205, 205);
+            background-color:#FFF5D5;
             display: flex;
             justify-content: start;
             align-items: center;
@@ -649,6 +649,7 @@
                 .lp-ftitle{
                     font-family: 'Righteous';
                     font-size: 3rem;
+                    color: #6C23B5;
                 }
                 .lp-fdescription{
                     font-family: 'Martel Sans';
@@ -674,7 +675,7 @@
                 width: 95%;
                 height: 95%;
                 overflow: hidden;
-                background-color: rgb(206, 205, 205);
+                background-color: #FFF5D5;
             }
             .swiper{
                 height: 100%;
@@ -685,7 +686,7 @@
                 align-items: center;
 
                 .lp-sl{
-                    background-color: gray;
+                    background-color: white;
                     height: 87%;
                     width: 80%;
                     padding: 2rem;

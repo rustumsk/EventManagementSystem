@@ -194,15 +194,15 @@ export default function LandingPage() {
               >
                 <SwiperSlide className='cSlide'>
                   <div className='lp-sl sl1'>
-                    <p>{texts[14]}</p>
-                    <p>{texts[15]}</p>
-                    <p>{texts[16]}</p>
-                    <p>{texts[17]}</p>
+                    <p style={{color: 'black'}}>{texts[14]}</p>
+                    <p style={{color: 'black'}}>{texts[15]}</p>
+                    <p style={{color: 'black'}}>{texts[16]}</p>
+                    <p style={{color: 'black'}}>{texts[17]}</p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide className='cSlide'>
                   <div className='lp-sl sl2'>
-                    <div className="lp-qr"></div>
+                    <div className="lp-qr">asd</div>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide className='cSlide'>
@@ -212,7 +212,7 @@ export default function LandingPage() {
                 </SwiperSlide>
                 <SwiperSlide className='cSlide'>
                   <div className='lp-sl sl4'>
-                    
+                    asd
                   </div>
                 </SwiperSlide>
               </Swiper>
@@ -223,7 +223,6 @@ export default function LandingPage() {
               <p className='lp-ftitle'>Revolutionize Your Event with QR Code Check-Ins</p>
               <section className='lp-fdescription'>
                 <p>How It Works</p>
-                <p>Seamlessly discover, register, and manage events – all in a few simple steps!</p>
               </section>
               <section className='lp-fsteps'>
                 <p className='f-step'>Step 1: Sign Up or Log In</p>
