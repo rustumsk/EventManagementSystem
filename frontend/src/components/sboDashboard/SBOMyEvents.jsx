@@ -8,7 +8,9 @@ import { getLocationById } from "../../services/locationServices/getLocation";
 import { getDraftById } from "../../services/draftServices/getDraftById";
 import { deleteDraftById } from "../../services/draftServices/deleteDraft";
 import createEvent from "../../services/eventServices/createEvent";
-
+import { checkIfClose } from "../../services/helper/checkTime";
+import { updateIsDone } from "../../services/eventServices/updateEvent";
+import { motion } from "framer-motion";
 function SBOMyEvents({ setTab, sbo_id, authToken }) {
   const [eventCategory, setEventCategory] = useState("");
   const [currentStep, setCurrentStep] = useState(1);
@@ -35,7 +37,6 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
         console.log(e);
       }
   }
-  // Modal content rendering function
   const useNigga = (obj) => {
     const date = convertToWritten(new Date(obj.event_date));
     return (
@@ -68,7 +69,6 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
     const date = convertToWritten(new Date(obj.event_date));
     return (
       <div className="sbome-modal-overlay">
-        {console.log(obj)}
         <div className="sbome-modal-content">
           <h3 style={{ fontFamily: "Righteous", fontWeight: "bold", fontSize: '1.3rem' }}>Draft Overview:</h3>
           <section className="sbome-modal-data-container">
@@ -145,7 +145,6 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
         console.error("Error fetching draft events:", error);
       }
     };
-
     getPublishedEvents();
     getDraftEvents();
   }, [authToken, sbo_id.sbo_id, refresh]);
@@ -164,18 +163,35 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
       getModalValue();
     }
   }, [modalValue, authToken, refresh]);
-
+  useEffect(() =>{
+    const setDone = async () =>{
+      const data = await getEventById(authToken, sbo_id.sbo_id);
+      data.map(e =>{
+        const dat = checkIfClose(e.event_date, e.end_time);
+        if(dat === true){
+          if(e.is_done === true){
+            return;
+          }
+          updateIsDone(authToken, e.event_id);
+          setRefresh(prev => !prev);
+        }
+      })
+    }
+    setDone();
+  },[]);
   return (
     <>
       {activeTab === "MY Events" && (
+        <motion.div
+        initial={{ opacity: 0, y: 50 }} // Initial state (hidden, shifted down)
+        animate={{ opacity: 1, y: 0 }} // Final state (visible, original position)
+        exit={{ opacity: 0, y: -50 }} // Exit state (hidden, shifted up)
+        transition={{ duration: 0.5, ease: "easeOut" }} // Smooth animation
+        >
         <div className="sbome-container">
           <header className="sbome-me-text">
-            <h2 style={{ fontFamily: "Righteous", fontWeight: "normal" }}>My Events</h2>
+            <h2 style={{ fontFamily: "Righteous", fontWeight: "normal", fontSize: '3rem' }}>My Events</h2>
             <label style={{ display: "flex", alignItems: "end", justifyContent: "end", flex: 1 }}>
-              <select className="sbome-filter-option" value={eventCategory} onChange={(e) => setEventCategory(e.target.value)}>
-                <option value="TodaysEvent">Today's Events</option>
-                <option value="UpcomingEvent">Upcoming Events</option>
-              </select>
             </label>
           </header>
 
@@ -192,7 +208,7 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
                 {currentStep === 2 ? (
                   published.length > 0 ? (
                     published.map((obj, index) => (
-                      <div className="sbome-item" key={obj.id || index}>
+                      <div className={obj.is_done?"sbome-item done": "sbome-item"} key={obj.id || index}>
                         <p className="b">Event:</p>
                         <p className="b">{obj.event_name}</p>
                         <p>Date: {convertToWritten(new Date(obj.event_date))}</p>
@@ -235,7 +251,7 @@ function SBOMyEvents({ setTab, sbo_id, authToken }) {
             </section>
           </section>
         </div>
-      )}
+        </motion.div>)}
       {activeTab === "Participant Management" && <SBOME_PM event={currentEvent} authToken={authToken}/>}
       {isModalOpen && useNigga(modalValue)}
       {isModal2Open && useNigga2(modalValue2)}

@@ -407,6 +407,8 @@ const SBOCreateEvent = ({sbo, sboToken}) => {
   
       if (!eventDate) {
         newErrors.eventDate = "Event date is required.";
+      }else if (new Date(eventDate) < new Date()) {
+        newErrors.eventDate = "Deadline date cannot be in the past.";
       }
   
       if (!eventTime) {

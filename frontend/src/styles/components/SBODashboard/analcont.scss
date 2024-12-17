@@ -25,11 +25,26 @@
             display: flex;
             align-items: end;
             justify-content: end;
-            .anald-cont{
+            .anald-cont {
                 height: 50%;
                 width: 40%;
                 display: flex;
                 gap: 1rem;
+                transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+                .anal-drep{
+                    font-size: 2rem;
+                }
+                &:hover {
+                    transform: scale(1.05); /* Slightly scale up on hover */
+                    background-color: rgba(0, 0, 0, 0.1); /* Add a subtle background color change on hover */
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+                }
+            
+                &:active {
+                    transform: scale(1); /* Reset scale on active (when clicked) */
+                    background-color: rgba(0, 0, 0, 0.2); /* Darker background color when active */
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow on active */
+                }
             }
         }
     }

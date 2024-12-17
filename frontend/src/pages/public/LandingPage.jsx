@@ -80,40 +80,10 @@ export default function LandingPage() {
         </header>
         <section className="lp-f-body">
           <section className="lp-l-sec">
-            <section className="lp-l-cont">
-              <div className="lp-up">
-                <p>{texts[3]}</p>
-              </div>
-              <div className="lp-down">
-                <section className="lp-d-cont">
-                  <div className="lp-arr" onClick={handleSignup}></div>
-                  <div className="lp-tx">
-                    <span>{texts[0]}</span>
-                    <span>{texts[1]}</span>
-                  </div>
-                </section>
-              </div>
-            </section>
+            
           </section>
           <section className="lp-r-sec">
-            <div className="lp-r-cont">
-              <div className="lp-t-cont">
-                <div className="lp-ps">
-                  <p>{texts[2]}</p>
-                </div>
-                <div className="lp-a-l">
-                  <section className="lp-d-cont1">
-                    <div className="lp-d-txt">
-                      <span>{texts[4]}</span>
-                      <span>{texts[5]}</span>
-                    </div>
-                    <div className="lp-d-arr">
-                      <span></span>
-                    </div>
-                  </section>
-                </div>
-              </div>
-            </div>
+          
           </section>
         </section>
       </section>

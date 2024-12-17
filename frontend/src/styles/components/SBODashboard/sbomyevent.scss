@@ -100,6 +100,18 @@
         justify-content: center;
         align-items: center;
         transition: all 0.3s ease; 
+        &.done {
+          background-color: #f0f0f0; // Light gray for completed events
+          border: 2px solid #bbb; // Subtle border
+          color: #888; // Dimmed text color
+          text-decoration: line-through; // Strike-through text for clear distinction
+          box-shadow: none; // Remove shadow for a subtle look
+      
+          .btn-cont {
+            pointer-events: none; // Disable buttons for completed events
+            opacity: 0.6; // Dim the buttons
+          }
+        }
         .btn-cont{
           align-self: flex-end;
           width: 100%;
@@ -260,6 +272,20 @@
         width: 11vw;
         cursor: pointer;
       }
+    }
+  }
+}
+.sbome-notif-logo-container {
+  p {
+    transition: transform 0.3s ease-in-out; // Smooth scaling transition
+    &:hover {
+      transform: scale(1.1); // Scale effect on hover
+    }
+  }
+  img{
+      transition: transform 0.3s ease-in-out; // Smooth scaling transition
+    &:hover {
+      transform: scale(1.1); // Scale effect on hover
     }
   }
 }

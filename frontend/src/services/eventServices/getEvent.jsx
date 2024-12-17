@@ -24,4 +24,17 @@ const getEventByIdNameDate = async (sbo_id, event_name, event_date) => {
       console.error('Error:', error);
     }
   };
-export {getEventById, getEventByIdNameDate};
+
+const getEventByStudentId = async(authToken, student_id) =>{
+  try{
+    const result = await axios.get(`http://localhost:3000/events/participate/${student_id}`,{
+      headers:{
+        'Authorization': `Bearer ${authToken}`,
+      }
+    })
+    return result.data;
+  }catch(e){
+    console.log(e);
+  }
+}
+export {getEventById, getEventByIdNameDate, getEventByStudentId};

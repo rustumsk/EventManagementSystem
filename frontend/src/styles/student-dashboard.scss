@@ -671,6 +671,79 @@
         }
     }
     .sb-body {
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5); // Semi-transparent background
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; // Make sure modal is on top
+        }
+        
+        .modal {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            width: 500px;
+            max-width: 90%; // Ensure it's responsive
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            margin-bottom: 20px;
+        }
+        
+        .feedback-textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .submit-feedback {
+            padding: 10px 20px;
+            background-color: #6c23b5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        
+            &:hover {
+                background-color: #5a1a9b;
+            }
+        }
         flex: 8;
         background-color: #F2EAF7;
         padding-left: 5rem;
@@ -1188,10 +1261,99 @@
                         align-self: center;
                         font-size: 3rem;
                     }
-                    div{
+                    .re-reg{
                         background-color: white;
                         border: solid 2px black;
                         border-radius: 16px;
+                        display: flex;
+                        flex-direction: column;
+                        transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+                        &:hover {
+                            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // Add shadow on hover
+                            transform: translateY(-5px); // Lift effect
+                        }
+                        .reg-head{
+                            height: 3rem;
+                            font-size: 2rem;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-family: 'Righteous';
+                            color: #6C23B5;
+                        }
+                        .reg-body{
+                            flex: 1;
+                            display: flex;
+                            .reg-img{
+                                flex: 1;
+                                display: flex;
+                                justify-content: center;
+                                span{
+                                    height: 90%;
+                                    width: 90%;
+                                    align-self: start;
+                                    border: solid 2px black;
+                                    border-radius: 16px;
+                                    background-position: center;
+                                    background-size: 100%;
+                                    background-repeat: no-repeat;
+                                }
+                            }
+                            .reg-det{
+                                flex: 1;
+                                padding-top: .5rem;
+                                display: flex;
+                                flex-direction: column;
+                                .overview{
+                                    height: 2rem;
+                                    font-weight: bold;
+                                    font-size: 1.2rem;
+                                    font-family: 'Outfit';
+                                }
+                                .desc{
+                                    height: 8rem;
+                                }
+                                .dets{
+                                    height: 2rem;
+                                    font-weight: bold;
+                                    font-size: 1.2rem;
+                                    font-family: 'Outfit';
+                                    .det{
+                                        padding-left: 1rem;
+                                    }
+                                }
+                                .regbtn {
+                                    flex: 1;
+                                    display: flex;
+                                    justify-content: end;
+                                    padding-right: 2rem;
+                                    align-items: center;
+                                    margin-top: 1rem;
+                                  
+                                    button {
+                                      background-color: #444;
+                                      color: white;
+                                      border: none;
+                                      padding: 0.5rem 1.5rem;
+                                      font-size: .8rem;
+                                      border-radius: 8px;
+                                      cursor: pointer;
+                                      transition: background-color 0.3s ease, transform 0.1s ease;
+                                  
+                                      &:hover {
+                                        background-color: #333; 
+                                        transform: translateY(-2px); 
+                                      }
+                                  
+                                      &:active {
+                                        background-color: #222; 
+                                        transform: translateY(0); 
+                                      }
+                                    }
+                                  }
+                            }
+                        }
                     }
                 }
         }
@@ -1225,11 +1387,68 @@
                 grid-template-columns: repeat(3, minmax(15rem, 1fr)); 
                 grid-auto-rows: minmax(25rem, auto); 
                 gap: 2rem;
-                div{
+                .pastEvent {
                     background-color: white;
                     border: solid 2px black;
                     border-radius: 16px;
-                }
+                    text-align: center;
+                    font-family: Arial, sans-serif;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 3rem;
+                    
+                    // Remove margin to avoid overriding external styling
+                    // width and height should be passed in directly from the parent component, e.g., inline styles or class-based styling
+                  
+                    h2 {
+                      font-size: 1.8rem;
+                      margin-bottom: 10px;
+                      height: 3rem;
+                    }
+                  
+                    p {
+                      font-size: 1.1rem;
+                      margin-bottom: 15px;
+                      height: 2rem;
+                    }
+                  
+                    .rating {
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      margin-bottom: 15px;
+                  
+                      .star {
+                        font-size: 2rem;
+                        color: #d3d3d3; // Default unfilled color
+                        cursor: pointer;
+                        transition: color 0.3s;
+                  
+                        &.filled {
+                          color: gold; // Filled star color
+                        }
+                  
+                        &:hover {
+                          color: #f1c40f; // Color on hover
+                        }
+                      }
+                    }
+                  
+                    .rate-button {
+                      padding: 10px 20px;
+                      background-color: black;
+                      color: white;
+                      border: none;
+                      border-radius: 8px;
+                      cursor: pointer;
+                      font-size: 1.1rem;
+                      transition: background-color 0.3s;
+                  
+                      &:hover {
+                        background-color: #6c23b5; // Hover effect
+                      }
+                    }
+                  }
             }
         }
     }

@@ -22,10 +22,12 @@ import { decodeToken } from "../../utils/auth";
 import getSbo from "../../services/sboServices/getSbo";
 import { convertToWritten,extractTimeFromTimestamp } from "../../utils/dateConvert";
 import { getEventById } from "../../services/eventServices/getEvent";
-import { getLocationById } from "../../services/locationServices/getLocation";
+import { getLocationById, getLocationNameById } from "../../services/locationServices/getLocation";
 import SBOME_PM from "../../components/sboDashboard/SBOME_PM";
 import SBOApproval from "../../components/sboDashboard/SBOAprroval";
 import Analytics from "../../components/sboDashboard/SBOAnalytics";
+import { motion } from "framer-motion";
+import { getAllPart } from "../../services/participantServices/getParticipant";
 const images = {
   logo: appImage,
   avatar: avatarImage,
@@ -40,7 +42,6 @@ const images = {
   check: check
 };
 
-
 function SBODashboard() {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const [searchQuery, setSearchQuery] = useState("");
@@ -54,20 +55,13 @@ function SBODashboard() {
   const [today, setToday] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const img = event.event_image;
-  const handleEventClick = (event) => {
-    alert(`You clicked on: ${event}`);
-  };
+  const [filteredEvents, setFilteredEvents] = useState(upcoming);
 
-  const handleNotificationClick = () => {
-    alert("Notification icon clicked");
-  };
+ 
   const clickEvent = (event) =>{
     setActiveEvent(event)
     setActiveTab("Sample")
   }
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
 
   const handleWheelScroll = (e) => {
     if (todayEventsRef.current) {
@@ -88,15 +82,16 @@ function SBODashboard() {
     return(
           <div className="sti-cont" onClick={() => clickEvent(event)}>
             <header className="sti-head">{event.event_name}</header>
+            {console.log(event.locationName)}
             <div className="sti-d"><span>Date: </span> {d}</div>
-            <div className="sti-d"><span>Time: </span> {ft + et}</div>
-            <div className="sti-d"><span>Location: </span> School Auditorium</div>
+            <div className="sti-d"><span>Time: </span> {`${ft} - ${et}`}</div>
+            <div className="sti-d"><span>Location: </span> {`${event.locationName[0].location_name}`}</div>
             <div className="sti-d"><span>Category: </span> Cultural</div>
             <footer className="sti-images">
               <div className="sti-image" style={{ backgroundColor: "#6C7A89" }}></div>
               <div className="sti-image" style={{ backgroundColor: "#34495E" }}></div>
               <div className="sti-image" style={{ backgroundColor: "#95A5A6" }}></div>
-              <div className="sti-image">+5</div>
+              <div className="sti-image">{event.allPart}</div>
             </footer>
           </div>
     )
@@ -105,11 +100,12 @@ function SBODashboard() {
     const fetchSboData = async () => {
       const token = sboToken;
       const todayDate = new Date();
-      todayDate.setHours(0,0,0,0);
+      todayDate.setHours(0, 0, 0, 0);
   
       if (!token) {
         navigate('/sbologin');
         console.log("invalid!");
+        return;
       }
   
       const sbo_id = decodeToken(token);
@@ -122,18 +118,39 @@ function SBODashboard() {
   
         const todayEvents = [];
         const upcomingEvents = [];
-        data.forEach( async (dat) => {
-          const eventDate = new Date(dat.event_date);
-          eventDate.setHours(0,0,0,0);
-          const dateToday = new Date();
-          dateToday.setHours(0,0,0,0);
-          if (eventDate.getTime() === dateToday.getTime()) {
-            todayEvents.push(dat);
-          } else{
-            upcomingEvents.push(dat);
+  
+        // Using map and Promise.all to wait for all location data to be fetched
+        const eventsWithLocation = await Promise.all(
+          data.map(async (dat) => {
+            const sd = await getLocationNameById(dat.location_id);
+            console.log(sd); // Logging location data
+            const part = await getAllPart(dat.event_id);
+            const eventDate = new Date(dat.event_date);
+            eventDate.setHours(0, 0, 0, 0);
+            const dateToday = new Date();
+            dateToday.setHours(0, 0, 0, 0);
+  
+            // Adding location data to the event
+            return {
+              ...dat,
+              locationName: sd,
+              allPart: part.length,
+              eventDate,
+              dateToday
+            };
+          })
+        );
+  
+        // Now filter the events into todayEvents and upcomingEvents
+        eventsWithLocation.forEach((event) => {
+          if (event.eventDate.getTime() === event.dateToday.getTime()) {
+            todayEvents.push(event);
+          } else if (event.eventDate.getTime() > event.dateToday.getTime()) {
+            upcomingEvents.push(event);
           }
         });
-        console.log(upcomingEvents)
+  
+        console.log(upcomingEvents);
         setToday(todayEvents);
         setUpcoming(upcomingEvents);
       }
@@ -141,217 +158,190 @@ function SBODashboard() {
   
     fetchSboData();
   }, [activeTab]);
-
   return (
-    <div className="sbod-container">
-      {/* Sidebar */}
-      <nav className="sbod-sidebar">
-        {/* Logo */}
-        <div className="sbod-logo">
-          <img src={images.logo} alt="App Logo" />
-        </div>
-        {/* Avatar */}
-        <div 
-          className="sbod-avatar" 
-          onClick={() => setActiveTab("Settings")}>
-          <img src={sbo.sbo_image} alt="App Logo" />
-          <div style={{
-            display: "flex",
-            flexDirection: "column",
-            marginLeft: 5
-          }}>
-            <span>{sbo.sbo_name}</span>
-            <span className="sbod-role" style={{ marginLeft: 2}}>Admin</span>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      <div className="sbod-container">
+        {/* Sidebar */}
+        <nav className="sbod-sidebar">
+          {/* Logo */}
+          <div className="sbod-logo">
+            <img src={images.logo} alt="App Logo" />
           </div>
-        </div>
-        {/* Navigation Items */}
-        <div className="sbod-nav-items">
-          <NavItem
-            icon={images.dashboard}
-            label="Dashboard"
-            isActive={activeTab === "Dashboard"}
-            onClick={() => setActiveTab("Dashboard")}
-          />
-          <NavItem
-            icon={images.data}
-            label="Create Events"
-            isActive={activeTab === "Create Events"}
-            onClick={() => setActiveTab("Create Events")}
-          />
-          <NavItem
-            icon={images.house}
-            label="My Events"
-            isActive={activeTab === "My Events"}
-            onClick={() => setActiveTab("My Events")}
-          />
-          <NavItem
-            icon={images.space}
-            label="Analytics"
-            isActive={activeTab === "Analytics"}
-            onClick={() => setActiveTab("Analytics")}
-          />
-          <NavItem
-            icon={images.tune}
-            label="Settings"
-            isActive={activeTab === "Settings"}
-            onClick={() => setActiveTab("Settings")}
-          />
-          <NavItem
-            icon={images.check}
-            label="Registration"
-            isActive={activeTab === "approve"}
-            onClick={() => setActiveTab("approve")}
-          />
-          <NavItem
-            icon={images.delete}
-            label="Logout"
-            onClick={() => {
-              localStorage.removeItem('sboToken');
-              navigate('/sbologin');
-            }}
-          />
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <main className="sbod-main">
-        {/* NAVITEM ACTIVE TABS */}
-        {activeTab === "Dashboard" && (
-          <div style={{ display: "flex", flexDirection: "column"}}>
-            <header className="sbod-header">
-              <h1 style={{ 
-                marginBottom: 15, 
-                fontFamily: "Righteous", 
-                display: "flex", 
-                alignItems: "center", 
-                justifyContent: "space-between", 
-                width: "100%" 
-              }}> 
-                Dashboard
-                <img 
-                  src={images.notification} 
-                  alt="Notification Icon" 
-                  style={{
-                    width: "20px", 
-                    height: "20px", 
-                    cursor: "pointer",
-                  }}
-                  onClick={handleNotificationClick} 
-                />
-              </h1>
-              {/* Search Section */}
-              <div style={{ position: "relative", width: "100%" }}>
-                <img 
-                  src={images.search} 
-                  alt="Search Icon" 
-                  style={{
-                    position: "absolute",
-                    left: "15px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    width: "20px",
-                    height: "20px",
-                    pointerEvents: "none",  // Disable click on icon
-                  }}
-                />
-                <input
-                  type="text"
-                  placeholder="Search Events"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                />
-              </div>
-            </header>
-            <section className="sbod-events">
-              <h2 style={{ fontFamily: "Righteous" }}>Today's Events</h2>
-              {/* Today's Event Main Container */}
-              <div
-                className="sbod-tevent-cards"
-                ref={todayEventsRef} 
-                onWheel={handleWheelScroll}
-              >
-                {/* Today's Event cards */}
-                {today.length > 0 ? (
-                  today.map((event) => (
-                    <div  key={event.event_id}
-                    className="sbod-tevent-items"
-                    >
-                      {returnEventDiv(event)}
-                  </div>
-                  ))
-                ) : (
-                  <span className="no-events">You have no events today!</span>
-                )}
-              </div>
-              <h2 style={{ 
-                fontFamily: "Righteous",
-                marginTop: 20 
-              }}>Upcoming Events</h2>
-              {/* Upcoming Events Main Container */}
-              <div className="sbod-uevent-cards">
-                {/* Event cards */}
-                {upcoming.length > 0 ? (
-                  upcoming.map((event) => (
-                    <div
-                      key={event.event_id}
-                      className="sbod-uevent-items"
-                    >
-                      {returnEventDiv(event)}
-                    </div>
-  
-                  ))
-                ) : (
-                  <div className="no-events">You have no upcoming Events!</div>
-                )}
-              </div>
-            </section>
-          </div>
-        )}
-        {activeTab === "User Avatar" && (
-          <div>
-            
-          </div>
-        )}
-        {activeTab === "Create Events" && (
-          <SBOCreateEvent sbo={sbo} sboToken={sboToken}/>
-        )}
-        {activeTab === "My Events" && (
-          <SBOMyEvents sbo_id={sbo} authToken={sboToken}/>
-        )}
-        {
-          activeTab === "Sample" &&(
-            <SBOME_PM event={activeEvent} authToken={sboToken}/>
-          )
-        }
-        {activeTab === "Analytics" && (
-          <div>
-            <Analytics />
-          </div>
-        )}
-        {activeTab === "approve" &&(
-          <div>
-            <SBOApproval authToken={sboToken} sbo={sbo}/>
-          </div>
-        )}
-        {activeTab === "Settings" && (
-          <div>
-            <SBOSettings sbo={sbo} sboIcon={sbo.sbo_image}/>
-            
-          </div>
-        )}
-        {/* {activeTab !== "Dashboard" && (
-          <div
-            style={{
-              textAlign: "center",
-              marginTop: "50px",
-              fontFamily: "Outfit",
+          {/* Avatar */}
+          <div 
+            className="sbod-avatar" 
+            onClick={() => setActiveTab("Settings")}>
+            <img src={sbo.sbo_image} alt="App Logo" />
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              marginLeft: 5
             }}>
-            <h1>{activeTab}</h1>
-            <p>No contents available for this section yet.</p>
+              <span>{sbo.sbo_name}</span>
+              <span className="sbod-role" style={{ marginLeft: 2}}>Admin</span>
+            </div>
           </div>
-        )} */}
-      </main>
-    </div>
+          {/* Navigation Items */}
+          <div className="sbod-nav-items">
+            <NavItem
+              icon={images.dashboard}
+              label="Dashboard"
+              isActive={activeTab === "Dashboard"}
+              onClick={() => setActiveTab("Dashboard")}
+            />
+            <NavItem
+              icon={images.data}
+              label="Create Events"
+              isActive={activeTab === "Create Events"}
+              onClick={() => setActiveTab("Create Events")}
+            />
+            <NavItem
+              icon={images.house}
+              label="My Events"
+              isActive={activeTab === "My Events"}
+              onClick={() => setActiveTab("My Events")}
+            />
+            <NavItem
+              icon={images.space}
+              label="Analytics"
+              isActive={activeTab === "Analytics"}
+              onClick={() => setActiveTab("Analytics")}
+            />
+            <NavItem
+              icon={images.tune}
+              label="Settings"
+              isActive={activeTab === "Settings"}
+              onClick={() => setActiveTab("Settings")}
+            />
+            <NavItem
+              icon={images.check}
+              label="Registration"
+              isActive={activeTab === "approve"}
+              onClick={() => setActiveTab("approve")}
+            />
+            <NavItem
+              icon={images.delete}
+              label="Logout"
+              onClick={() => {
+                localStorage.removeItem('sboToken');
+                navigate('/sbologin');
+              }}
+            />
+          </div>
+        </nav>
+
+        {/* Main Content */}
+        <main className="sbod-main">
+          {/* NAVITEM ACTIVE TABS */}
+          {activeTab === "Dashboard" && (
+            <div style={{ display: "flex", flexDirection: "column"}}>
+              <header className="sbod-header">
+                <h1 style={{ 
+                  marginBottom: 15, 
+                  fontFamily: "Righteous", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "space-between", 
+                  width: "100%" 
+                }}> 
+                  Dashboard
+                </h1>
+              </header>
+              <section className="sbod-events">
+                <h2 style={{ fontFamily: "Righteous" }}>Today's Events</h2>
+                {/* Today's Event Main Container */}
+                <div
+                  className="sbod-tevent-cards"
+                  ref={todayEventsRef} 
+                  onWheel={handleWheelScroll}
+                >
+                  {/* Today's Event cards */}
+                  {today.length > 0 ? (
+                    today.map((event) => (
+                      <div  key={event.event_id}
+                      className="sbod-tevent-items"
+                      >
+                        {returnEventDiv(event)}
+                    </div>
+                    ))
+                  ) : (
+                    <span className="no-events">You have no events today!</span>
+                  )}
+                </div>
+                <h2 style={{ 
+                  fontFamily: "Righteous",
+                  marginTop: 20 
+                }}>Upcoming Events</h2>
+                {/* Upcoming Events Main Container */}
+                <div className="sbod-uevent-cards">
+                  {/* Event cards */}
+                  {upcoming.length > 0 ? (
+                    upcoming.map((event) => (
+                      <div
+                        key={event.event_id}
+                        className="sbod-uevent-items"
+                      >
+                        {returnEventDiv(event)}
+                      </div>
+    
+                    ))
+                  ) : (
+                    <div className="no-events">You have no upcoming Events!</div>
+                  )}
+                </div>
+              </section>
+            </div>
+          )}
+          {activeTab === "User Avatar" && (
+            <div>
+              
+            </div>
+          )}
+          {activeTab === "Create Events" && (
+            <SBOCreateEvent sbo={sbo} sboToken={sboToken}/>
+          )}
+          {activeTab === "My Events" && (
+            <SBOMyEvents sbo_id={sbo} authToken={sboToken}/>
+          )}
+          {
+            activeTab === "Sample" &&(
+              <SBOME_PM event={activeEvent} authToken={sboToken}/>
+            )
+          }
+          {activeTab === "Analytics" && (
+            <div>
+              <Analytics authToken={sboToken} sbo={sbo}/>
+            </div>
+          )}
+          {activeTab === "approve" &&(
+            <div>
+              <SBOApproval authToken={sboToken} sbo={sbo}/>
+            </div>
+          )}
+          {activeTab === "Settings" && (
+            <div>
+              <SBOSettings sbo={sbo} sboIcon={sbo.sbo_image}/>
+              
+            </div>
+          )}
+          {/* {activeTab !== "Dashboard" && (
+            <div
+              style={{
+                textAlign: "center",
+                marginTop: "50px",
+                fontFamily: "Outfit",
+              }}>
+              <h1>{activeTab}</h1>
+              <p>No contents available for this section yet.</p>
+            </div>
+          )} */}
+        </main>
+      </div>
+    </motion.div>
   );
 }
 

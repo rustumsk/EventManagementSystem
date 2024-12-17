@@ -13,4 +13,13 @@ const getLocationById = async(authToken, location_id) =>{
     }
 }
 
-export {getLocationById};
+const getLocationNameById = async(location_id) =>{
+    try{
+        const data = await axios.get(`http://localhost:3000/location/name/${location_id}`
+        );
+        return data.data;
+    }catch(e){  
+        console.log(e);
+    }
+}
+export {getLocationById, getLocationNameById};

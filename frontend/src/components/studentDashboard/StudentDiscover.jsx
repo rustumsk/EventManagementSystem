@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getParticipantES } from '../../services/participantServices/getParticipant';
+import { toast, ToastContainer } from 'react-toastify';
 export default function StudentDiscover({ isActive, discoveryClick, eventclick, events, user, userToken }) {
     const [searchQuery, setSearchQuery] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,7 +12,12 @@ export default function StudentDiscover({ isActive, discoveryClick, eventclick, 
         event.event_description.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const handleJoinClick = (event) => {
+    const handleJoinClick = async (event) => {
+        // const data = await getParticipantES(event.event_id, user.student_id);
+        // if (data > 0){
+        //     toast.error("You already joined this event!");
+        //     return;
+        // }
         setSelectedEvent(event);
         console.log(event);
         setIsModalOpen(true);
@@ -24,6 +31,7 @@ export default function StudentDiscover({ isActive, discoveryClick, eventclick, 
 
     return (
         <section className="sb-body">
+            <ToastContainer />
             <section className='sb-welcome'>
                 <p className='sb-ds'>Discover Exciting Events!</p>
                 <p className='sb-en'>Join us to engage, learn, and network with your peers at our upcoming events."</p>
@@ -51,6 +59,7 @@ export default function StudentDiscover({ isActive, discoveryClick, eventclick, 
             {filteredEvents.length > 0
                 ? filteredEvents.map((event) => (
                     <div className="sb-devents" key={event.id}>
+                        {console.log(event.is_open)}
                         <div className="sb-du">
                             <p>{event.event_name}</p>
                         </div>
@@ -67,7 +76,8 @@ export default function StudentDiscover({ isActive, discoveryClick, eventclick, 
                                     <p> <span className="adp-span"style={{ fontWeight: 'bold' }}> Capacity</span>:  {`50/ ${event.capacity}`}</p>
                                 </div>
                                 <div className="sb-adb">
-                                    <button onClick={() => handleJoinClick(event)}>Join</button>
+                                    {event.is_open? <button onClick={() => {toast.warn("Event Registration is Closed!")}}>Registration Closed</button>:
+                                    <button onClick={() => handleJoinClick(event)}>Join</button>}
                                 </div>
                             </div>
                         </div>

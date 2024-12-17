@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import getStudent from '../../services/studentServices/getStudent';
 import { updateStudentStatus } from '../../services/studentServices/updateStudent';
 import { deleteStudentById } from '../../services/studentServices/deleteStudent';
+import { motion } from "framer-motion";
 
 export default function SBOApproval({sbo, authToken}) {
     const [btnStatus, setBtnStatus] = useState("noaction");
@@ -67,6 +68,12 @@ export default function SBOApproval({sbo, authToken}) {
     },[refresh]);
 
     return (
+        <motion.div
+        initial={{ opacity: 0, y: 50 }} // Initial state (hidden, shifted down)
+        animate={{ opacity: 1, y: 0 }} // Final state (visible, original position)
+        exit={{ opacity: 0, y: -50 }} // Exit state (hidden, shifted up)
+        transition={{ duration: 0.5, ease: "easeOut" }} // Smooth animation
+        >
         <div className="sbo-cont">
             <ToastContainer />
             <section className="cont">
@@ -121,5 +128,6 @@ export default function SBOApproval({sbo, authToken}) {
                 </table>
             </section>
         </div>
+        </motion.div>
     );
 }

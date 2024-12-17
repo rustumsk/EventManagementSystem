@@ -11,6 +11,8 @@ import { convertToWritten, convertTimestampToReadableFormat, formatCurrentTime }
 import { deleteParticipantById } from '../../services/participantServices/deleteParticipant';
 import { updateParticipantStatus } from '../../services/participantServices/updateParticipant';
 import { toast, ToastContainer } from 'react-toastify';
+import { updateIsOpen } from '../../services/eventServices/updateEvent';
+import { getFeedbackByEventId } from '../../services/feedbackServices/getFeedback';
 import 'react-toastify/dist/ReactToastify.css';
 
 function SBOME_PM({ event, authToken}) {
@@ -18,8 +20,26 @@ function SBOME_PM({ event, authToken}) {
   const [participant, setParticipant] = useState([]);
   const [buttonType, setButtonType] = useState("NoAction");
   const [refresh,setRefresh] = useState(false);
+  const [feedbacks, setFeedbacks] = useState([]);
+  const closeCheckIn = async() =>{
+    if (event.is_done){
+      toast.error("Event registration is already closed!");
+      return;
+    }
+    if (!event.is_open){
+      toast.error("Event registration is already closed!");
+      return;
+    }
+    try{
+      await updateIsOpen(authToken, event.event_id);
+      toast.success("Event Registration is now Closed!");
+      setRefresh(prev => !prev);
+    }catch(e){
+      console.log(e);
+    }
+  }
   const handleNotificationClick = () => {
-    alert("Sup bitch");
+    alert("Not Implemented!");
   };
 
   const handleScanQRClick = () => {
@@ -100,6 +120,23 @@ function SBOME_PM({ event, authToken}) {
     getAllParticipant();
   },[refresh]);
   
+  useEffect(() =>{
+    const getFeedback = async() =>{
+      try{
+        const result = await getFeedbackByEventId(authToken, event.event_id);
+        setFeedbacks(result);
+      }catch(e){
+        console.log(e);
+      }
+    }
+    const checkIsOpen = async() =>{
+      if (event.is_done){
+        await updateIsOpen(authToken, event.event_id)
+      }
+    }
+    getFeedback();
+    checkIsOpen();
+  },[])
   return (
     <motion.div
       className="sbome-pm-main-container"
@@ -181,31 +218,39 @@ function SBOME_PM({ event, authToken}) {
             <div className="sbome-pm-sidecontent">
               <div className="sbome-notif-logo-container">
                 <p
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer", fontWeight: 'bold' }}
                   onClick={handleNotificationClick}
                 >
-                  Set reminder
+                  Send Reminder
                 </p>
                 <img
                   src={notifImage}
                   alt="Notification Icon"
+                  style={{marginRight: 30, height: 20}}
                   className="sbome-notif-logo"
                   onClick={handleNotificationClick}
                 />
               </div>
               <section className="sbome-participants">
                 <h2>Participants</h2>
+                Hello
               </section>
               <section className="sbome-comments-container">
                 <h2>Comments</h2>
-                <div className="sbome-comments">
-                  <p>Jane Cooper</p>
-                  <p>⭐⭐⭐⭐⭐</p>
-                  <p style={{ fontSize: "10px" }}>
-                    Rated 5.0/5.0 by participants
-                  </p>
-                  <p>“Amazing event! Well-organized and fun.”</p>
-                </div>
+                {feedbacks.length > 0 ? (
+                  feedbacks.map((feedback, index) => (
+                    <div key={index} className="sbome-comments">
+                      <p>{feedback.fullname}</p>
+                      <p>{'⭐'.repeat(feedback.rating)}{` (${feedback.rating}/5)`}</p>
+                      <p style={{ fontSize: "10px" }}>
+                        Rated {feedback.rating}/5 by participant
+                      </p>
+                      <p>“{feedback.feedback}”</p>
+                    </div>
+                  ))
+                ) : (
+                  <p>No feedback available for this event.</p>
+                )}
               </section>
             </div>
           </div>
@@ -224,7 +269,7 @@ function SBOME_PM({ event, authToken}) {
         </div>
       )}
       <section className="sbome-pm-cb-container">
-        <button className="sbome-pm-cc-btn">Close Check Ins</button>
+        <button className="sbome-pm-cc-btn" onClick={closeCheckIn}>Close Check Ins</button>
       </section>
     </motion.div>
   );
