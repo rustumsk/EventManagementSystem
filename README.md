@@ -36,18 +36,19 @@ Before you begin, ensure you have the following installed:
    npm install
 4. Install the frontend dependencies:
    ```bash
-   cd backend
+   cd frontend
    npm install
 ### Running the Application
 - Start the backend server:
   ```bash
   cd backend
   cd src
-  node app.js
+  npm run build
+  npm run start
 - Start the frontend server:
   ```bash
   cd frontend
-  npm run start
+  npm run dev
   
 ### Contributing
 1. Fork the Repository: Click on the "Fork" button in the top right corner of the repository page.
