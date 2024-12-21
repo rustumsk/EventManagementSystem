@@ -65,8 +65,9 @@ Before you begin, ensure you have the following installed:
 6. Open a Pull Request: Go to the original repository and click on the "New Pull Request" button.
 
 ### Guidelines
-- Write clear and concise commit messages.
-- Test your changes before submitting a pull request.
+- Create a .env file in the backend directory.
+- Please install PostgreSQL 17 on ur own machine, and change the DEVCONNECT connecting string in the .env file.
+- the .env file is also in the email, please just add it on the backend directory and change the connection string to the connection string of ur own postgresql db instance.
 
 
 
